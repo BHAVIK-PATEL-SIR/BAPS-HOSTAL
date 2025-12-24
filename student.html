@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        /* Top Nav Layout Overrides */
+        body {
+            background-color: var(--bg-body);
+            display: block;
+            /* Stack vertically, not flex sidebar */
+        }
+
+        /* Top Bar (Brand + Profile) */
+        .portal-header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-area img {
+            height: 45px;
+        }
+
+        .brand-text {
+            line-height: 1.2;
+        }
+
+        .brand-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--c-navy);
+            font-size: 1.1rem;
+        }
+
+        .brand-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Navigation Bar */
+        .portal-nav {
+            background: var(--c-navy);
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+        }
+
+        .nav-link.active i {
+            color: var(--c-gold);
+        }
+
+        /* Dropdown Logic */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 8px 8px;
+            z-index: 1001;
+            overflow: hidden;
+            border-top: 3px solid var(--c-gold);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f5f5f5;
+            transition: 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #FFF8E1;
+            color: var(--c-navy);
+            padding-left: 20px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            color: #888;
+            margin-right: 8px;
+        }
+
+        .dropdown-item:hover i {
+            color: var(--c-gold);
+        }
+
+        /* Main Content Area */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            min-height: 80vh;
+        }
+
+        .student-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 1rem;
+        }
+
+        /* Progress Bar (Retained) */
+        .progress-track {
+            background: #eee;
+            border-radius: 20px;
+            height: 15px;
+            width: 100%;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: var(--c-gold);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        /* ID Flip (Retained) */
+        .id-card-container {
+            background: linear-gradient(135deg, var(--c-navy), #1a252f);
+            color: white;
+            border: 2px solid var(--c-gold);
+            border-radius: 12px;
+            text-align: center;
+            padding: 2rem;
+            max-width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Header (Brand) -->
+    <header class="portal-header">
+        <div class="brand-area">
+            <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png" alt="BAPS Logo">
+            <div class="brand-text">
+                <div class="brand-title">BAPS SWAMINARAYAN CHHATRALAYA</div>
+                <div class="brand-subtitle">Student Portal</div>
+            </div>
+        </div>
+        <div class="user-panel"
+            style="padding: 0; border: none; background: transparent; display: flex; align-items: center; gap: 1rem;">
+            <div style="text-align: right;">
+                <div style="font-weight: 700; font-size: 0.9rem;">Rahul Patel</div>
+                <div style="font-size: 0.75rem; color: #666;">2024001</div>
+            </div>
+            <div class="avatar-circle">RP</div>
+        </div>
+    </header>
+
+    <!-- 2. Navigation (Top Horizontal) -->
+    <nav class="portal-nav">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <ul class="nav-menu">
+                <!-- Dashboard / Profile -->
+                <li>
+                    <a onclick="showSection('profile', this)" class="nav-link active"><i class="fa-solid fa-house"></i>
+                        Dashboard</a>
+                </li>
+
+                <!-- Academic Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Academic <i
+                            class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 0.2rem;"></i></a>
+                    <div class="dropdown-content">
+                        <a onclick="showSection('attendance', this)" class="dropdown-item"><i
+                                class="fa-solid fa-calendar-check"></i> Attendance</a>
+                        <a onclick="showSection('results', this)" class="dropdown-item"><i
+                                class="fa-solid fa-chart-line"></i> Exam Results</a>
+                        <a onclick="showSection('timetable', this)" class="dropdown-item"><i
+                                class="fa-solid fa-clock"></i> Timetable</a>
+                        <a onclick="showSection('library', this)" class="dropdown-item"><i class="fa-solid fa-book"></i>
+                            Library Search</a>
+                    </div>
+                </li>
+
+                <!-- Hostel Life Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-hotel"></i> Hostel Life <i
+                            class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 0.2rem;"></i></a>
+                    <div class="dropdown-content">
+                        <a onclick="showSection('gatepass', this)" class="dropdown-item"><i
+                                class="fa-solid fa-ticket"></i> Gatepass</a>
+                        <a onclick="showSection('room', this)" class="dropdown-item"><i class="fa-solid fa-bed"></i> My
+                            Room</a>
+                        <a onclick="showSection('mess', this)" class="dropdown-item"><i
+                                class="fa-solid fa-utensils"></i> Mess Menu</a>
+                        <a onclick="showSection('laundry', this)" class="dropdown-item"><i
+                                class="fa-solid fa-shirt"></i> Laundry Status</a>
+                        <a onclick="showSection('visitors', this)" class="dropdown-item"><i
+                                class="fa-solid fa-users"></i> Visitor Log</a>
+                        <a onclick="showSection('wifi', this)" class="dropdown-item"><i class="fa-solid fa-wifi"></i>
+                            WiFi Usage</a>
+                        <a onclick="showSection('lostfound', this)" class="dropdown-item"><i
+                                class="fa-solid fa-box-open"></i> Lost & Found</a>
+                    </div>
+                </li>
+
+                <!-- Community Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-users"></i> Community <i
+                            class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 0.2rem;"></i></a>
+                    <div class="dropdown-content">
+                        <a onclick="showSection('events', this)" class="dropdown-item"><i
+                                class="fa-solid fa-calendar-day"></i> Events</a>
+                        <a onclick="showSection('spiritual', this)" class="dropdown-item"><i class="fa-solid fa-om"></i>
+                            Satsang Report</a>
+                    </div>
+                </li>
+
+                <!-- Services Dropdown- -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-concierge-bell"></i> Services <i
+                            class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 0.2rem;"></i></a>
+                    <div class="dropdown-content">
+                        <a onclick="showSection('fees', this)" class="dropdown-item"><i class="fa-solid fa-receipt"></i>
+                            Fee Status</a>
+                        <a onclick="showSection('medical', this)" class="dropdown-item"><i
+                                class="fa-solid fa-notes-medical"></i> Medical Records</a>
+                        <a onclick="showSection('helpdesk', this)" class="dropdown-item"><i
+                                class="fa-solid fa-headset"></i> Helpdesk</a>
+                        <a onclick="showSection('idcard', this)" class="dropdown-item"><i
+                                class="fa-solid fa-address-card"></i> Digital ID</a>
+                    </div>
+                </li>
+
+                <!-- Theme Toggle -->
+                <li>
+                    <button id="theme-toggle" class="nav-link"
+                        style="background: none; border: none; font-size: 1rem; cursor: pointer;" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </li>
+
+                <!-- Logout -->
+                <li style="margin-left: auto;">
+                    <a href="login.html" class="nav-link" style="color: #ff8a80;"><i
+                            class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        // Init Theme
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const icon = savedTheme === 'dark' ? 'fa-sun' : 'fa-moon';
+        })();
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+
+            // Update Icon
+            const btn = document.getElementById('theme-toggle').querySelector('i');
+            btn.className = target === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+    </script>
+
+    <!-- 3. Main Content Container -->
+    <div class="main-container">
+
+        <!-- 1. PROFILE (DASHBOARD) -->
+        <div id="section-profile" class="student-section" style="display: block;">
+            <div class="section-header">
+                <h2>My Dashboard</h2>
+                <button class="btn-baps btn-outline" onclick="showSection('idcard')"><i class="fa-solid fa-id-card"></i>
+                    View ID Card</button>
+            </div>
+
+            <div class="baps-card">
+                <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <div
+                        style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--c-gold); overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                        <img src="https://ui-avatars.com/api/?name=Rahul+Patel&background=random&size=150"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1;">
+                        <h1 style="color: var(--c-navy); margin: 0 0 0.5rem 0; font-size: 2rem;">Rahul Patel</h1>
+                        <div style="display: flex; gap: 2rem; color: #555;">
+                            <span><i class="fa-solid fa-graduation-cap"></i> B.E. Computer</span>
+                            <span><i class="fa-solid fa-hashtag"></i> 2024001</span>
+                            <span><i class="fa-solid fa-door-open"></i> Room 104-B</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="badge badge-verified" style="font-size: 1rem; margin-bottom: 0.5rem;">ACTIVE STUDENT
+                        </div>
+                        <div style="font-size: 0.8rem; color: #888;">Last Login: Today, 10:30 AM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Row -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div class="baps-card" style="cursor: pointer;" onclick="showSection('attendance')">
+                    <div style="color: #666; font-size: 0.9rem; text-transform: uppercase;">Attendance</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #2E7D32;">92%</div>
+                    <div style="font-size: 0.8rem; color: #2E7D32;">Present</div>
+                </div>
+                <div class="baps-card" style="cursor: pointer;" onclick="showSection('fees')">
+                    <div style="color: #666; font-size: 0.9rem; text-transform: uppercase;">Fee Status</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #2E7D32;">PAID</div>
+                    <div style="font-size: 0.8rem; color: #666;">Term 1 Cleared</div>
+                </div>
+                <div class="baps-card" style="cursor: pointer;" onclick="showSection('wifi')">
+                    <div style="color: #666; font-size: 0.9rem; text-transform: uppercase;">Data Usage</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--c-gold);">6.5 <span
+                            style="font-size: 1rem;">GB</span></div>
+                    <div style="font-size: 0.8rem; color: #666;">of 10 GB Limit</div>
+                </div>
+                <div class="baps-card" style="cursor: pointer;" onclick="showSection('gatepass')">
+                    <div style="color: #666; font-size: 0.9rem; text-transform: uppercase;">Active Gatepass</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #ccc;">--</div>
+                    <div style="font-size: 0.8rem; color: #666;">No active pass</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. DIGITAL ID -->
+        <div id="section-idcard" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-address-card"></i> Digital Identity</h2>
+            </div>
+            <div class="id-card-container">
+                <div style="margin-bottom: 2rem;">
+                    <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                        style="height: 40px; filter: brightness(0) invert(1);">
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Rahul+Patel"
+                    style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--c-gold); margin-bottom: 1rem;">
+                <h2 style="color: white; margin: 0;">Rahul Patel</h2>
+                <div style="color: #ccc; margin-bottom: 2rem;">B.E. Computer Engineering</div>
+                <div style="background: white; padding: 1rem; border-radius: 8px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BAPS_STUDENT_2024001"
+                        style="width: 150px; opacity: 0.9;">
+                </div>
+                <div style="margin-top: 1rem; font-size: 0.8rem; letter-spacing: 1px;">VALID THRU 2025</div>
+            </div>
+        </div>
+
+        <!-- 3. ATTENDANCE -->
+        <div id="section-attendance" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-calendar-check"></i> Attendance Record</h2>
+            </div>
+            <div class="baps-card">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="baps-card"
+                        style="background: #E8F5E9; border-color: #2E7D32; text-align: center; padding: 1.5rem;">
+                        <div style="font-size: 3rem; font-weight: bold; color: #2E7D32;">92%</div>
+                        <div style="color: #1B5E20; font-weight: 600;">PRESENT</div>
+                    </div>
+                    <div class="baps-card"
+                        style="background: #FFEBEE; border-color: #C62828; text-align: center; padding: 1.5rem;">
+                        <div style="font-size: 3rem; font-weight: bold; color: #C62828;">8%</div>
+                        <div style="color: #B71C1C; font-weight: 600;">ABSENT</div>
+                    </div>
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>20 Dec 2024</td>
+                            <td><span class="badge badge-verified">Present</span></td>
+                            <td>06:05 AM</td>
+                        </tr>
+                        <tr>
+                            <td>19 Dec 2024</td>
+                            <td><span class="badge badge-verified">Present</span></td>
+                            <td>06:00 AM</td>
+                        </tr>
+                        <tr>
+                            <td>18 Dec 2024</td>
+                            <td><span class="badge badge-rejected">Absent</span></td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. RESULTS -->
+        <div id="section-results" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-chart-line"></i> Exam Results</h2>
+                <select id="semSelector" onchange="renderResults()"
+                    style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ddd;">
+                    <option value="3">Semester 3 (Current)</option>
+                    <option value="2">Semester 2</option>
+                    <option value="1">Semester 1</option>
+                </select>
+            </div>
+
+            <!-- Result Summary Card -->
+            <div class="baps-card" style="margin-bottom: 2rem;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center;  flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="margin: 0;" id="resultTitle">Semester 3 Result</h3>
+                        <p style="color: #666; margin: 0.5rem 0 0 0;">Exam Session: Winter 2024</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 2.5rem; font-weight: bold; color: var(--c-navy);" id="resultSPI">8.5
+                        </div>
+                        <div
+                            style="font-size: 0.8rem; font-weight: bold; color: var(--c-gold); text-transform: uppercase;">
+                            SPI Score</div>
+                    </div>
+                </div>
+                <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #eee;">
+
+                <!-- Detailed Marks Table -->
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>Mid (30)</th>
+                            <th>Ext (70)</th>
+                            <th>Total (100)</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="marksTableBody">
+                        <!-- JS Rendered -->
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+                    <button class="btn-baps btn-gold" onclick="downloadMarksheet()">
+                        <i class="fa-solid fa-file-pdf"></i> Download Official Marksheet
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- jsPDF Libraries for PDF Generation -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+        <script>
+            // --- BAPS EXAM DATA (Satsang Curriculum) ---
+            const resultsData = {
+                '6': { spi: 'A+', session: 'Summer 2025', type: 'work', description: 'Final Semester Field Training (Seva)', subjects: [{ name: 'Mandir Management Seva', grade: 'Outstanding' }, { name: 'Bal Mandal Sanchalan', grade: 'Excellent' }, { name: 'Kitchen Seva (Rasoikhanu)', grade: 'A+' }] },
+                '5': { spi: '9.40', session: 'Winter 2024', subjects: [{ code: 'BAPS-501', name: 'Vachanamrut Gnan', mid: 29, ext: 68, grade: 'AA' }, { code: 'BAPS-502', name: 'Swamini Vato', mid: 27, ext: 64, grade: 'AB' }, { code: 'BAPS-503', name: 'Hindu Sanatan Dharma', mid: 28, ext: 66, grade: 'AA' }, { code: 'BAPS-504', name: 'BAPS History (Itihas)', mid: 26, ext: 61, grade: 'AB' }, { code: 'BAPS-505', name: 'Kirtan Bhakti', mid: 30, ext: 70, grade: 'AA' }] },
+                '4': { spi: '8.90', session: 'Summer 2024', subjects: [{ code: 'BAPS-401', name: 'Satsang Diksha', mid: 25, ext: 60, grade: 'AB' }, { code: 'BAPS-402', name: 'Sahajanand Charitra', mid: 28, ext: 65, grade: 'AA' }, { code: 'BAPS-403', name: 'Premanand Kavya', mid: 24, ext: 58, grade: 'BB' }] },
+                '3': { spi: '8.50', session: 'Winter 2024', subjects: [{ code: '3130702', name: 'Data Structures', mid: 28, ext: 65, grade: 'AA' }, { code: '3130703', name: 'Database Management', mid: 25, ext: 60, grade: 'AB' }, { code: '3130704', name: 'Digital Fundamentals', mid: 22, ext: 55, grade: 'BB' }, { code: '3130004', name: 'Effective Technical Comm.', mid: 29, ext: 68, grade: 'AA' }] },
+                '2': { spi: '9.10', session: 'Summer 2024', subjects: [{ code: '3120005', name: 'Programming for Problem Solving', mid: 29, ext: 69, grade: 'AA' }, { code: '3120006', name: 'Basic Mechanical Eng.', mid: 27, ext: 60, grade: 'AB' }] },
+                '1': { spi: '8.85', session: 'Winter 2023', subjects: [{ code: '3110005', name: 'Basic Electrical Eng.', mid: 28, ext: 65, grade: 'AA' }, { code: '3110006', name: 'Engineering Graphics', mid: 25, ext: 60, grade: 'AB' }] }
+            };
+
+            function renderResults() {
+                const sem = document.getElementById('semSelector').value;
+                const data = resultsData[sem];
+
+                document.getElementById('resultTitle').innerText = `Semester ${sem} Result`;
+                document.querySelector('#resultTitle + p').innerText = `Exam Session: ${data.session}`;
+
+                if (data.type === 'work') {
+                    // SEM 6 Seva View
+                    document.getElementById('resultSPI').innerText = "A+";
+                    let html = `<div style="background: #E8F5E9; border: 1px solid #2E7D32; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                    <h4 style="color: #2E7D32; margin-top:0;"><i class="fa-solid fa-hands-holding-circle"></i> ${data.description}</h4>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem;">`;
+                    data.subjects.forEach(item => {
+                        html += `<li style="display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px dashed #A5D6A7;">
+                        <span style="font-weight: 500;">${item.name}</span>
+                        <span class="badge badge-verified">${item.grade}</span>
+                    </li>`;
+                    });
+                    html += `</ul></div>`;
+                    if (document.getElementById('marksTable')) document.getElementById('marksTable').style.display = 'none';
+                    let workDiv = document.getElementById('workSummary') || document.createElement('div');
+                    workDiv.id = 'workSummary';
+                    if (!workDiv.parentNode) document.querySelector('#section-results hr').insertAdjacentElement('afterend', workDiv);
+                    workDiv.innerHTML = html;
+                    workDiv.style.display = 'block';
+                } else {
+                    // Regular Exam View
+                    document.getElementById('resultSPI').innerText = data.spi;
+                    if (document.getElementById('workSummary')) document.getElementById('workSummary').style.display = 'none';
+                    let table = document.getElementById('marksTable') || document.querySelector('#section-results table');
+                    table.id = 'marksTable';
+                    table.style.display = 'table';
+                    const tbody = document.getElementById('marksTableBody');
+                    tbody.innerHTML = '';
+                    data.subjects.forEach(sub => {
+                        const total = sub.mid + sub.ext;
+                        tbody.innerHTML += `<tr><td style="font-family: monospace; color: #666;">${sub.code}</td><td style="font-weight: 500;">${sub.name}</td><td>${sub.mid}</td><td>${sub.ext}</td><td style="font-weight: bold;">${total}</td><td><span class="badge ${sub.grade.startsWith('A') ? 'badge-verified' : 'badge-pending'}">${sub.grade}</span></td></tr>`;
+                    });
+                }
+            }
+
+            // --- REAL PDF GENERATOR ---
+            async function downloadMarksheet() {
+                const btn = document.querySelector('#section-results button');
+                if (btn.disabled) return;
+                const originalHtml = btn.innerHTML;
+
+                // 1. Loading State
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating PDF...`;
+
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    const sem = document.getElementById('semSelector').value;
+                    const data = resultsData[sem];
+
+                    // --- HEADER ---
+                    // Draw Header Bar
+                    doc.setFillColor(44, 62, 80); // #2C3E50 (Navy)
+                    doc.rect(0, 0, 210, 40, 'F');
+
+                    doc.setTextColor(212, 175, 55); // #D4AF37 (Gold)
+                    doc.setFont("times", "bold");
+                    doc.setFontSize(22);
+                    doc.text("BAPS SWAMINARAYAN CHHATRALAYA", 105, 20, null, null, "center");
+
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(12);
+                    doc.setFont("helvetica", "normal");
+                    doc.text("Vallabh Vidyanagar | Official Transcript", 105, 30, null, null, "center");
+
+                    // --- STUDENT DETAILS ---
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(12);
+                    doc.text(`Student Name: RAHUL PATEL`, 15, 55);
+                    doc.text(`GR Number: 2024001`, 150, 55);
+                    doc.text(`Course: B.E. Computer Engineering`, 15, 62);
+                    doc.text(`Semester: ${sem}`, 150, 62);
+                    doc.text(`Session: ${data.session}`, 15, 69);
+
+                    doc.setDrawColor(200, 200, 200);
+                    doc.line(15, 75, 195, 75);
+
+                    // --- MARKS TABLE ---
+                    let tableData = [];
+                    let headers = [];
+
+                    if (data.type === 'work') {
+                        // SEVA format
+                        doc.setFontSize(14);
+                        doc.setTextColor(46, 125, 50); // Green
+                        doc.text("FIELD TRAINING / SEVA REPORT", 105, 90, null, null, "center");
+
+                        headers = [['Activity / Seva', 'Performance Grade']];
+                        tableData = data.subjects.map(s => [s.name, s.grade]);
+                    } else {
+                        // REGULAR format
+                        headers = [['Subject Code', 'Subject Name', 'Mid (30)', 'Ext (70)', 'Total (100)', 'Grade']];
+                        tableData = data.subjects.map(s => [
+                            s.code,
+                            s.name,
+                            s.mid.toString(),
+                            s.ext.toString(),
+                            (s.mid + s.ext).toString(),
+                            s.grade
+                        ]);
+                    }
+
+                    doc.autoTable({
+                        startY: data.type === 'work' ? 100 : 85,
+                        head: headers,
+                        body: tableData,
+                        theme: 'grid',
+                        headStyles: { fillColor: [44, 62, 80], textColor: [255, 255, 255], fontStyle: 'bold' },
+                        styles: { fontSize: 10, cellPadding: 3 },
+                        alternateRowStyles: { fillColor: [249, 249, 249] }
+                    });
+
+                    // --- FOOTER ---
+                    const finalY = doc.lastAutoTable.finalY + 20;
+
+                    // SPI Score callout
+                    if (data.type !== 'work') {
+                        doc.setFontSize(12);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text("Semester SPI:", 140, finalY);
+                        doc.setFontSize(16);
+                        doc.setFont("helvetica", "bold");
+                        doc.text(data.spi, 175, finalY);
+                    }
+
+                    // Signatures
+                    doc.setFontSize(10);
+                    doc.setFont("helvetica", "normal");
+                    doc.text("_______________________", 20, finalY + 30);
+                    doc.text("Principal / Kothari Authorization", 20, finalY + 36);
+
+                    doc.text("_______________________", 140, finalY + 30);
+                    doc.text("Controller of Examinations", 140, finalY + 36);
+
+                    // Stamp
+                    doc.setDrawColor(212, 175, 55); // Gold
+                    doc.setLineWidth(1);
+                    doc.circle(180, finalY - 10, 15);
+                    doc.setFontSize(8);
+                    doc.setTextColor(212, 175, 55);
+                    doc.text("OFFICIAL", 180, finalY - 10, null, null, "center");
+                    doc.text("VERIFIED", 180, finalY - 7, null, null, "center");
+
+                    // --- SAVE ---
+                    // Artificial delay to see spinner
+                    setTimeout(() => {
+                        doc.save(`BAPS_Marksheet_Sem${sem}_RahulPatel.pdf`);
+
+                        btn.innerHTML = `<i class="fa-solid fa-check"></i> PDF Downloaded`;
+                        btn.style.background = '#2E7D32';
+                        btn.style.color = 'white';
+
+                        setTimeout(() => {
+                            btn.disabled = false;
+                            btn.innerHTML = originalHtml;
+                            btn.style.background = '';
+                            btn.style.color = '';
+                        }, 2000);
+                    }, 1000);
+
+                } catch (e) {
+                    console.error(e);
+                    alert("Error generating PDF. Please try again.");
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                }
+            }
+
+            // Init
+            document.addEventListener('DOMContentLoaded', () => {
+                const sel = document.getElementById('semSelector');
+                sel.innerHTML = `<option value="6">Semester 6 (Seva / Next)</option><option value="5" selected>Semester 5 (Current)</option><option value="4">Semester 4</option><option value="3">Semester 3</option><option value="2">Semester 2</option><option value="1">Semester 1</option>`;
+                renderResults();
+            });
+        </script>
+
+        <!-- 5. TIMETABLE -->
+        <div id="section-timetable" class="student-section">
+            <div class="baps-card">
+                <p>No timetable uploaded yet.</p>
+            </div>
+        </div>
+
+        <!-- 6. LIBRARY -->
+        <div id="section-library" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-book"></i> Library</h2>
+            </div>
+            <div class="baps-card">
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <input type="text" placeholder="Search Title/Author..."
+                        style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button class="btn-baps btn-gold">Search</button>
+                </div>
+                <h4>Issued Books</h4>
+                <div style="background: #fafafa; padding: 1rem; border-radius: 8px; border: 1px solid #eee;">
+                    <div style="font-weight: bold;">The Monk Who Sold His Ferrari</div>
+                    <div style="color: #666; font-size: 0.9rem;">Due Date: 25 Dec 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. GATEPASS -->
+        <div id="section-gatepass" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-ticket"></i> Gatepass</h2>
+            </div>
+            <div class="baps-card">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 0.5rem;">Reason</label>
+                    <select style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <option>Medical</option>
+                        <option>Family</option>
+                    </select>
+                </div>
+                <button class="btn-baps btn-gold" onclick="alert('Submitted')">Submit Request</button>
+            </div>
+        </div>
+
+        <!-- 8. ROOM -->
+        <div id="section-room" class="student-section">
+            <div class="baps-card">
+                <h3>My Room (104-B)</h3>
+                <div style="margin-top: 1rem;">
+                    <p>Room Leader: <strong>Amit Shah</strong></p>
+                    <div
+                        style="display: inline-block; padding: 0.5rem 1rem; background: #E8F5E9; color: #2E7D32; border-radius: 50px; font-weight: bold;">
+                        <i class="fa-solid fa-check"></i> Cleaned Today
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. MESS -->
+        <div id="section-mess" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-utensils"></i> Mess Menu</h2>
+            </div>
+            <div class="baps-card">
+                <div style="display: grid; gap: 1rem;">
+                    <div
+                        style="background: #FFF8E1; padding: 1rem; border-radius: 8px; color: #F57F17; font-weight: bold;">
+                        <i class="fa-solid fa-mug-hot"></i> Breakfast: Poha, Tea
+                    </div>
+                    <div
+                        style="background: #E8F5E9; padding: 1rem; border-radius: 8px; color: #2E7D32; font-weight: bold;">
+                        <i class="fa-solid fa-bowl-rice"></i> Lunch: Roti, Dal, Rice, Paneer
+                    </div>
+                    <div
+                        style="background: #E3F2FD; padding: 1rem; border-radius: 8px; color: #1565C0; font-weight: bold;">
+                        <i class="fa-solid fa-utensils"></i> Dinner: Khichdi, Kadhi
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. LAUNDRY -->
+        <div id="section-laundry" class="student-section">
+            <div class="baps-card">
+                <h3>Laundry Status</h3>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; padding: 1.5rem; border-radius: 8px;">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">Bag #405</div>
+                        <div style="color: #666;">Given on: 20 Dec</div>
+                    </div>
+                    <div class="badge badge-pending">IN WASHING</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. VISITORS -->
+        <div id="section-visitors" class="student-section">
+            <div class="baps-card">
+                <h3>Visitor Log</h3><button class="btn-baps btn-outline" style="margin-bottom: 1rem;">+ Pre-Approve
+                    Visitor</button>
+                <table class="baps-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                    </tr>
+                    <tr>
+                        <td>Ramesh Patel</td>
+                        <td>10 Dec 2024</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 12. WIFI -->
+        <div id="section-wifi" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-wifi"></i> Internet Usage</h2>
+            </div>
+            <div class="baps-card">
+                <div style="margin: 2rem 0;">
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 65%;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-weight: 600; margin-top: 0.5rem;">
+                        <span>6.5 GB Used</span>
+                        <span style="color: #999;">10 GB Limit</span>
+                    </div>
+                </div>
+                <div class="baps-card" style="background: #f9f9f9; text-align: center;">
+                    <i class="fa-solid fa-wifi"
+                        style="font-size: 2rem; color: var(--c-gold); margin-bottom: 0.5rem;"></i>
+                    <p>Usage resets every Monday.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. LOST & FOUND -->
+        <div id="section-lostfound" class="student-section">
+            <div class="baps-card">
+                <h3>Lost & Found</h3><button class="btn-baps" style="background: var(--c-red); color: white;">Report
+                    Lost Item</button>
+            </div>
+        </div>
+
+        <!-- 14. EVENTS -->
+        <div id="section-events" class="student-section">
+            <div class="baps-card">
+                <h3>Upcoming Events</h3>
+                <p>No new events.</p>
+            </div>
+        </div>
+
+        <!-- 15. SPIRITUAL -->
+        <div id="section-spiritual" class="student-section">
+            <div class="baps-card">
+                <h3>Satsang Niyam Report</h3>
+                <div style="margin: 1rem 0;">
+                    <label style="display:flex; align-items:center; gap: 0.5rem; margin-bottom: 0.5rem;"><input
+                            type="checkbox" style="transform: scale(1.5);"> Daily Puja</label>
+                    <label style="display:flex; align-items:center; gap: 0.5rem; margin-bottom: 0.5rem;"><input
+                            type="checkbox" style="transform: scale(1.5);"> Aarti</label>
+                </div>
+                <button class="btn-baps btn-gold">Submit</button>
+            </div>
+        </div>
+
+        <!-- 16-19 placeholder -->
+        <div id="section-fees" class="student-section">
+            <div class="baps-card">
+                <h3>Fee Status</h3>
+                <h2 style="color: #2E7D32;">PAID</h2>
+            </div>
+        </div>
+        <div id="section-medical" class="student-section">
+            <div class="baps-card">
+                <h3>Medical</h3>
+                <p>Blood Group: B+</p>
+            </div>
+        </div>
+        <div id="section-helpdesk" class="student-section">
+            <div class="baps-card">
+                <h3>Helpdesk</h3>
+                <p>Report issues here.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showSection(id, element) {
+            document.querySelectorAll('.student-section').forEach(el => el.style.display = 'none');
+            const sec = document.getElementById('section-' + id);
+            if (sec) sec.style.display = 'block';
+
+            // Clear 'active' from all nav links
+            document.querySelectorAll('.nav-link, .dropdown-item').forEach(el => {
+                el.classList.remove('active');
+                if (el.style) el.style.color = ''; // reset inline styles from dropdown hover
+            });
+
+            // Set active if element provided
+            if (element) {
+                element.classList.add('active');
+                // If it's a dropdown item, highlighting parent dropdown is nice but optional. 
+                // For now, highlighting the item itself is sufficient.
+            }
+        }
+    </script>
+</body>
+
+</html>

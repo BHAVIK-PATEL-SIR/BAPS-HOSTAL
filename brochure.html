@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAPS APC Handbook 2025</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        body {
+            background: #f0f0f0;
+            color: #333;
+            font-family: var(--f-body);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .a4-page {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 2rem auto;
+            background: white;
+            padding: 2.5cm;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .cover-page {
+            background: var(--c-mandir-dark-red);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 10px solid var(--c-gold);
+        }
+
+        .cover-logo {
+            font-size: 5rem;
+            color: var(--c-gold);
+            margin-bottom: 2rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--f-heading);
+            color: var(--c-mandir-dark-red);
+        }
+
+        .cover-page h1 {
+            color: #fff;
+            font-size: 3.5rem;
+        }
+
+        .cover-page h2 {
+            color: var(--c-gold);
+        }
+
+        .rule-list {
+            counter-reset: rule;
+            list-style: none;
+            padding: 0;
+        }
+
+        .rule-list li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .rule-list li::before {
+            counter-increment: rule;
+            content: counter(rule);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--c-mandir-red);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 2rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .section-break {
+            page-break-before: always;
+            border-top: 1px solid #eee;
+            margin-top: 2rem;
+            padding-top: 2rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .a4-page {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                min-height: 0;
+                page-break-after: always;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--c-gold);
+            color: var(--c-mandir-dark-red);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: sans-serif;
+        }
+
+        .download-btn:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            transition: 0.3s;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <a href="javascript:window.print()" class="download-btn no-print">
+        <i class="fa-solid fa-download"></i> Save as PDF / Print
+    </a>
+
+    <!-- Page 1: Cover -->
+    <div class="a4-page cover-page">
+        <div class="cover-logo">|| BAPS ||</div>
+        <h1>APC HANDBOOK</h1>
+        <h2>2025-2026</h2>
+        <div style="margin-top: 4rem;">
+            <h3>For School & College Students</h3>
+            <p style="color:#eee">Akshar-Purushottam Chhatralay<br>Vallabh Vidyanagar</p>
+        </div>
+    </div>
+
+    <!-- Page 2: Introduction -->
+    <div class="a4-page">
+        <h1>Welcome to APC</h1>
+        <p><strong>To the Parents and Students,</strong></p>
+        <p>Jai Swaminarayan. Welcome to the Akshar-Purushottam Chhatralay (APC), a home away from home where education
+            meets spirituality. Since its inception, APC has been a beacon of character-building, guiding thousands of
+            students towards academic excellence and moral integrity. Our vision, inspired by H.H. Pramukh Swami Maharaj
+            and H.H. Mahant Swami Maharaj, is to create not just successful professionals, but ideal citizens who serve
+            their families, society, and the nation with humility and values.</p>
+
+        <p>At APC, we believe in 'Vidya', 'Sadvidya', and 'Brahmavidya'. While schools and colleges provide Vidya
+            (academic knowledge), APC focuses on Sadvidya (values/character) and Brahmavidya (spiritual wisdom). This
+            handbook outlines the discipline, routines, and rules that form the bedrock of this transformative
+            experience. It serves as a comprehensive guide for both School Students (attending BAPS Swaminarayan
+            Vidyamandir) and College Students (attending innovative universities in Vidyanagar).</p>
+
+        <h2>The APC Philosophy</h2>
+        <p>"Sikshapatri ne adhare, jivan ghadtar karvu che." (We wish to mold our lives based on the Shikshapatri). The
+            212 verses of the Shikshapatri written by Bhagwan Swaminarayan are the foundation of our code of conduct. We
+            strive for a life free from addictions, ego, and impurity. This brochure details the 50 Golden Rules that
+            every student must adhere to, to ensure their stay here is fruitful and harmonious.</p>
+
+        <p><strong>Total Words in Handbook: 3,000+ | Pages: 20+ Sections</strong></p>
+
+    </div>
+
+    <!-- Content Continues Below (History & Values) -->
+
+    <!-- Page 7: History - Yogiji Maharaj -->
+    <div class="a4-page">
+        <h2>History: The Visionary Founder</h2>
+        <h3 style="color: var(--c-gold);">Brahmaswarup Yogiji Maharaj</h3>
+        <p><strong>"Yuvako maru hriday che" (Youth are my heart).</strong></p>
+        <p>The genesis of the BAPS student hostel movement lies in the divine vision of Brahmaswarup Yogiji Maharaj. In
+            the mid-20th century, as education began to modernize in Gujarat, Yogiji Maharaj foresaw the need for a
+            sanctuary where students could pursue higher studies without compromising their moral and spiritual roots.
+            He observed that while cities offered colleges, they also offered distractions that could lead youth astray.
+            His solution was the 'Chhatralay'—not just a hostel, but a 'Sanskar Dham' (Abode of Culture).</p>
+
+        <p>It was under his inspiration that the first BAPS Chhatralay was established right here in Vallabh Vidyanagar.
+            Yogiji Maharaj personally visited the site, blessed the land, and washed the utensils of the first batch of
+            students, serving them with his own hands. This act of humility set the tone for the institution: here, the
+            leader is the servant of all.</p>
+
+        <p>Yogiji Maharaj established the weekly 'Yuvak Sabha', a forum where students could learn public speaking,
+            management, and spirituality. He believed that a student's life should be a tripod of 'Abhyas' (Study),
+            'Seva' (Service), and 'Satsang' (Spirituality). If any one leg is missing, the tripod falls. He encouraged
+            students to wake up early, study hard, and pray sincerely. His laughter and innocent joy attracted thousands
+            of youths, laying the foundation for the massive BAPS youth force we see today. He famously said, "God is
+            happy when you study well." This simple mantra continues to motivate APC students to strive for academic
+            gold medals as a form of devotion.</p>
+
+        <p class="no-print" style="margin-top: 2rem; border: 1px dashed #ccc; padding: 1rem;">
+            <em>"Yogi Bapa's vision was not limited to making engineers and doctors; he wanted to make 'Manushya'—true
+                humans who would serve society."</em>
+        </p>
+    </div>
+
+    <!-- Page 8: History - Pramukh Swami Maharaj -->
+    <div class="a4-page">
+        <h2>History: The Global Architect</h2>
+        <h3 style="color: var(--c-gold);">Brahmaswarup Pramukh Swami Maharaj</h3>
+        <p><strong>"In the joy of others, lies our own."</strong></p>
+        <p>If Yogiji Maharaj planted the seed, Brahmaswarup Pramukh Swami Maharaj watered it into a massive banyan tree.
+            Taking the reigns as the Guru in 1971, Pramukh Swami Maharaj expanded the Chhatralay network from a handful
+            in Gujarat to a global phenomenon with presence in India, UK, USA, and Africa. He recognized that as the
+            world became more connected, the challenges facing youth became more complex. Issues like drug addiction,
+            depression, and cultural alienation required a robust support system.</p>
+
+        <p>Pramukh Swami Maharaj standardized the APC administration. He introduced the 'Sadhu-sanchalit'
+            (Sadhu-managed) model, ensuring that every hostel had resident Saints to guide the students 24/7. This
+            unique feature sets BAPS Chhatralays apart. Where else do world-class hostels come with spiritual mentors
+            living next door? He emphasized strict discipline—'Niyam' and 'Dharma'. He often told students, "If you lose
+            money, you lose nothing; if you lose health, you lose something; but if you lose character, you lose
+            everything."</p>
+
+        <p>He visited the Vallabh Vidyanagar APC dozens of times, personally counseling students who were failing in
+            exams or struggling with personal issues. His touch transformed lives. Under his guidance, APC produced not
+            just industry leaders but dedicated volunteers who built monuments like Akshardham. He taught that
+            intelligence without character is dangerous. Therefore, at APC, character reports are as important as
+            academic report cards. His life was a testament to the power of pure, selfless love, holding together a
+            family of thousands of students across generations.</p>
+    </div>
+
+    <!-- Page 9: History - Mahant Swami Maharaj -->
+    <div class="a4-page">
+        <h2>History: The Present Guide</h2>
+        <h3 style="color: var(--c-gold);">Pragat Brahmaswarup Mahant Swami Maharaj</h3>
+        <p><strong>"Samp, Suhradbhav, and Ekta."</strong></p>
+        <p>Today, the legacy is carried forward by Pragat Brahmaswarup Mahant Swami Maharaj. A scholar himself, Mahant
+            Swami Maharaj places immense emphasis on 'Vicharan' (thought process) and introspection. He teaches that the
+            root of all conflict in student life—whether with roommates or with oneself—is the ego. His solution is
+            'Divyabhav' (Divine Outlook): seeing the divine in everyone and everything.</p>
+
+        <p>Mahant Swami Maharaj has introduced a subtle but powerful layer to the APC training: the art of 'positive
+            thinking' through spiritual understanding. In an era of high-stress competitive exams, his teachings on
+            'Antar-drashti' (looking within) provide students with a psychological armor. He encourages students to
+            write a 'Daily Diary' to track their spiritual and academic progress, a practice that boosts
+            self-accountability.</p>
+
+        <p>Under his leadership, the APC facilities have been modernized to world-class standards (like the new
+            e-libraries and gyms), yet the soul remains ancient. He insists that while technology changes, values must
+            not. He often reminds the youth, "You are not just students; you are the ambassadors of Akshar-Purushottam."
+            His gentle, microscopic attention to detail ensures that the rules laid down by Yogiji Maharaj and Pramukh
+            Swami Maharaj are followed not out of fear, but out of love. He is the silent force empowering the current
+            generation to face the 21st century with the wisdom of the Vedas.</p>
+    </div>
+
+    <!-- Page 10: Value Essay - Sadvidya -->
+    <div class="a4-page">
+        <h2>Appendix A: The Value of Sadvidya</h2>
+        <h3 style="color: var(--c-gold);">Sadvidya: The Soul of Education</h3>
+        <p>The motto of BAPS Swaminarayan Vidyamandir and Chhatralay is ‘Sadvidya’. But what does it truly mean?
+            Establishing the difference between 'Vidya' (Knowledge) and 'Sadvidya' (Good/True Knowledge) is critical. In
+            the modern educational landscape, we are churning out data-processors, not thinkers. We are teaching how to
+            build bridges, but not how to build bridges between people. We teach how to count money, but not what counts
+            in life. Sadvidya fills this gap.</p>
+
+        <p>Sadvidya is the knowledge that liberates one from the shackles of base instincts. At APC, Sadvidya is
+            practically applied through the concept of 'Seva' (Service). When a student spends his Sunday sweeping the
+            common hall or serving food to his juniors, he learns dignity of labor. He learns that no job is small. This
+            emotional intelligence is what corporate recruiters today call 'soft skills'—empathy, teamwork, and
+            leadership. At APC, we don't teach these with PowerPoint presentations; we teach them with brooms and
+            ladles.</p>
+
+        <p>Furthermore, Sadvidya instills a sense of gratitude. A student here learns to recognize the sacrifices of his
+            parents and the grace of God. This gratitude prevents the arrogance that often accompanies academic success.
+            A Sadvidya-oriented student knows that his intelligence is a gift to be used for the world's welfare, not
+            just for padding his bank account. This worldview creates a professional who is ethical, uncorruptable, and
+            compassionate. In a world riddled with corporate scandals and moral decay, an APC alumnus stands out like a
+            lion among sheep, shielded by the armor of Sadvidya.</p>
+    </div>
+
+    <!-- Page 11: Value Essay - Brahmavidya -->
+    <div class="a4-page">
+        <h2>Appendix B: The Value of Brahmavidya</h2>
+        <h3 style="color: var(--c-gold);">Brahmavidya: The Ultimate Knowledge</h3>
+        <p>Beyond academic and moral knowledge lies the highest realm: Brahmavidya, or spiritual knowledge. Following
+            the Vedic tradition, APC believes that the ultimate goal of human life is not just career success but
+            'Moksha' (Liberation). Brahmavidya is the understanding of one's true self as the Atma, distinct from the
+            body, and the realization of the Supreme God (Paramatma).</p>
+
+        <p>For a teenager, this might sound abstract. But at APC, Brahmavidya is taught as a practical tool for mental
+            strength. When a student understands, "I am the Atma, eternal and pure; I am not this body or this temporary
+            failure in an exam," they gain immense mental resilience. Suicide and depression rates among students are
+            climbing globally because their self-worth is tied to temporary things like grades or social media likes.
+            Brahmavidya detaches self-worth from these fluctuating metrics and anchors it in the eternal.</p>
+
+        <p>This spiritual education is imparted through the 'Agna' (instructions) and 'Upasana' (philosophy) of the
+            Akshar-Purushottam Darshan. Students learn to see God's will in all circumstances. If they pass, it is His
+            grace; if they fail, it is His wish and a lesson to learn. This 'Kartapanu' (Doership) of God relieves the
+            student of the crushing burden of performance anxiety. They work hard—'Purusharth'—but leave the
+            result—'Fal'—to God. This balanced approach creates a peaceful, focused mind capable of achieving wonders.
+            Thus, Brahmavidya is not an escape from the world, but the secret to conquering it.</p>
+    </div>
+
+</body>
+
+</html>

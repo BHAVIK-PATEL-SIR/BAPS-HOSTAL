@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Management | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Govt Table Styles */
+        .govt-table {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .govt-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .govt-table td {
+            border: 1px solid #eee;
+            padding: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.7rem; color: #aaa; text-transform: uppercase;">
+                Modules</div>
+
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass System</a>
+            <a href="fee-management.html" class="nav-item active"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory Store</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library Admin</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical Records</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni Network</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams & Results</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security &
+                Visitors</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="top-header page-header">
+            <div class="page-title">
+                <h1>Fee Management</h1>
+                <p>Track Hostel Fees, Payments, and Scholarship Grants</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="document.getElementById('paymentModal').style.display='flex'">
+                <i class="fa-solid fa-plus"></i> Record Payment
+            </button>
+        </div>
+
+        <div class="baps-card" style="min-height: 80vh;">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('fees')"><i class="fa-solid fa-receipt"></i> Student
+                    Fees</button>
+                <button class="tab-btn" onclick="switchTab('payments')"><i class="fa-solid fa-file-invoice-dollar"></i>
+                    Payments</button>
+                <button class="tab-btn" onclick="switchTab('scholarships')"><i
+                        class="fa-solid fa-hand-holding-dollar"></i> Scholarships</button>
+
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card" style="background:#f9f9f9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:var(--c-navy);">₹ 35L</div>
+                            <div style="color:#666;">Total Expected</div>
+                        </div>
+                        <i class="fa-solid fa-coins" style="font-size:2rem; color:var(--c-gold);"></i>
+                    </div>
+                    <div class="stat-card" style="background:#E8F5E9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#2E7D32;">₹ 28L</div>
+                            <div style="color:#666;">Collected</div>
+                        </div>
+                        <i class="fa-solid fa-check-circle" style="font-size:2rem; color:#2E7D32;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFEBEE; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#C62828;">₹ 7L</div>
+                            <div style="color:#666;">Pending</div>
+                        </div>
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size:2rem; color:#C62828;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFF8E1; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#F57F17;">₹ 1.5L</div>
+                            <div style="color:#666;">Scholarships</div>
+                        </div>
+                        <i class="fa-solid fa-graduation-cap" style="font-size:2rem; color:#F57F17;"></i>
+                    </div>
+                </div>
+                <h3>Recent Transactions</h3>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Student</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24 Dec 2024</td>
+                            <td>Rahul Patel</td>
+                            <td>₹ 35,000</td>
+                            <td>Net Banking</td>
+                            <td><span class="badge badge-verified">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>23 Dec 2024</td>
+                            <td>Amit Shah</td>
+                            <td>₹ 10,000</td>
+                            <td>UPI</td>
+                            <td><span class="badge badge-verified">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>22 Dec 2024</td>
+                            <td>Priya Sharma</td>
+                            <td>₹ 35,000</td>
+                            <td>Cheque</td>
+                            <td><span class="badge badge-pending">Clearing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 2: STUDENT FEES -->
+            <div id="tab-fees" class="tab-content">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                    <h3>Student Fee Status</h3>
+                    <input type="text" placeholder="Search Student..."
+                        style="padding:0.5rem 1rem; border:1px solid #ddd; border-radius:20px; width:300px;">
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Term Fees</th>
+                            <th>Mess Fees</th>
+                            <th>Total Due</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kishan Soni</td>
+                            <td>₹ 25,000</td>
+                            <td>₹ 10,000</td>
+                            <td>₹ 35,000</td>
+                            <td><span class="badge badge-verified">Paid</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">Receipt</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vikas Gupta</td>
+                            <td>₹ 25,000</td>
+                            <td>₹ 10,000</td>
+                            <td>₹ 35,000</td>
+                            <td><span class="badge badge-rejected">Unpaid</span></td>
+                            <td><button class="btn-baps btn-gold" style="padding:0.2rem 0.6rem;"
+                                    onclick="openPayModal('Vikas Gupta', '35000')">Pay Fee</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 3: PAYMENTS -->
+            <div id="tab-payments" class="tab-content">
+                <h3>Transaction Log</h3>
+                <p style="color:#666;">Detailed record of all incoming payments.</p>
+                <!-- Reuse Table structure mock -->
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Txn ID</th>
+                            <th>Date</th>
+                            <th>Student</th>
+                            <th>Amount</th>
+                            <th>Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#TXN-8892</td>
+                            <td>24 Dec</td>
+                            <td>Rahul Patel</td>
+                            <td>35,000</td>
+                            <td>Online</td>
+                        </tr>
+                        <tr>
+                            <td>#TXN-8891</td>
+                            <td>20 Dec</td>
+                            <td>Kishan Soni</td>
+                            <td>35,000</td>
+                            <td>Cash</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 4: SCHOLARSHIPS -->
+            <div id="tab-scholarships" class="tab-content">
+                <h3>Scholarship & Financial Aid</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+                    <div class="baps-card" style="box-shadow:none; border:1px solid #eee;">
+                        <h4>Apply for Aid</h4>
+                        <p>Submit application for students requiring financial assistance.</p>
+                        <button class="btn-baps btn-outline">New Application</button>
+                    </div>
+                    <div class="baps-card" style="box-shadow:none; border:1px solid #eee;">
+                        <h4>Active Grants</h4>
+                        <ul style="padding-left:1.5rem; color:#666;">
+                            <li>Merit Scholarship (Top 10 SPI)</li>
+                            <li>Need-based Support (25 Students)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="paymentModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 600px; padding: 0; overflow:hidden;">
+            <div
+                style="padding: 1.5rem; background:#2c3e50; color:white; display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0;"><i class="fa-solid fa-cash-register"></i> Record Payment</h3>
+                <button onclick="document.getElementById('paymentModal').style.display='none'"
+                    style="border:none; background:none; color:white; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+
+            <div style="padding: 1.5rem;">
+                <!-- Payment Mode Tabs -->
+                <div style="display:flex; gap:1rem; margin-bottom:1.5rem; border-bottom:2px solid #eee;">
+                    <button class="pay-tab active" onclick="switchPayTab('upi')"
+                        style="padding:0.5rem 1rem; border:none; background:none; font-weight:bold; color:#2c3e50; border-bottom:3px solid #F57F17; cursor:pointer;">UPI
+                        (QR)</button>
+                    <button class="pay-tab" onclick="switchPayTab('card')"
+                        style="padding:0.5rem 1rem; border:none; background:none; color:#999; cursor:pointer;">Debit/Credit
+                        Card</button>
+                    <button class="pay-tab" onclick="switchPayTab('cash')"
+                        style="padding:0.5rem 1rem; border:none; background:none; color:#999; cursor:pointer;">Cash/Draft</button>
+                </div>
+
+                <form onsubmit="event.preventDefault(); processPayment(this);">
+                    <!-- Student & Amount (Common) -->
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <div>
+                            <label
+                                style="display:block; margin-bottom:0.3rem; font-size:0.8rem; font-weight:bold;">Student
+                                Name / GR No</label>
+                            <input type="text" name="student" id="payStudent" required placeholder="Search Student..."
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label
+                                style="display:block; margin-bottom:0.3rem; font-size:0.8rem; font-weight:bold;">Amount
+                                (₹)</label>
+                            <input type="number" name="amount" required placeholder="0.00"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px; font-weight:bold; color:var(--c-navy);">
+                        </div>
+                    </div>
+
+                    <!-- UPI Section -->
+                    <div id="pay-upi" class="pay-section">
+                        <div
+                            style="text-align:center; background:#f9f9f9; padding:1rem; border:1px dashed #ccc; border-radius:8px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=9316945893@fam&pn=BAPS%20APC&cu=INR"
+                                alt="UPI QR" style="width:120px; mix-blend-mode:multiply;">
+                            <div style="margin-top:0.5rem; font-family:monospace; font-weight:bold; color:#2c3e50;">
+                                9316945893@fam</div>
+                            <div style="font-size:0.8rem; color:#666; margin-top:0.3rem;">Scan to Pay</div>
+                        </div>
+                    </div>
+
+                    <!-- Card Section -->
+                    <div id="pay-card" class="pay-section" style="display:none;">
+                        <input type="text" placeholder="Card Number"
+                            style="width:100%; padding:0.6rem; margin-bottom:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                            <input type="text" placeholder="MM/YY"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                            <input type="password" placeholder="CVV"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                    </div>
+
+                    <!-- Cash Section -->
+                    <div id="pay-cash" class="pay-section" style="display:none;">
+                        <select name="type"
+                            style="width:100%; padding:0.6rem; margin-bottom:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <option>Cash Deposit</option>
+                            <option>Demand Draft (DD)</option>
+                            <option>Cheque</option>
+                        </select>
+                        <input type="text" name="ref" placeholder="Receipt No / DD Number"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+
+                    <input type="hidden" name="method" id="payMethod" value="UPI">
+
+                    <button type="submit" class="btn-baps btn-gold"
+                        style="width:100%; margin-top:1.5rem; justify-content:center;">
+                        <i class="fa-solid fa-lock"></i> Verify & Generate Receipt
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/src/services/admin-service.js"></script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function switchPayTab(mode) {
+            // Update Buttons
+            document.querySelectorAll('.pay-tab').forEach(b => {
+                b.style.borderBottom = 'none';
+                b.style.color = '#999';
+                b.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`button[onclick="switchPayTab('${mode}')"]`);
+            activeBtn.style.borderBottom = '3px solid #F57F17';
+            activeBtn.style.color = '#2c3e50';
+            activeBtn.classList.add('active');
+
+            // Show Section
+            document.querySelectorAll('.pay-section').forEach(s => s.style.display = 'none');
+            document.getElementById(`pay-${mode}`).style.display = 'block';
+
+            // Set Hidden Input
+            const methodMap = { 'upi': 'UPI (QR Code)', 'card': 'Credit/Debit Card', 'cash': 'Cash/Draft' };
+            document.getElementById('payMethod').value = methodMap[mode];
+        }
+
+        function openPayModal(studentName, amount) {
+            if (studentName) document.getElementById('payStudent').value = studentName;
+            if (amount) document.querySelector('input[name="amount"]').value = amount.replace(/[^0-9.]/g, '');
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function processPayment(form) {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.date = new Date().toLocaleDateString();
+            data.txnId = 'TXN-' + Math.floor(100000 + Math.random() * 900000);
+
+            const btn = form.querySelector('button[type="submit"]');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> Verifying...';
+
+            setTimeout(() => {
+                try {
+                    // Update Local Storage (Mock)
+                    const record = { ...data, status: 'Success' };
+                    // BapsAdmin.data.addRecord('PAYMENTS', record); // Uncomment if using real storage
+
+                    alert('Payment Verified! Generating Green Receipt...');
+                    document.getElementById('paymentModal').style.display = 'none';
+
+                    // Generate Green Receipt
+                    BapsAdmin.generatePaymentReceipt(data);
+
+                } catch (e) {
+                    console.error(e);
+                    alert("Error: " + e.message);
+                }
+                btn.innerHTML = orig;
+            }, 1500);
+        }
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

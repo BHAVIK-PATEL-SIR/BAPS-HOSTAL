@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prayer Hall | BAPS APC Facility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .detail-hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1548602088-9d12a4f9c10f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .detail-hero h1 {
+            font-family: var(--f-heading);
+            font-size: 4rem;
+            color: var(--c-gold);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--c-gold);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--c-gold);
+            margin-bottom: 1rem;
+        }
+
+        .long-content {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .long-content p {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-mandala"></div>
+            <div class="loader-text">JAY SWAMINARAYAN</div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => { const p = document.getElementById('preloader'); if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; } }, 1500);
+    </script>
+
+    <nav class="glass-nav sticky-nav">
+        <div class="logo-wrapper">
+            <div class="baps-symbol">
+                <div class="tilak"></div>
+                <div class="chandlo"></div>
+            </div>
+            <div class="logo-text"><span class="logo-main">BAPS APC</span><span class="logo-sub">Vallabh Vidyanagar
+                    (Main)</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/facilities.html">Facilities</a>
+            <a href="/events.html">Events</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/apply.html" class="nav-cta">Apply 2025</a>
+        </div>
+    </nav>
+
+    <div class="detail-hero">
+        <h1>Mandir Hall</h1>
+    </div>
+
+    <main class="container" style="padding: 4rem 1rem;">
+        <h2 class="section-title center" style="margin-bottom: 3rem;">Divine <span class="highlight">Features</span>
+        </h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-om feature-icon"></i>
+                <h3>Murti Darshan</h3>
+                <p>Sacred images of God.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-music feature-icon"></i>
+                <h3>Daily Aarti</h3>
+                <p>Morning & Evening prayers.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-book-open feature-icon"></i>
+                <h3>Scriptures</h3>
+                <p>Access to spiritual texts.</p>
+            </div>
+        </div>
+
+        <!-- NEW HALLS SECTION -->
+        <h2 class="section-title center" style="margin-top: 4rem; margin-bottom: 2rem;">Our Sacred <span
+                class="highlight">Sabha Halls</span></h2>
+        <div class="cards-perspective"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+
+            <!-- Card 1: Sahajanand Hall -->
+            <div class="facility-card" onclick="openHallModal('sahajanand')"
+                style="cursor: pointer; min-height: 250px;">
+                <i class="fa-solid fa-microphone-lines card-icon"></i>
+                <h3>Sahajanand Hall</h3>
+                <p>The Grand Auditorium for Main Weekly Assemblies.</p>
+                <button class="btn primary-btn" style="margin-top: 1rem; font-size: 0.8rem;">Read Details</button>
+            </div>
+
+            <!-- Card 2: Yogi Hall -->
+            <div class="facility-card" onclick="openHallModal('yogi')" style="cursor: pointer; min-height: 250px;">
+                <i class="fa-solid fa-users-rays card-icon"></i>
+                <h3>Yogi Hall</h3>
+                <p>Regional Sabha Hall for specialized group sessions.</p>
+                <button class="btn primary-btn" style="margin-top: 1rem; font-size: 0.8rem;">Read Details</button>
+            </div>
+
+            <!-- Card 3: Shastriji Hall -->
+            <div class="facility-card" onclick="openHallModal('shastriji')" style="cursor: pointer; min-height: 250px;">
+                <i class="fa-solid fa-hand-holding-heart card-icon"></i>
+                <h3>Shastriji Hall</h3>
+                <p>Dedicated space for spiritual workshops and shibirs.</p>
+                <button class="btn primary-btn" style="margin-top: 1rem; font-size: 0.8rem;">Read Details</button>
+            </div>
+        </div>
+
+        <!-- HALL DETAILS MODALS -->
+        <!-- 1. Sahajanand Hall Modal -->
+        <div id="modal-sahajanand" class="hall-modal">
+            <div class="hall-modal-content">
+                <span class="close-hall-modal" onclick="closeHallModal('sahajanand')">&times;</span>
+                <h2 class="text-gold">Sahajanand Hall</h2>
+                <h3>The Epitome of Collective Devotion</h3>
+                <div class="hall-text-scroll">
+                    <p><strong>Sahajanand Hall</strong> stands as the majestic crown jewel of our spiritual complex, a
+                        sprawling auditorium designed to accommodate the entire hostel fraternity for the weekly Ravi
+                        Sabha (Sunday Assembly). Named after Bhagwan Swaminarayan (Sahajanand Swami), this hall is not
+                        merely a structure of bricks and mortar, but a vibration of collective consciousness. It is here
+                        that the concept of 'Samp, Suhradbhav, and Ekta' (Unity, Fraternity, and Solidarity) comes
+                        alive.</p>
+                    <p>Architecturally, the hall is a marvel of acoustic engineering and aesthetic grandeur. The raised
+                        stage, adorned with the life-sized murtis of Akshar-Purushottam Maharaj, serves as the focal
+                        point, drawing the eyes and minds of hundreds of students instantly towards the Divine. The
+                        seating arrangement is meticulously planned to ensure that every student, regardless of where
+                        they sit, feels an intimate connection with the speaker and the deities. Advanced lighting
+                        systems create an ambience that can shift from the vibrant energy required for cultural
+                        performances to the soft, serene glow needed for deep meditation sessions.</p>
+                    <p>The primary function of Sahajanand Hall is to host the Main Sabha. In these assemblies, the
+                        atmosphere is electric. Students from diverse backgrounds—Engineering, Medical, Arts,
+                        Commerce—unite under one roof, dissolving their individual differences to become one family, the
+                        'BAPS Family'. The discourses delivered here by learned Sadhus delve into the deepest mysteries
+                        of the Vachanamrut and the Swamini Vato, yet they are presented in a language that resonates
+                        with the modern youth. Practical life lessons on stress management, relationship building, and
+                        career ethics are woven seamlessly with spiritual doctrines.</p>
+                    <p>Moreover, Sahajanand Hall is the venue for grand festivals like Janmashtami, Ram Navami, and the
+                        Annakut. During these times, the hall transforms into a celestial palace. The energy is
+                        palpable—the collective chanting of the Swaminarayan mantra here generates a spiritual current
+                        that recharges every student for the week ahead. It is a place of transformation, where confused
+                        minds find clarity, weary hearts find solace, and aspiring souls find their flight. Truly,
+                        Sahajanand Hall is the powerhouse of our Chhatralaya.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Yogi Hall Modal -->
+        <div id="modal-yogi" class="hall-modal">
+            <div class="hall-modal-content">
+                <span class="close-hall-modal" onclick="closeHallModal('yogi')">&times;</span>
+                <h2 class="text-gold">Yogi Hall</h2>
+                <h3>A Sanctuary for Regional Fellowship</h3>
+                <div class="hall-text-scroll">
+                    <p><strong>Yogi Hall</strong>, named in honor of the ever-joyful Brahmaswarup Yogiji Maharaj, serves
+                        as a specialized venue for Regional Sabhas and interactive youth workshops. While Sahajanand
+                        Hall focuses on the collective, Yogi Hall is designed for the personal. It is a space where the
+                        vast ocean of students is distilled into smaller, more intimate streams, allowing for deeper
+                        interaction and personalized spiritual mentoring.</p>
+                    <p>The design of Yogi Hall reflects the warmth and approachability of Yogiji Maharaj himself. It is
+                        a flexible space, capable of being reconfigured for round-table discussions, group activities,
+                        or traditional theatre-style seating. The walls are adorned with prasangs (incidents) from the
+                        life of Yogiji Maharaj, reminding every entrant of the power of a smile and the strength of
+                        patience. It is often said that while one learns *principles* in the main hall, one learns
+                        *practice* in Yogi Hall.</p>
+                    <p>This hall is the heartbeat of our 'Regional Sabha' initiative. We understand that students coming
+                        from different regions of the country (or world) have unique cultural nuances and specific
+                        needs. In Yogi Hall, assemblies are conducted in regional languages or focused on
+                        region-specific challenges, ensuring that no student feels alienated. It is a 'Home away from
+                        Home' within the hostel itself. Here, a student from a remote village can stand up and speak his
+                        heart out without the fear of judgment, finding brothers who speak his tongue and share his
+                        background.</p>
+                    <p>Furthermore, Yogi Hall is the epicenter of our 'Karyakar Training' (Volunteer Training). It is
+                        here that future leaders are forged. In smaller groups, students are given opportunities to lead
+                        sessions, manage events, and develop public speaking skills. The intimacy of the hall encourages
+                        participation; a shy student who might hesitate in the massive Sahajanand Hall finds his voice
+                        here. It is a crucible of leadership, where the values of servitude (Seva) are practically
+                        taught and caught.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Shastriji Hall Modal -->
+        <div id="modal-shastriji" class="hall-modal">
+            <div class="hall-modal-content">
+                <span class="close-hall-modal" onclick="closeHallModal('shastriji')">&times;</span>
+                <h2 class="text-gold">Shastriji Hall</h2>
+                <h3>The Fortress of Doctrinal Purity</h3>
+                <div class="hall-text-scroll">
+                    <p><strong>Shastriji Hall</strong> is dedicated to Brahmaswarup Shastriji Maharaj, the founder of
+                        BAPS, who was a literal embodiment of courage and intellectual rigor. This hall is the academic
+                        center of our spiritual wing. If Sahajanand Hall is the heart and Yogi Hall is the hands, then
+                        Shastriji Hall is undoubtedly the head. It is designed for serious study, intense workshops
+                        (shibirs), and deep philosophical diving.</p>
+                    <p>The ambience of Shastriji Hall is one of intense focus. It is equipped with advanced audio-visual
+                        aids to facilitate in-depth presentations and documentary screenings. The hall is frequently
+                        used for our 'Exams & Shibirs' department. Here, students sit for the annual Satsang Knowledge
+                        Exams, their heads bent over papers not for a university degree, but for a degree in
+                        life-mastery. It is a space that demands respect and commands attention.</p>
+                    <p>Regional Sabhas that require a more academic or study-based approach are conducted here. For
+                        instance, when a group scriptural reading session (Parayan) is organized, Shastriji Hall is the
+                        venue of choice. The acoustics are tuned for clarity of speech, ensuring that every syllable of
+                        the scriptures is heard distinctly. It is also the venue for our 'Ghosti' (spiritual discussion)
+                        sessions, where students sit in circles to discuss the practical application of spiritual
+                        concepts in their modern lives.</p>
+                    <p>In the spirit of Shastriji Maharaj, who built mandirs against all odds, this hall inspires
+                        resilience. It is often the venue for our 'Antar-Drashti' (Introspection) sessions. When a
+                        student steps into Shastriji Hall, they leave the frivolities of the outside world behind. It is
+                        a place for serious seekers. The vibrations here are calmer, steadier, almost stern in their
+                        purity, pushing every student to strive for excellence not just in their behavior, but in their
+                        very understanding of who they are and what their ultimate goal is.</p>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .hall-modal {
+                display: none;
+                position: fixed;
+                z-index: 2000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-color: rgba(0, 0, 0, 0.9);
+                justify-content: center;
+                align-items: center;
+                backdrop-filter: blur(5px);
+            }
+
+            .hall-modal-content {
+                background-color: #1a1a1a;
+                margin: auto;
+                padding: 3rem;
+                border: 1px solid var(--c-gold);
+                width: 80%;
+                max-width: 900px;
+                max-height: 85vh;
+                border-radius: 12px;
+                position: relative;
+                color: #ddd;
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+                animation: slideUp 0.4s ease-out;
+            }
+
+            @keyframes slideUp {
+                from {
+                    transform: translateY(50px);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .close-hall-modal {
+                color: var(--c-gold);
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .close-hall-modal:hover {
+                color: white;
+            }
+
+            .hall-text-scroll {
+                max-height: 60vh;
+                overflow-y: auto;
+                padding-right: 1rem;
+                margin-top: 1.5rem;
+                line-height: 1.8;
+                font-size: 1.1rem;
+                scrollbar-width: thin;
+                scrollbar-color: var(--c-gold) #333;
+            }
+
+            .hall-text-scroll p {
+                margin-bottom: 1.5rem;
+                text-align: justify;
+            }
+        </style>
+
+        <script>
+            function openHallModal(id) {
+                document.getElementById('modal-' + id).style.display = "flex";
+            }
+            function closeHallModal(id) {
+                document.getElementById('modal-' + id).style.display = "none";
+            }
+            // Close on outside click
+            window.onclick = function (event) {
+                if (event.target.classList.contains('hall-modal')) {
+                    event.target.style.display = "none";
+                }
+            }
+        </script>
+
+        <div class="long-content">
+            <h2 class="text-gold" style="margin-bottom: 1.5rem;">The Heart of the Hostel</h2>
+            <p>
+                The Mandir Hall is the spiritual nucleus of the BAPS Chhatralaya. It comprises <strong>three major
+                    halls</strong>, designed to cater to various spiritual activities. The grandest among them is the
+                <strong>Sahajanand Hall</strong>, where the Main Sabha is conducted, bringing all students together for
+                collective spiritual discourse. The other two halls are dedicated to Regional Sabhas, allowing for more
+                intimate and focused group sessions.
+            </p>
+            <p>
+                Morning Arti is a vibrant affair, waking the soul with the rhythmic beating of drums and the singing of
+                ancient verses. It sets a positive, energetic tone for the day, arming students with the mental
+                fortitude to face academic challenges. Evening Arti, conversely, is a time for gratitude and reflection.
+                After a long day of classes and studying, students gather here to unburden their minds, finding peace in
+                the presence of the sacred murtis of Akshar-Purushottam Maharaj. This daily routine builds discipline
+                and emotional resilience, crucial traits for any aspiring professional.
+            </p>
+
+            <hr style="border-color: rgba(255, 215, 0, 0.2); margin: 3rem 0;">
+
+            <h2 class="text-gold" style="margin-bottom: 1.5rem;">Wisdom Wings: The Major Classrooms</h2>
+            <p>
+                Nestled within the Assembly Hall complex are specialized, high-tech classrooms designed for intense
+                learning and workshops. These are not ordinary rooms; they are centers of intellectual and spiritual
+                synthesis ("Para" and "Apara" Vidya).
+            </p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+
+                <div class="feature-item" style="text-align: left;">
+                    <h3 style="color: var(--c-gold); margin-bottom: 1rem;">1. Akshar Kaksh (Smart Classroom)</h3>
+                    <ul style="list-style: none; padding: 0; color: #ccc;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Interactive Smart
+                                Boards:</strong> For dynamic presentations and digital learning.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Dolby Surround Sound:</strong>
+                            Crystal clear audio for video lectures and documentaries.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Step-Seating:</strong>
+                            Lecture-hall style ergonomic seating for 60+ students.</li>
+                    </ul>
+                </div>
+
+                <div class="feature-item" style="text-align: left;">
+                    <h3 style="color: var(--c-gold); margin-bottom: 1rem;">2. Purushottam Kaksh (Conference Room)</h3>
+                    <ul style="list-style: none; padding: 0; color: #ccc;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Round-Table Setup:</strong> Ideal
+                            for 'Ghosti' (Group Discussions) and leadership meetings.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Video Conferencing:</strong>
+                            High-speed linkups for global sessions with Saints.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Soundproof Walls:</strong>
+                            Ensuring absolute silence and privacy for discussions.</li>
+                    </ul>
+                </div>
+
+                <div class="feature-item" style="text-align: left;">
+                    <h3 style="color: var(--c-gold); margin-bottom: 1rem;">3. Gnanyagna Kaksh (Music & Art)</h3>
+                    <ul style="list-style: none; padding: 0; color: #ccc;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Instrumental Setup:</strong>
+                            Equipped with Tabla, Harmonium, and Keyboards for Kirtan practice.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Acoustic Tuning:</strong>
+                            Specifically designed reverb control for musical training.</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                style="color: green; margin-right: 10px;"></i> <strong>Creative Corner:</strong> space
+                            for preparation of Hindola and festival decorations.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <p style="margin-top: 2rem;">
+                These classrooms are equipped with everything needed for a modern holistic education. From
+                <strong>super-fast Wi-Fi</strong> to <strong>centralized climate control</strong>, every detail ("proper
+                thing") has been considered to ensure that students can focus entirely on their growth.
+            </p>
+        </div>
+        <h3 style="color:white; margin-top:2rem; margin-bottom:1rem;">Assemblies and Guidance</h3>
+        <p>
+            The hall also serves as the venue for our weekly assemblies (Sabhas). These gatherings are a unique
+            feature of BAPS hostels, where students listen to inspiring talks by learned Sadhus and experts. Topics
+            range from time management and stress handling to deep philosophical questions about life's purpose.
+            These sessions provide moral and spiritual graphical guidance, helping students navigate the complex
+            transition from adolescence to adulthood. It is here that the values of 'Vidya, Vivek, and Vikas' are
+            truly inculcated.
+        </p>
+        <p>
+            Furthermore, the presence of resident Sadhus ensures that students always have a counselor to turn to.
+            Whether facing academic pressure, personal dilemmas, or homesickness, the doors of the Prayer Hall and
+            the hearts of the Saints are always open. This spiritual mentorship creates a support system unlike any
+            other, ensuring that no student ever feels alone. The Prayer Hall is where we forge not just careers,
+            but character; where we build not just successful men, but good men.
+        </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="/facilities.html" class="btn secondary-btn"><i class="fa-solid fa-arrow-left"></i> Back to
+                Facilities</a>
+        </div>
+    </main>
+
+    <footer style="background: #080808; padding: 2rem; text-align: center; border-top: 5px solid var(--c-gold);">
+        <p style="color: grey;">&copy; 2025 BAPS Swaminarayan Chattralay. All Rights Reserved.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | BAPS APC Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active" onclick="showSection('dashboard', this)">
+                <i class="fa-solid fa-grid-2"></i> Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('verification', this)">
+                <i class="fa-solid fa-check-double"></i> Verification
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('applications', this)">
+                <i class="fa-solid fa-users"></i> Applications
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('rooms', this)">
+                <i class="fa-solid fa-bed"></i> Room Allocation
+            </a>
+
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.75rem; color: var(--c-gold); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">
+                Modules</div>
+
+            <a href="modules/staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="modules/gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass</a>
+            <a href="modules/fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="modules/inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+            <a href="modules/library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library</a>
+            <a href="modules/medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical</a>
+            <a href="modules/alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni</a>
+            <a href="modules/exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams</a>
+            <a href="modules/security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i>
+                Security</a>
+            <a href="modules/maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+
+            <a href="#" class="nav-item" onclick="showSection('news', this)"><i class="fa-solid fa-newspaper"></i> News
+                & Events</a>
+            <a href="#" class="nav-item" onclick="showSection('gallery', this)"><i class="fa-solid fa-images"></i>
+                Gallery Manager</a>
+            <a href="#" class="nav-item" onclick="showSection('settings', this)"><i class="fa-solid fa-gear"></i>
+                Settings</a>
+
+            <a href="index.html" class="nav-item" style="margin-top: auto; color: #ff6b6b;">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <div class="user-panel">
+            <div class="avatar-circle" id="avatarInitials">KS</div>
+            <div style="flex: 1;">
+                <div style="font-weight: bold; font-size: 0.9rem;" id="sideUserName">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;" id="sideUserRole">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <div class="top-header header"> <!-- 'header' class kept for JS search hook -->
+            <div class="page-title">
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageSubtitle">Overview of Hostel Operations</p>
+            </div>
+            <button onclick="alert('Downloading Global Report...')" class="btn-baps btn-gold">
+                <i class="fa-solid fa-download"></i> Download Report
+            </button>
+        </div>
+
+        <!-- 1. DASHBOARD -->
+        <div id="section-dashboard" class="cms-section animate-fade">
+            <div class="stats-grid"
+                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="baps-card stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-file-contract"></i></div>
+                    <div>
+                        <div class="stat-value" id="stat-total">0</div>
+                        <div class="stat-label">Total Applications</div>
+                    </div>
+                </div>
+                <div class="baps-card stat-card">
+                    <div class="stat-icon" style="background:#E8F5E9; color:#2E7D32;"><i
+                            class="fa-solid fa-check-circle"></i></div>
+                    <div>
+                        <div class="stat-value" id="stat-verified">0</div>
+                        <div class="stat-label">Verified Students</div>
+                    </div>
+                </div>
+                <div class="baps-card stat-card">
+                    <div class="stat-icon" style="background:#FFF8E1; color:#F57F17;"><i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value" id="stat-pending">0</div>
+                        <div class="stat-label">Pending Review</div>
+                    </div>
+                </div>
+                <div class="baps-card stat-card">
+                    <div class="stat-icon" style="background:#FFEBEE; color:#C62828;"><i class="fa-solid fa-bed"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value">85</div>
+                        <div class="stat-label">Available Beds</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="baps-card">
+                <div class="table-header" style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
+                    <h3>Recent Overview</h3>
+                </div>
+                <table id="dashboardTable" class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Mandir</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboardTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. VERIFICATION -->
+        <div id="section-verification" class="cms-section animate-fade" style="display: none;">
+            <div class="baps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
+                    <h3>Pending Verifications</h3>
+                    <div style="font-size: 0.9rem; color: #666;">Review & Download Forms</div>
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Reference</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="verificationTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. APPLICATIONS -->
+        <div id="section-applications" class="cms-section animate-fade" style="display: none;">
+            <div class="baps-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items: center;">
+                    <h3>Application Manager</h3>
+                    <input type="text" placeholder="Search Student..."
+                        style="padding: 0.6rem; border: 1px solid #ddd; border-radius: 20px; outline: none; width: 250px;">
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Mobile</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appManagerTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. ROOMS -->
+        <div id="section-rooms" class="cms-section animate-fade" style="display: none;">
+            <div class="baps-card">
+                <h3>Room Allocation Status</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;"
+                    id="roomGrid"></div>
+            </div>
+        </div>
+
+        <!-- 5-N: OTHER MODULES PLACEHOLDERS FOR JS ROUTING -->
+        <!-- These are kept for the JS 'showSection' logic to not break, though real modules are external files now. -->
+        <div id="section-news" class="cms-section" style="display: none;">
+            <div class="baps-card">
+                <h3>News & Events CMS</h3>
+                <div style="margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
+                    <input type="text" placeholder="Event Title"
+                        style="width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; border:1px solid #ddd; border-radius: 4px;">
+                    <textarea placeholder="Event Description"
+                        style="width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; border:1px solid #ddd; border-radius: 4px;"></textarea>
+                    <button class="btn-baps btn-gold" onclick="alert('Event Published!')">Publish Event</button>
+                </div>
+                <div id="newsList"></div>
+            </div>
+        </div>
+
+        <div id="section-gallery" class="cms-section" style="display: none;">
+            <div class="baps-card">
+                <h3>Gallery Manager</h3>
+                <input type="file" id="realFileInput" accept="image/*" style="display: none;"
+                    onchange="handleFileSelect(this)">
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-weight: bold; margin-right: 0.5rem;">Select Section:</label>
+                    <select id="galleryCategory" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="campus">Campus</option>
+                        <option value="events">Events</option>
+                        <option value="spiritual">Spiritual</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div style="border: 2px dashed #ccc; padding: 2rem; text-align: center; margin-bottom: 1rem; cursor: pointer;"
+                    onclick="triggerUpload()">
+                    <i class="fa-solid fa-cloud-upload-alt" style="font-size: 2rem; color: #ccc;"></i><br>
+                    Click to Upload Images
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;" id="galleryGrid"></div>
+            </div>
+        </div>
+
+        <div id="section-settings" class="cms-section" style="display: none;">
+            <div class="baps-card">
+                <h3>System Settings</h3>
+                <p>Configuration options...</p>
+                <button class="btn-baps btn-gold" onclick="alert('Settings Saved!')">Save Changes</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div id="officeModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: white; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; border-radius: 12px; display: flex; flex-direction: column;">
+            <div
+                style="padding: 1.5rem; border-bottom: 2px solid var(--c-gold); display: flex; justify-content: space-between; align-items: center; background: #fafafa;">
+                <div>
+                    <h2 style="margin: 0; font-family: 'Cinzel', serif; color: #333;">Office Verification View</h2>
+                    <span style="font-size: 0.8rem; color: #666;">OFFICIAL USE ONLY | BAPS APC</span>
+                </div>
+                <button onclick="closeModal()"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            <div style="padding: 2rem; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;" id="modalContent">
+            </div>
+            <div
+                style="padding: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 1rem; background: #fafafa;">
+                <button onclick="downloadForm()" class="btn-baps btn-outline"><i class="fa-solid fa-file-pdf"></i>
+                    Download Form</button>
+                <div style="width: 1px; background: #ddd; margin: 0 0.5rem;"></div>
+                <button onclick="processApp('Reject')" class="btn-baps"
+                    style="background:#FFEBEE; color:#C62828;">Reject</button>
+                <button onclick="processApp('Verified')" class="btn-baps btn-gold">Approve & Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- Shared Logic --- 
+        function loadState(key, defaultVal) {
+            const stored = localStorage.getItem(key);
+            return stored ? JSON.parse(stored) : defaultVal;
+        }
+        function saveState(key, val) {
+            localStorage.setItem(key, JSON.stringify(val));
+        }
+
+        // --- Session ---
+        (function initSession() {
+            const userStr = localStorage.getItem('baps_current_user');
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                document.getElementById('sideUserName').innerText = user.name;
+                document.getElementById('sideUserRole').innerText = user.title;
+                const initials = user.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                document.getElementById('avatarInitials').innerText = initials;
+            }
+        })();
+
+        const state = {
+            currentAppIndex: -1,
+            isFormDownloaded: false,
+            gallery: loadState('baps_gallery_images', []),
+            news: loadState('baps_news', []),
+            staff: loadState('baps_staff', []),
+            gatepass: loadState('baps_gatepass', [])
+        };
+
+        // --- Navigation ---
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.cms-section').forEach(el => el.style.display = 'none');
+            const target = document.getElementById('section-' + sectionId);
+            if (target) {
+                target.style.display = 'block';
+                target.classList.add('animate-fade');
+            }
+
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            const titleMap = {
+                'dashboard': 'Dashboard',
+                'verification': 'Verification Centre',
+                'applications': 'Application Manager',
+                'rooms': 'Room Allocation',
+                'news': 'News & Events CMS',
+                'gallery': 'Gallery Manager',
+                'settings': 'System Settings'
+            };
+            document.getElementById('pageTitle').innerText = titleMap[sectionId] || 'BAPS APC';
+
+            if (sectionId === 'verification') loadVerificationTable();
+            if (sectionId === 'applications') loadAppManager();
+            if (sectionId === 'rooms') loadRooms();
+            if (sectionId === 'gallery') renderGallery();
+            if (sectionId === 'news') renderNews();
+        }
+
+        // --- Data Loading ---
+        function loadData() {
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const total = apps.length;
+            const verified = apps.filter(a => a.status === 'Verified').length;
+            const pending = apps.filter(a => a.status === 'Pending').length;
+
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-verified').innerText = verified;
+            document.getElementById('stat-pending').innerText = pending;
+
+            const dbTable = document.getElementById('dashboardTableBody');
+            dbTable.innerHTML = '';
+            if (apps.length === 0) {
+                dbTable.innerHTML = '<tr><td colspan="4" style="text-align:center;">No data found.</td></tr>';
+            } else {
+                apps.slice().reverse().slice(0, 5).forEach(app => {
+                    dbTable.innerHTML += `
+                        <tr>
+                            <td>${new Date(app.timestamp).toLocaleDateString()}</td>
+                            <td style="font-weight:bold;">${app.personal.fullName}</td>
+                            <td>${app.verification.mandir}</td>
+                            <td><span class="badge ${app.status === 'Verified' ? 'badge-verified' : (app.status === 'Rejected' ? 'badge-rejected' : 'badge-pending')}">${app.status || 'Pending'}</span></td>
+                        </tr>`;
+                });
+            }
+        }
+
+        function loadVerificationTable() {
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const vTable = document.getElementById('verificationTableBody');
+            vTable.innerHTML = '';
+
+            apps.slice().reverse().forEach((app, index) => {
+                const realIndex = apps.length - 1 - index;
+                const isVerified = app.status === 'Verified';
+                vTable.innerHTML += `
+                    <tr>
+                         <td><b>${app.personal.fullName}</b><br><small style="color:#999">${app.personal.mobile}</small></td>
+                        <td>${app.verification.mandir}</td>
+                        <td><span class="badge ${isVerified ? 'badge-verified' : (app.status === 'Rejected' ? 'badge-rejected' : 'badge-pending')}">${app.status || 'Pending'}</span></td>
+                        <td><button class="btn-baps btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;" onclick="openOfficeModal(${realIndex})">View</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function loadAppManager() {
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const table = document.getElementById('appManagerTable');
+            table.innerHTML = '';
+            apps.forEach((app, i) => {
+                table.innerHTML += `<tr>
+                    <td>#${1000 + i}</td>
+                    <td><b>${app.personal.fullName}</b></td>
+                    <td>${app.academic.course}</td>
+                    <td>${app.personal.mobile}</td>
+                    <td><span class="badge ${app.status === 'Verified' ? 'badge-verified' : 'badge-pending'}">${app.status || 'Pending'}</span></td>
+                    <td><button class="btn-baps btn-outline" style="padding:0.3rem 0.8rem;">Edit</button></td>
+                 </tr>`;
+            });
+        }
+
+        function loadRooms() {
+            const grid = document.getElementById('roomGrid');
+            grid.innerHTML = '';
+            for (let i = 101; i <= 120; i++) {
+                const isFree = Math.random() > 0.4;
+                grid.innerHTML += `
+                    <div style="background:${isFree ? '#E8F5E9' : '#FFEBEE'}; padding:1rem; border-radius:8px; text-align:center; border:1px solid ${isFree ? '#C8E6C9' : '#FFCDD2'}">
+                        <i class="fa-solid fa-bed" style="color:${isFree ? '#2E7D32' : '#C62828'}; font-size:1.5rem; margin-bottom:0.5rem;"></i>
+                        <div style="font-weight:bold;">Room ${i}</div>
+                        <small style="color:${isFree ? '#2E7D32' : '#C62828'}">${isFree ? 'Available' : 'Occupied'}</small>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Modal Logic ---
+        // --- Modal Logic ---
+        window.simulateDownload = function (btn, docName) {
+            // Universal download function (same as student.html)
+            if (btn.disabled) return;
+            const originalHtml = btn.innerHTML;
+            const originalWidth = btn.offsetWidth;
+            btn.disabled = true;
+            if (originalWidth) btn.style.width = originalWidth + 'px';
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Downloading...`;
+
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Done`;
+                // Fake File
+                const element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent('Dummy file: ' + docName));
+                element.setAttribute('download', docName + '.pdf');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                    btn.style.width = '';
+                }, 2000);
+            }, 1000);
+        };
+
+        function openOfficeModal(index) {
+            currentAppIndex = index;
+            isFormDownloaded = false;
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const app = apps[index];
+            if (!app) return;
+            const modal = document.getElementById('officeModal');
+            document.getElementById('modalContent').innerHTML = `
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: #eee; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid var(--c-gold);">
+                         <i class="fa-solid fa-user" style="font-size: 3rem; color: #ccc;"></i>
+                    </div>
+                    <div style="font-weight: bold; font-size: 1.4rem; font-family:var(--font-heading); color: var(--c-navy);">${app.personal.fullName}</div>
+                    <div style="color: #666;">${app.academic.course}</div>
+                    <div style="margin-top: 1rem;"><span class="badge ${app.status === 'Verified' ? 'badge-verified' : 'badge-pending'}" style="font-size:0.9rem;">${app.status || 'Pending'}</span></div>
+                </div>
+                <div>
+                     <h4 style="border-bottom:1px solid #eee; padding-bottom:0.5rem;">Contact Info</h4>
+                     <p><strong>Mobile:</strong> ${app.personal.mobile}</p>
+                     <p><strong>Email:</strong> ${app.personal.email}</p>
+                     <p><strong>City:</strong> ${app.personal.city}</p>
+                     <br>
+                     <h4 style="border-bottom:1px solid #eee; padding-bottom:0.5rem;">Satsang Reference</h4>
+                     <p><strong>Mandir:</strong> ${app.verification.mandir}</p>
+                     <p><strong>Kothari:</strong> ${app.verification.kothari}</p>
+                     
+                     <div style="margin-top: 1.5rem; background: #fafafa; padding: 1rem; border-radius: 8px;">
+                        <strong><i class="fa-solid fa-paperclip"></i> Documents</strong>
+                        <div style="display:flex; justify-content:space-between; margin-top:0.5rem; align-items:center;">
+                            <span>Application Form</span>
+                            <button class="btn-baps btn-outline" style="font-size:0.8rem; padding: 0.3rem 0.6rem;" onclick="downloadForm(this)">
+                                <i class="fa-solid fa-download"></i> Download
+                            </button>
+                        </div>
+                     </div>
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('officeModal').style.display = 'none'; }
+
+        function downloadForm(btn) {
+            simulateDownload(btn, 'Application_Form');
+            isFormDownloaded = true;
+        }
+
+        function processApp(status) {
+            if (status === 'Verified' && !isFormDownloaded) return alert("Please download and verify the form first.");
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            if (apps[currentAppIndex]) {
+                apps[currentAppIndex].status = status;
+                localStorage.setItem('baps_applications', JSON.stringify(apps));
+                alert(`Application ${status}!`);
+                closeModal();
+                loadVerificationTable();
+                loadData();
+            }
+        }
+
+        // --- Gallery & News Placeholders ---
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            if (grid) grid.innerHTML = state.gallery.map((img, i) => `<div style="aspect-ratio:1; background:#ddd; border-radius:8px; background-image:url('${img.url}'); background-size:cover;"></div>`).join('');
+        }
+        function renderNews() {
+            const list = document.getElementById('newsList');
+            if (list) list.innerHTML = state.news.map(n => `<div style="padding:1rem; border-bottom:1px solid #eee;"><strong>${n.title}</strong><span style="float:right; color:green">Published</span></div>`).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+
+    <!-- EXTENSIONS (DSA SEARCH & TASKS) -->
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

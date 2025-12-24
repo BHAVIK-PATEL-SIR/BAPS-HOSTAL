@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Library | BAPS APC Facility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .detail-hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1595163351915-d9b89694e82b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .detail-hero h1 {
+            font-family: var(--f-heading);
+            font-size: 4rem;
+            color: var(--c-gold);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--c-gold);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--c-gold);
+            margin-bottom: 1rem;
+        }
+
+        .long-content {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .long-content p {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-mandala"></div>
+            <div class="loader-text">JAY SWAMINARAYAN</div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => { const p = document.getElementById('preloader'); if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; } }, 1500);
+    </script>
+
+    <nav class="glass-nav sticky-nav">
+        <div class="logo-wrapper">
+            <div class="baps-symbol">
+                <div class="tilak"></div>
+                <div class="chandlo"></div>
+            </div>
+            <div class="logo-text"><span class="logo-main">BAPS APC</span><span class="logo-sub">Vallabh Vidyanagar
+                    (Main)</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/facilities.html">Facilities</a>
+            <a href="/events.html">Events</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/apply.html" class="nav-cta">Apply 2025</a>
+        </div>
+    </nav>
+
+    <div class="detail-hero">
+        <h1>E-Library & Resource Center</h1>
+    </div>
+
+    <main class="container" style="padding: 4rem 1rem;">
+        <h2 class="section-title center" style="margin-bottom: 3rem;">Digital <span class="highlight">Powers</span></h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-server feature-icon"></i>
+                <h3>High-Speed Internet</h3>
+                <p>Fiber optic connectivity.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-desktop feature-icon"></i>
+                <h3>Workstations</h3>
+                <p>Modern PCs for research.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-brands fa-digital-ocean feature-icon"></i>
+                <h3>Digital Journals</h3>
+                <p>Access to IEEE, Springer, etc.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-print feature-icon"></i>
+                <h3>Printing Services</h3>
+                <p>On-site documentation support.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-swatchbook feature-icon"></i>
+                <h3>Reference Books</h3>
+                <p>Vast physical collection.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-headphones feature-icon"></i>
+                <h3>Audio-Visual</h3>
+                <p>Learning aids & tutorials.</p>
+            </div>
+        </div>
+
+        <div class="long-content">
+            <h2 class="text-gold" style="margin-bottom: 1.5rem;">Connecting to the World of Knowledge</h2>
+            <p>
+                In the 21st century, access to information is the key to power. The E-Library at BAPS APC is designed to
+                bridge the gap between traditional learning and the digital revolution. We recognize that modern
+                education extends far beyond the textbook; it requires access to the latest research papers, global case
+                studies, and online courses. Our E-Library is a gateway to this global repository of knowledge,
+                providing students with the tools they need to stay ahead in a rapidly evolving academic landscape.
+            </p>
+            <p>
+                The facility is equipped with a fleet of modern workstations, each connected via high-speed fiber-optic
+                internet. This ensures that whether a student is compiling code for a CS project, rendering a design for
+                Architecture, or researching medical journals, lag and connectivity issues never stand in the way. We
+                subscribe to numerous premium digital libraries and journals, giving our students free access to
+                resources that would otherwise be prohibitively expensive. It is an investment in their intellectual
+                capital.
+            </p>
+            <h3 style="color:white; margin-top:2rem; margin-bottom:1rem;">A Hybrid Learning Environment</h3>
+            <p>
+                While we embrace the digital, we have not abandoned the traditional. The E-Library is complemented by a
+                substantial physical collection of reference books, encyclopedias, and standard course texts. We believe
+                in the tactile power of a book. The silence of the library is different from the Reading Hall; here, it
+                is the silence of exploration. The layout encourages both individual research and quiet collaborative
+                study, with designated zones for group projects that require discussion without disturbing others.
+            </p>
+            <p>
+                Technical support is always available on-hand to assist with hardware or software queries. We also
+                organize regular workshops on digital literacy, advanced search techniques, and using specialized
+                software tools. By providing this robust infrastructure, we aim to remove every logistical barrier to
+                learning. The E-Library is not just a room with computers; it is a laboratory for the mind, a place
+                where information is transformed into knowledge, and knowledge into wisdom.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="/facilities.html" class="btn secondary-btn"><i class="fa-solid fa-arrow-left"></i> Back to
+                Facilities</a>
+        </div>
+    </main>
+
+    <footer style="background: #080808; padding: 2rem; text-align: center; border-top: 5px solid var(--c-gold);">
+        <p style="color: grey;">&copy; 2025 BAPS Swaminarayan Chattralay. All Rights Reserved.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

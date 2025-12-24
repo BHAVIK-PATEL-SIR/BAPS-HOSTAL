@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bhojanalay | BAPS APC Facility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .detail-hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .detail-hero h1 {
+            font-family: var(--f-heading);
+            font-size: 4rem;
+            color: var(--c-gold);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--c-gold);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--c-gold);
+            margin-bottom: 1rem;
+        }
+
+        .long-content {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .long-content p {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-mandala"></div>
+            <div class="loader-text">JAY SWAMINARAYAN</div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => { const p = document.getElementById('preloader'); if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; } }, 1500);
+    </script>
+
+    <nav class="glass-nav sticky-nav">
+        <div class="logo-wrapper">
+            <div class="baps-symbol">
+                <div class="tilak"></div>
+                <div class="chandlo"></div>
+            </div>
+            <div class="logo-text"><span class="logo-main">BAPS APC</span><span class="logo-sub">Vallabh Vidyanagar
+                    (Main)</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/facilities.html">Facilities</a>
+            <a href="/events.html">Events</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/apply.html" class="nav-cta">Apply 2025</a>
+        </div>
+    </nav>
+
+    <div class="detail-hero">
+        <h1>Bhojanalay</h1>
+    </div>
+
+    <main class="container" style="padding: 4rem 1rem;">
+        <h2 class="section-title center" style="margin-bottom: 3rem;">Nutritious <span class="highlight">Features</span>
+        </h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-leaf feature-icon"></i>
+                <h3>Pure Vegetarian</h3>
+                <p>100% Satvik meals.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-carrot feature-icon"></i>
+                <h3>Fresh Produce</h3>
+                <p>Farm-fresh ingredients daily.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-utensils feature-icon"></i>
+                <h3>Hygienic Kitchen</h3>
+                <p>ISO standard cleanliness.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-heart-pulse feature-icon"></i>
+                <h3>Balanced Diet</h3>
+                <p>Designed by nutritionists.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-glass-water feature-icon"></i>
+                <h3>RO Water</h3>
+                <p>Clean drinking water.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-users feature-icon"></i>
+                <h3>Community Dining</h3>
+                <p>Building bonds over food.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-clock feature-icon"></i>
+                <h3>Timely Meals</h3>
+                <p>Breakfast, Lunch, & Dinner.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-hand-holding-heart feature-icon"></i>
+                <h3>Served with Love</h3>
+                <p>Volunteers serving with bhav.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-calendar-check feature-icon"></i>
+                <h3>12 Grand Feasts</h3>
+                <p>Monthly festive celebrations.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-tree feature-icon"></i>
+                <h3>Garden Party</h3>
+                <p>Annual New Year's Eve gala.</p>
+            </div>
+        </div>
+
+        <div class="long-content">
+            <h2 class="text-gold" style="margin-bottom: 1.5rem;">Nourishment for Body and Soul</h2>
+            <p>
+                In the ancient Indian tradition, it is said that "Annam Brahma" — Food is Divine. At BAPS APC, we
+                believe that the food our students consume plays a vital role in shaping not just their physical health,
+                but their mental and spiritual well-being. Our Bhojanalay (Dining Hall) is not merely a cafeteria; it is
+                a sacred space where nourishment is prepared with devotion and served with love. We strictly adhere to a
+                pure vegetarian, Satvik diet, avoiding onions and garlic, which is known to promote clarity of thought
+                and control over one's senses—essential attributes for a student.
+            </p>
+            <p>
+                The day begins with a wholesome breakfast that provides the energy needed for morning classes. Lunch and
+                dinner are elaborate affairs featuring a rotating menu of traditional Gujarati and Indian cuisines,
+                ensuring that students never tire of the options. From hot rotis and nutritious dals to seasonal
+                vegetables and rice, every meal is balanced to provide the necessary proteins, vitamins, and minerals.
+                Special attention is paid to the quality of ingredients; we source fresh, organic produce wherever
+                possible to ensure the highest standards of health.
+            </p>
+            <h3 style="color:white; margin-top:2rem; margin-bottom:1rem;">Feasts and Festivities</h3>
+            <p>
+                Life at BAPS APC is vibrant and joyful. To break the monotony of academic life, we host <b>12 Grand
+                    Feasts</b> every year, typically coinciding with major festivals like Diwali, Janmashtami, and
+                Annakut. On these days, the Bhojanalay transforms into a banquet hall, serving dozens of delicacies that
+                give students a taste of home. The highlight of the year, however, is the exclusive <b>Garden Party</b>
+                held on New Year's Eve. Set under the stars in our lush gardens, this gala dinner features live food
+                stalls, music, and celebration, allowing students to ring in the new year with their hostel family in
+                grand style.
+            </p>
+            <h3 style="color:white; margin-top:2rem; margin-bottom:1rem;">Hygiene and Seva</h3>
+            <p>
+                Our state-of-the-art kitchen is equipped with modern cooking appliances to handle large volumes of food
+                without successful hygiene. Cleanliness is our top priority, with strict protocols in place for food
+                preparation and storage. However, the secret ingredient in our meals is 'Bhav' (devotion). The meals are
+                often prepared and served by volunteers and Sadhus who see feeding the students as a form of service to
+                God. This infusion of spiritual sentiment makes the food 'Prasad', sanctifying the body and mind of the
+                receiver.
+            </p>
+            <p>
+                Dining at the APC is a communal experience. Students sit together, breaking bread across disciplines and
+                years, fostering a strong sense of brotherhood. The discipline of eating together at fixed times
+                instills a sense of routine and punctuality. Before every meal, a short prayer is recited, reminding us
+                to be grateful for the sustenance we receive. This practice of mindfulness turns a simple act of eating
+                into a spiritual ritual, grounding the students in gratitude and humility.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="/facilities.html" class="btn secondary-btn"><i class="fa-solid fa-arrow-left"></i> Back to
+                Facilities</a>
+        </div>
+    </main>
+
+    <footer style="background: #080808; padding: 2rem; text-align: center; border-top: 5px solid var(--c-gold);">
+        <p style="color: grey;">&copy; 2025 BAPS Swaminarayan Chattralay. All Rights Reserved.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

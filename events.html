@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events & Festivals | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        /* Specific Styles for Timeline/Events */
+        .events-hero {
+            height: 50vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .events-hero h1 {
+            font-family: var(--f-heading);
+            font-size: 5rem;
+            color: var(--c-gold);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--c-gold);
+            opacity: 0.3;
+            transform: translateX(-50%);
+        }
+
+        .event-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            position: relative;
+            width: 45%;
+            transition: 0.3s all ease;
+        }
+
+        .event-card:hover {
+            transform: scale(1.02);
+            border-color: var(--c-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .event-card.left {
+            left: 0;
+            text-align: right;
+        }
+
+        .event-card.right {
+            left: 55%;
+        }
+
+        .event-card::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--c-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--c-gold);
+        }
+
+        .event-card.left::after {
+            right: -11.5%;
+        }
+
+        /* Adjust based on gap */
+        .event-card.right::after {
+            left: -11.5%;
+        }
+
+        .event-date {
+            color: var(--c-gold);
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .event-title {
+            font-family: var(--f-heading);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .event-desc {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .event-card {
+                width: 90%;
+                left: 40px !important;
+                text-align: left !important;
+            }
+
+            .event-card::after {
+                left: -31px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="baps-logo-svg-container" style="width: auto; height: auto;">
+                <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                    alt="BAPS APC Logo" style="max-width: 300px; width: 100%; display: block;">
+            </div>
+            <div class="loader-text-group" style="margin-top: 1rem;">
+                <div class="loader-subtitle">Vallabh Vidyanagar</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            const p = document.getElementById('preloader');
+            if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; }
+        }, 1500);
+    </script>
+
+    <!-- New Header Structure -->
+    <header class="site-header">
+        <!-- Row 1: Brand & Utilities -->
+        <div class="brand-bar">
+            <div class="container-fluid branding-row">
+                <!-- Logo -->
+                <div class="logo-wrapper">
+                    <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                        alt="BAPS APC Logo" class="brand-logo">
+                    <div class="brand-text">
+                        <div class="brand-title">BAPS Swaminarayan Chhatralaya</div>
+                        <div class="brand-subtitle">Vallabh Vidyanagar</div>
+                    </div>
+                </div>
+
+                <!-- Utility Links (Moved from Top Bar) -->
+                <div class="utility-links">
+                    <a href="#">Alumni</a>
+                    <span class="sep">|</span>
+                    <a href="#">Parent Login</a>
+                    <a href="/login.html" class="access-icon" title="Staff Access"><i class="fa-solid fa-key"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Main Navigation -->
+        <nav class="main-navbar sticky-nav">
+            <div class="container-fluid nav-row">
+                <div class="nav-links">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="/inspiration.html">Inspiration</a>
+                    <a href="/vision.html">Vision</a>
+                    <a href="/facilities.html">Facilities</a>
+                    <a href="/events.html" class="active">Events</a>
+                    <a href="/gallery.html">Gallery</a>
+                    <a href="/contact.html">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <!-- Public Student Portal -->
+                    <a href="/login.html" class="btn-baps btn-outline btn-sm">
+                        <i class="fa-solid fa-user-graduate"></i> Student Portal
+                    </a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <!-- Mobile Toggle -->
+                    <div class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const icon = toggle.querySelector('i');
+
+        // Check LocalStorage
+        if (localStorage.getItem('theme') === 'light') {
+            root.setAttribute('data-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'light') {
+                    root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    root.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
+        }
+    </script>
+
+    <div class="events-hero">
+        <h1>Life at APC</h1>
+        <p style="color:#ddd; font-size: 1.2rem;">Celebrations, Competitions, and Connections</p>
+    </div>
+
+    <main class="container" style="padding-bottom: 4rem;">
+        <div class="timeline">
+            <!-- 1. Uttarayan (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">JANUARY 14</span>
+                <h2 class="event-title">Uttarayan (Makar Sankranti)</h2>
+                <p class="event-desc">The sun's transition into Capricorn. Celebrated with kite flying and charity
+                    (Dan-Punya), marking the onset of harvest season.</p>
+            </div>
+
+            <!-- 2. Republic Day (National) -->
+            <div class="event-card right">
+                <span class="event-date">JANUARY 26</span>
+                <h2 class="event-title">Republic Day</h2>
+                <p class="event-desc">Flag hoisting ceremony and patriotic songs to honor the Indian Constitution and
+                    our nation's heroes.</p>
+            </div>
+
+            <!-- 3. Vasant Panchami (BAPS/Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">MAGH SUD 5</span>
+                <h2 class="event-title">Vasant Panchami & Shikshapatri Jayanti</h2>
+                <p class="event-desc">Celebrating the arrival of spring and the gift of the Shikshapatri by Bhagwan
+                    Swaminarayan for the welfare of all souls.</p>
+            </div>
+
+            <!-- 4. Maha Shivratri (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">MAGH VAD 14</span>
+                <h2 class="event-title">Maha Shivratri</h2>
+                <p class="event-desc">The 'Great Night of Shiva'. dedicated to the worship of Bhagwan Shiva with
+                    Bilva-patra puja, fasting, and Vedic chanting.</p>
+            </div>
+
+            <!-- 5. Sports Festival (Hostel) -->
+            <div class="event-card left">
+                <span class="event-date">FEBRUARY</span>
+                <h2 class="event-title">Sports Festival</h2>
+                <p class="event-desc">A week-long athletic extravaganza. Cricket, Volleyball, and Chess tournaments to
+                    build teamwork and fitness.</p>
+            </div>
+
+            <!-- 6. Holi (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">FAGAN SUD 15</span>
+                <h2 class="event-title">Holi & Fagan Punam</h2>
+                <p class="event-desc">The festival of colors symbolizing the victory of good over evil (Prahlad &
+                    Holika), and the birthday of Bhagatji Maharaj.</p>
+            </div>
+
+            <!-- 7. Rama Navami (Sanatan/BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">CHAITRA SUD 9</span>
+                <h2 class="event-title">Rama Navami & Swaminarayan Jayanti</h2>
+                <p class="event-desc">A double celebration! Marking the birth of Maryada Purushottam Lord Rama at noon
+                    and Purna Purushottam Bhagwan Swaminarayan at night.</p>
+            </div>
+
+            <!-- 8. Hanuman Jayanti (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">CHAITRA SUD 15</span>
+                <h2 class="event-title">Hanuman Jayanti</h2>
+                <p class="event-desc">Celebrating the ultimate devotee, Hanumanji. Students recite the Hanuman Chalisa
+                    collectively to gain strength and devotion.</p>
+            </div>
+
+            <!-- 9. Annual Function (Hostel) -->
+            <div class="event-card left">
+                <span class="event-date">MARCH / APRIL</span>
+                <h2 class="event-title">Annual Function</h2>
+                <p class="event-desc">A cultural showcase where students display talents in drama and music, and
+                    academic toppers are honored.</p>
+            </div>
+
+            <!-- 10. Shastriji Maharaj Jayanti (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">VAISHAKH SUD 5</span>
+                <h2 class="event-title">Shastriji Maharaj Jayanti</h2>
+                <p class="event-desc">Honoring the founder of BAPS, Brahmaswarup Shastriji Maharaj, who established the
+                    Akshar-Purushottam Upasana.</p>
+            </div>
+
+            <!-- 11. Yogiji Maharaj Jayanti (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">VAISHAKH VAD 12</span>
+                <h2 class="event-title">Yogiji Maharaj Jayanti</h2>
+                <p class="event-desc">Celebrating the prophet of youth activities! Special assemblies focused on his
+                    vision of 'Samp, Suhradbhav, and Ekta'.</p>
+            </div>
+
+            <!-- 12. Freshers' Welcome (Hostel) -->
+            <div class="event-card right">
+                <span class="event-date">JUNE</span>
+                <h2 class="event-title">Freshers' Welcome</h2>
+                <p class="event-desc">A grand induction for new students. Ice-breaking sessions, games, and a warm
+                    welcome into the APC family.</p>
+            </div>
+
+            <!-- 13. Rath Yatra (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">ASHADH SUD 2</span>
+                <h2 class="event-title">Rath Yatra</h2>
+                <p class="event-desc">The Chariot Festival of Lord Jagannath, Balbhadra, and Subhadra. Celebrated with a
+                    procession and special 'Mung-Bhat' prasad.</p>
+            </div>
+
+            <!-- 14. Guru Purnima (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">ASHADH SUD 15</span>
+                <h2 class="event-title">Guru Purnima</h2>
+                <p class="event-desc">A fundamental Sanatan festival honoring the Guru. Students perform pujan of the
+                    Guru, keeping the Guru-Shishya tradition alive.</p>
+            </div>
+
+            <!-- 15. Hindola Utsav (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">SHRAVAN MONTH</span>
+                <h2 class="event-title">Hindola Utsav</h2>
+                <p class="event-desc">A month of artistic devotion where God is swung in ornate cradles (Hindolas) made
+                    by students from various creative materials.</p>
+            </div>
+
+            <!-- 16. Raksha Bandhan (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">SHRAVAN SUD 15</span>
+                <h2 class="event-title">Raksha Bandhan</h2>
+                <p class="event-desc">Celebrating the bond of protection. Students offer Rakhis to God, praying for
+                    protection from bad company and maya.</p>
+            </div>
+
+            <!-- 17. Janmashtami (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">SHRAVAN VAD 8</span>
+                <h2 class="event-title">Janmashtami</h2>
+                <p class="event-desc">Birth of Lord Krishna. The hostel resonates with 'Nand Gher Anand Bhayo' through
+                    devotional singing and a midnight Aarti.</p>
+            </div>
+
+            <!-- 18. Ganesh Chaturthi (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">BHADARVA SUD 4</span>
+                <h2 class="event-title">Ganesh Chaturthi</h2>
+                <p class="event-desc">Welcoming Vighnaharta Ganeshji. A clay Murti is installed for ten days, with daily
+                    aarti and laddu prasad.</p>
+            </div>
+
+            <!-- 19. Mahant Swami Maharaj Jayanti (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">BHADARVA SUD 6</span>
+                <h2 class="event-title">Mahant Swami Maharaj Jayanti</h2>
+                <p class="event-desc">Celebrating the life of our Pragat Guru, H.H. Mahant Swami Maharaj, focusing on
+                    his virtues of humility and unity.</p>
+            </div>
+
+            <!-- 20. Navratri (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">ASO MONTH</span>
+                <h2 class="event-title">Navratri</h2>
+                <p class="event-desc">Nine nights worshiping Shakti (Goddess Durga). We observe it through prolonged
+                    spiritual anusthans and devotion.</p>
+            </div>
+
+            <!-- 21. Dussehra (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">ASO SUD 10</span>
+                <h2 class="event-title">Dussehra (Vijayadashami)</h2>
+                <p class="event-desc">Celebrating the victory of Lord Rama over Ravana. A day to pledge victory over our
+                    inner vices.</p>
+            </div>
+
+            <!-- 22. Sharad Purnima (BAPS/Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">ASO SUD 15</span>
+                <h2 class="event-title">Sharad Purnima</h2>
+                <p class="event-desc">Birth anniversary of Aksharbrahma Gunatitanand Swami. Celebrated under the full
+                    moon with 'Dudhpau' prasad.</p>
+            </div>
+
+            <!-- 23. Diwali (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">ASO VAD 15</span>
+                <h2 class="event-title">Diwali</h2>
+                <p class="event-desc">The Festival of Lights. Lighting diyas to dispel darkness, symbolizing the
+                    awakening of inner knowledge.</p>
+            </div>
+
+            <!-- 24. Annakut (New Year) (Sanatan/BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">KARTIK SUD 1</span>
+                <h2 class="event-title">Govardhan Puja & Annakut</h2>
+                <p class="event-desc">A grand offering of 1000+ vegetarian dishes to God, celebrating the New Year with
+                    joy, forgiveness, and brotherhood.</p>
+            </div>
+
+            <!-- 25. Prabodhini Ekadashi (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">KARTIK SUD 11</span>
+                <h2 class="event-title">Prabodhini Ekadashi</h2>
+                <p class="event-desc">The day Bhagwan Swaminarayan received Diksha. It marks the end of Chaturmas and is
+                    observed with waterless fasting by many.</p>
+            </div>
+
+            <!-- 26. Pramukh Swami Maharaj Jayanti (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">MAGSHAR SUD 8</span>
+                <h2 class="event-title">Pramukh Swami Maharaj Jayanti</h2>
+                <p class="event-desc">A global celebration of our eternal Guru H.H. Pramukh Swami Maharaj, whose life
+                    motto was 'In the joy of others, lies our own'.</p>
+            </div>
+
+            <!-- 27. Garden Party (Hostel) -->
+            <div class="event-card left">
+                <span class="event-date">DECEMBER 31</span>
+                <h2 class="event-title">New Year's Eve Garden Party</h2>
+                <p class="event-desc">Our signature year-end gala! An open-air party with live food, music, and
+                    brotherhood to welcome the Gregorian New Year with satsang values.</p>
+            </div>
+
+            <!-- 2. Vasant Panchami (BAPS/Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">MAGH SUD 5</span>
+                <h2 class="event-title">Shikshapatri Jayanti</h2>
+                <p class="event-desc">Celebrating the gift of the Shikshapatri by Bhagwan Swaminarayan and the arrival
+                    of spring (Vasant Panchami).</p>
+            </div>
+
+            <!-- 3. Maha Shivratri (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">MAGH VAD 14</span>
+                <h2 class="event-title">Maha Shivratri</h2>
+                <p class="event-desc">A night dedicated to the worship of Bhagwan Shiva with Bilva-patra puja and Vedic
+                    chanting.</p>
+            </div>
+
+            <!-- 4. Annual Sports Festival (Hostel) -->
+            <div class="event-card right">
+                <span class="event-date">FEBRUARY</span>
+                <h2 class="event-title">Sports Festival</h2>
+                <p class="event-desc">A week-long athletic extravaganza. Cricket, Volleyball, and Chess tournaments to
+                    build teamwork and fitness.</p>
+            </div>
+
+            <!-- 5. Holi (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">FAGAN SUD 15</span>
+                <h2 class="event-title">Holi & Fagan Punam</h2>
+                <p class="event-desc">The festival of colors and the birthday of Brahmaswarup Bhagatji Maharaj,
+                    celebrated with joy and devotion.</p>
+            </div>
+
+            <!-- 6. Rama Navami & Swaminarayan Jayanti (Major BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">CHAITRA SUD 9</span>
+                <h2 class="event-title">Swaminarayan Jayanti</h2>
+                <p class="event-desc">The biggest celebration of the year! A 24-hour fast followed by late-night
+                    celebrations marking the birth of Bhagwan Swaminarayan and Lord Rama.</p>
+            </div>
+
+            <!-- 7. Hanuman Jayanti (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">CHAITRA SUD 15</span>
+                <h2 class="event-title">Hanuman Jayanti</h2>
+                <p class="event-desc">Celebrating the ideal devotee, Hanumanji, with collective recitation of the
+                    Hanuman Chalisa.</p>
+            </div>
+
+            <!-- 8. Annual Day (Hostel) -->
+            <div class="event-card right">
+                <span class="event-date">MARCH / APRIL</span>
+                <h2 class="event-title">Annual Function</h2>
+                <p class="event-desc">A cultural showcase where students display talents in drama and music, and
+                    academic toppers are honored.</p>
+            </div>
+
+            <!-- 9. Shastriji Maharaj Jayanti (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">VAISHAKH SUD 5</span>
+                <h2 class="event-title">Shastriji Maharaj Jayanti</h2>
+                <p class="event-desc">Honoring the founder of BAPS, Brahmaswarup Shastriji Maharaj, and his
+                    establishment of the Akshar-Purushottam Upasana.</p>
+            </div>
+
+            <!-- 10. Yogiji Maharaj Jayanti (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">VAISHAKH VAD 12</span>
+                <h2 class="event-title">Yogiji Maharaj Jayanti</h2>
+                <p class="event-desc">Celebrating the prophet of youth activities! Special assemblies focused on his
+                    vision of 'Samp, Suhradbhav, and Ekta'.</p>
+            </div>
+
+            <!-- 11. Freshers' Welcome (Hostel) -->
+            <div class="event-card left">
+                <span class="event-date">JUNE</span>
+                <h2 class="event-title">Freshers' Welcome</h2>
+                <p class="event-desc">A grand induction for new students. Ice-breaking sessions, games, and a warm
+                    welcome into the APC family.</p>
+            </div>
+
+            <!-- 12. Rath Yatra (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">ASHADH SUD 2</span>
+                <h2 class="event-title">Rath Yatra</h2>
+                <p class="event-desc">Celebrating the journey of Lord Jagannath with a symbolic procession and offering
+                    of specialized prasad.</p>
+            </div>
+
+            <!-- 13. Guru Purnima (Sanatan/BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">ASHADH SUD 15</span>
+                <h2 class="event-title">Guru Purnima</h2>
+                <p class="event-desc">A fundamental Sanatan festival honoring the Guru. Students perform pujan of the
+                    Guru, keeping the Guru-Shishya tradition alive.</p>
+            </div>
+
+            <!-- 14. Hindola Utsav (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">SHRAVAN MONTH</span>
+                <h2 class="event-title">Hindola Utsav</h2>
+                <p class="event-desc">A month of artistic devotion where God is swung in ornate cradles (Hindolas) made
+                    by students from various creative materials.</p>
+            </div>
+
+            <!-- 15. Independence Day (National) -->
+            <div class="event-card left">
+                <span class="event-date">AUGUST 15</span>
+                <h2 class="event-title">Independence Day</h2>
+                <p class="event-desc">Saluting the tricolor and remembering the sacrifices of freedom fighters with
+                    national pride.</p>
+            </div>
+
+            <!-- 16. Janmashtami (Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">SHRAVAN VAD 8</span>
+                <h2 class="event-title">Janmashtami</h2>
+                <p class="event-desc">The birth of Lord Krishna! celebrated with devotional songs (Kirtans), Raas, and a
+                    grand midnight Aarti.</p>
+            </div>
+
+            <!-- 17. Ganesh Chaturthi (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">BHADARVA SUD 4</span>
+                <h2 class="event-title">Ganesh Chaturthi</h2>
+                <p class="event-desc">Welcoming Vighnaharta Ganeshji. Celebrated with sthapan puja and daily aartis for
+                    ten days.</p>
+            </div>
+
+            <!-- 18. Mahant Swami Maharaj Jayanti (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">BHADARVA SUD 6</span>
+                <h2 class="event-title">Mahant Swami Maharaj Jayanti</h2>
+                <p class="event-desc">Celebrating the life of our Pragat Guru, H.H. Mahant Swami Maharaj, with spiritual
+                    discourses and introspection.</p>
+            </div>
+
+            <!-- 19. Navratri (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">ASO MONTH</span>
+                <h2 class="event-title">Navratri Anusthan</h2>
+                <p class="event-desc">Nine nights of devotion. While we don't play Garba, we perform special Anusthans
+                    (spiritual observances) for Shakti adoration.</p>
+            </div>
+
+            <!-- 20. Sharad Purnima (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">ASO SUD 15</span>
+                <h2 class="event-title">Sharad Purnima</h2>
+                <p class="event-desc">Birth anniversary of Aksharbrahma Gunatitanand Swami. Celebrated with 'Dudhpau'
+                    prasad under the full moon.</p>
+            </div>
+
+            <!-- 21. Diwali (Sanatan) -->
+            <div class="event-card left">
+                <span class="event-date">ASO VAD 15</span>
+                <h2 class="event-title">Diwali</h2>
+                <p class="event-desc">The Festival of Lights. Lighting diyas to dispel darkness, symbolizing the
+                    awakening of inner knowledge.</p>
+            </div>
+
+            <!-- 22. Annakut & New Year (BAPS/Sanatan) -->
+            <div class="event-card right">
+                <span class="event-date">KARTIK SUD 1</span>
+                <h2 class="event-title">Govardhan Puja & Annakut</h2>
+                <p class="event-desc">A grand offering of 1000+ vegetarian dishes to God, celebrating the New Year with
+                    joy, forgiveness, and brotherhood.</p>
+            </div>
+
+            <!-- 23. Prabodhini Ekadashi (BAPS) -->
+            <div class="event-card left">
+                <span class="event-date">KARTIK SUD 11</span>
+                <h2 class="event-title">Prabodhini Ekadashi</h2>
+                <p class="event-desc">The day Bhagwan Swaminarayan received Diksha. It marks the end of Chaturmas and is
+                    observed with waterless fasting by many.</p>
+            </div>
+
+            <!-- 24. Pramukh Swami Maharaj Jayanti (BAPS) -->
+            <div class="event-card right">
+                <span class="event-date">MAGSHAR SUD 8</span>
+                <h2 class="event-title">Pramukh Swami Maharaj Jayanti</h2>
+                <p class="event-desc">A global celebration of our eternal Guru H.H. Pramukh Swami Maharaj, whose life
+                    motto was 'In the joy of others, lies our own'.</p>
+            </div>
+
+            <!-- 25. Garden Party (Hostel) -->
+            <div class="event-card left">
+                <span class="event-date">DECEMBER 31</span>
+                <h2 class="event-title">New Year's Eve Garden Party</h2>
+                <p class="event-desc">Our signature year-end gala! An open-air party with live food, music, and
+                    brotherhood to welcome the Gregorian New Year with satsang values.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- Column 1: Reach Us -->
+            <div class="footer-section">
+                <h2>Reach Us</h2>
+                <div class="contact-details">
+                    <p><i class="fa-solid fa-location-dot"></i>
+                        <span>
+                            <strong>Main Office (Vallabh Vidyanagar):</strong><br>
+                            Near Pramukhswami Circle, Anand - Vidyanagar Rd,<br>
+                            Vallabh Vidyanagar, Anand, Gujarat 388120
+                        </span>
+                    </p>
+                    <p><i class="fa-solid fa-phone"></i> +91 99988 77766</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@baps-hostel.org</p>
+                </div>
+
+                <div class="city-offices">
+                    <p style="color: var(--c-gold); font-weight: bold; margin-bottom: 0.8rem;">Major City Offices
+                        (Mandirs):</p>
+                    <ul class="office-list" style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc;">
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Vadodara:</strong> BAPS Mandir, Atladara, Padra Road, Vadodara
+                            - 390012.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Amdavad:</strong> BAPS Mandir, Shahibaug Rd, Madhupura,
+                            Ahmedabad - 380004.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Rajkot:</strong> BAPS Mandir, Kalawad Road, Near Mahila
+                            College, Rajkot -
+                            360001.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Surat:</strong> BAPS Mandir, Adajan Gas Circle, Adajan, Surat -
+                            395009.
+                        </li>
+                    </ul>
+                    <p
+                        style="font-size: 0.8rem; margin-top: 1rem; color: #888; border-top: 1px solid #333; padding-top: 0.5rem;">
+                        * For other cities, please visit your nearest Shikharbaddh Mandir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Column 2: Programmes / Facilities -->
+            <div class="footer-section footer-links">
+                <h2>Our Features</h2>
+                <ul>
+                    <li><a href="/facility-prayer.html">Mandir Hall & Spirituality</a></li>
+                    <li><a href="/facility-reading.html">Reading Halls</a></li>
+                    <li><a href="#">Bhojanalay (Dining)</a></li>
+                    <li><a href="#">Sports & Recreation</a></li>
+                    <li><a href="#">Student Counseling</a></li>
+                    <li><a href="#">Medical Facilities</a></li>
+                    <li><a href="#">Library & E-Resources</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Quick Links -->
+            <div class="footer-section footer-links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/apply.html">Apply Now (2025)</a></li>
+                    <li><a href="/events.html">Upcoming Events</a></li>
+                    <li><a href="/gallery.html">Photo Gallery</a></li>
+                    <li><a href="/student-dashboard.html">Student Login</a></li>
+                    <li><a href="/admin-dashboard.html">Admin Login</a></li>
+                    <li><a href="/contact.html">Contact Support</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BAPS" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/baps" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/baps" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://twitter.com/BAPS" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 BAPS Swaminarayan Chhatralaya. All Rights Reserved. | <strong>Developed by BAPS and APC
+                    Team</strong> | <a href="#" style="color: #666;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

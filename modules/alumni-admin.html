@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Admin | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Govt Table Styles */
+        .govt-table {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .govt-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .govt-table td {
+            border: 1px solid #eee;
+            padding: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.7rem; color: #aaa; text-transform: uppercase;">
+                Modules</div>
+
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass System</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory Store</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library Admin</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical Records</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="alumni-admin.html" class="nav-item active"><i class="fa-solid fa-user-graduate"></i> Alumni
+                Network</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams & Results</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security &
+                Visitors</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="top-header page-header">
+            <div class="page-title">
+                <h1>Alumni Network</h1>
+                <p>Connect with Ex-Students, Manage Events and Donations</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="document.getElementById('alumniModal').style.display='flex'">
+                <i class="fa-solid fa-plus"></i> Register Alumni
+            </button>
+        </div>
+
+        <div class="baps-card" style="min-height: 80vh;">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('directory')"><i class="fa-solid fa-address-book"></i>
+                    Directory</button>
+                <button class="tab-btn" onclick="switchTab('events')"><i class="fa-solid fa-calendar-check"></i>
+                    Events</button>
+                <button class="tab-btn" onclick="switchTab('donations')"><i class="fa-solid fa-hand-holding-heart"></i>
+                    Donations</button>
+
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card" style="background:#f9f9f9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:var(--c-navy);">1,250</div>
+                            <div style="color:#666;">Total Alumni</div>
+                        </div>
+                        <i class="fa-solid fa-user-graduate" style="font-size:2rem; color:var(--c-gold);"></i>
+                    </div>
+                    <div class="stat-card" style="background:#E8F5E9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#2E7D32;">₹ 50L+</div>
+                            <div style="color:#666;">Contributions</div>
+                        </div>
+                        <i class="fa-solid fa-hand-holding-dollar" style="font-size:2rem; color:#2E7D32;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFEBEE; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#C62828;">25</div>
+                            <div style="color:#666;">Upcoming Event</div>
+                        </div>
+                        <i class="fa-solid fa-calendar-days" style="font-size:2rem; color:#C62828;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFF8E1; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#F57F17;">45</div>
+                            <div style="color:#666;">Mentors Active</div>
+                        </div>
+                        <i class="fa-solid fa-chalkboard-user" style="font-size:2rem; color:#F57F17;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: DIRECTORY -->
+            <div id="tab-directory" class="tab-content">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                    <h3>Alumni List</h3>
+                    <input type="text" placeholder="Search by Name, Company, City..."
+                        style="padding:0.5rem 1rem; border:1px solid #ddd; border-radius:20px; width:300px;">
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Passed Out</th>
+                            <th>Current Role</th>
+                            <th>Company</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Deven Patel</td>
+                            <td>2018</td>
+                            <td>Senior Engineer</td>
+                            <td>Google (USA)</td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">Profile</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Harshil Shah</td>
+                            <td>2020</td>
+                            <td>MBA Student</td>
+                            <td>IIM Ahmedabad</td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">Profile</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 3: EVENTS -->
+            <div id="tab-events" class="tab-content">
+                <h3>Reunions & Meetups</h3>
+                <div
+                    style="background:white; border:1px solid #eee; border-radius:8px; padding:1rem; margin-bottom:1rem;">
+                    <h4>Annual Alumni Sneh Milan 2025</h4>
+                    <p>Date: 5th Jan 2025 | Venue: APC Main Hall</p>
+                    <p>Status: <span class="badge badge-verified">Registrations Open (150 Signed up)</span></p>
+                    <button class="btn-baps btn-gold">Manage Registrations</button>
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Attendees</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tech Mentorship Session</td>
+                            <td>28 Dec 2024</td>
+                            <td>Online (Zoom)</td>
+                            <td>45</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 4: DONATIONS -->
+            <div id="tab-donations" class="tab-content">
+                <h3>Contribution History</h3>
+                <button class="btn-baps btn-outline" style="margin-bottom:1rem;">+ Record Donation</button>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Donor Name</th>
+                            <th>Amount</th>
+                            <th>Purpose</th>
+                            <th>Date</th>
+                            <th>Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Anil Gupta (Batch '15)</td>
+                            <td>₹ 1,00,000</td>
+                            <td>Library Upgrade</td>
+                            <td>15 Dec 2024</td>
+                            <td>Cheque</td>
+                        </tr>
+                        <tr>
+                            <td>Sanjay Patel (Batch '10)</td>
+                            <td>₹ 50,000</td>
+                            <td>Medical Fund</td>
+                            <td>10 Dec 2024</td>
+                            <td>Online</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- ALUMNI MODAL (5 Fields) -->
+    <div id="alumniModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 500px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Register New Alumni</h3>
+                <button onclick="document.getElementById('alumniModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveAlumni();">
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Full Name</label>
+                    <input type="text" required placeholder="e.g. Deven Patel"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Passout Year</label>
+                    <input type="number" required placeholder="YYYY"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Organization</label>
+                        <input type="text" required placeholder="Current Company"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Designation</label>
+                        <input type="text" placeholder="Job Title"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Email Address</label>
+                    <input type="email" required placeholder="alumni@example.com"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Register Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function saveAlumni() {
+            const btn = document.querySelector('#alumniModal button[type="submit"]');
+            btn.innerHTML = 'Registering...';
+            setTimeout(() => {
+                alert('Alumni Profile Created Successfully!');
+                document.getElementById('alumniModal').style.display = 'none';
+                btn.innerHTML = 'Register Profile';
+            }, 1000);
+        }
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

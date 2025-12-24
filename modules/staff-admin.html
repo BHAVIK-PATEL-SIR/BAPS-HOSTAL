@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff & Kothari | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Govt Table Styles */
+        .govt-table {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .govt-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .govt-table td {
+            border: 1px solid #eee;
+            padding: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.7rem; color: #aaa; text-transform: uppercase;">
+                Modules</div>
+
+            <a href="staff-admin.html" class="nav-item active"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass System</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory Store</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library Admin</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical Records</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni Network</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams & Results</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security &
+                Visitors</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="top-header page-header">
+            <div class="page-title">
+                <h1>Staff & Kothari Management</h1>
+                <p>Manage Sadhus, Staff Roles, Payroll and Government Reporting</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="document.getElementById('addStaffModal').style.display='flex'">
+                <i class="fa-solid fa-plus"></i> Add New Staff
+            </button>
+        </div>
+
+        <div class="baps-card" style="min-height: 80vh;">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('directory')"><i class="fa-solid fa-users"></i> Staff
+                    Directory</button>
+                <button class="tab-btn" onclick="switchTab('attendance')"><i class="fa-solid fa-clock"></i>
+                    Attendance</button>
+                <button class="tab-btn" onclick="switchTab('communication')"><i class="fa-solid fa-envelope"></i>
+                    Communication (Mail)</button>
+
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card" style="background:#f9f9f9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:2rem; font-weight:bold; color:var(--c-navy);">45</div>
+                            <div style="color:#666;">Total Staff</div>
+                        </div>
+                        <i class="fa-solid fa-id-card" style="font-size:2rem; color:var(--c-gold);"></i>
+                    </div>
+                    <div class="stat-card" style="background:#E8F5E9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:2rem; font-weight:bold; color:#2E7D32;">42</div>
+                            <div style="color:#666;">Present Today</div>
+                        </div>
+                        <i class="fa-solid fa-check-circle" style="font-size:2rem; color:#2E7D32;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFF8E1; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:2rem; font-weight:bold; color:#F57F17;">3</div>
+                            <div style="color:#666;">On Leave</div>
+                        </div>
+                        <i class="fa-solid fa-umbrella-beach" style="font-size:2rem; color:#F57F17;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFEBEE; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:2rem; font-weight:bold; color:#C62828;">1</div>
+                            <div style="color:#666;">Pending Approval</div>
+                        </div>
+                        <i class="fa-solid fa-user-clock" style="font-size:2rem; color:#C62828;"></i>
+                    </div>
+                </div>
+                <h3>Recent Activities</h3>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Activity</th>
+                            <th>User</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10:00 AM</td>
+                            <td>Logged in</td>
+                            <td>Kothari Swami</td>
+                        </tr>
+                        <tr>
+                            <td>09:30 AM</td>
+                            <td>Changed Shift for Ramesh Bhai</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>09:00 AM</td>
+                            <td>Approved Leave for Suresh</td>
+                            <td>HR</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 2: DIRECTORY -->
+            <div id="tab-directory" class="tab-content">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                    <h3>Staff List</h3>
+                    <input type="text" placeholder="Search staff..."
+                        style="padding:0.5rem 1rem; border:1px solid #ddd; border-radius:20px; width:300px;">
+                </div>
+                <table class="baps-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Mobile</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fa-solid fa-user-circle" style="color:var(--c-gold); margin-right:5px;"></i>
+                                P. Tyagvallabh Swami</td>
+                            <td><span style="color:#d32f2f; font-weight:bold;">Kothari Swami</span></td>
+                            <td>+91 9998877665</td>
+                            <td><span class="badge badge-verified">Active</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.5rem;"
+                                    onclick="alert('Viewing Details')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Ramesh Bhai Patel</td>
+                            <td>Warden (Hostel A)</td>
+                            <td>+91 9876543210</td>
+                            <td><span class="badge badge-verified">Active</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.5rem;"
+                                    onclick="alert('Viewing Details')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Suresh Kumar</td>
+                            <td>Security Head</td>
+                            <td>+91 8877665544</td>
+                            <td><span class="badge badge-pending">On Leave</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.5rem;"
+                                    onclick="alert('Viewing Details')">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 3: ATTENDANCE -->
+            <div id="tab-attendance" class="tab-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <h3>Today's Attendance (24 Dec 2024)</h3>
+                    <button class="btn-baps btn-outline" onclick="alert('Downloaded Status Report')"><i
+                            class="fa-solid fa-file-excel"></i> Export CSV</button>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <div
+                        style="border:1px solid #eee; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><b>Ramesh Bhai</b>
+                            <div style="font-size:0.8rem; color:#666;">Warden</div>
+                        </div>
+                        <span class="badge badge-verified">Present</span>
+                    </div>
+                    <div
+                        style="border:1px solid #eee; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><b>Suresh Kumar</b>
+                            <div style="font-size:0.8rem; color:#666;">Security</div>
+                        </div>
+                        <span class="badge badge-rejected">Absent</span>
+                    </div>
+                    <div
+                        style="border:1px solid #eee; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><b>Mahesh Bhai</b>
+                            <div style="font-size:0.8rem; color:#666;">Cleaning</div>
+                        </div>
+                        <span class="badge badge-verified">Present</span>
+                    </div>
+                    <div
+                        style="border:1px solid #eee; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div><b>Kishan Bhai</b>
+                            <div style="font-size:0.8rem; color:#666;">Kitchen</div>
+                        </div>
+                        <span class="badge badge-verified">Present</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: COMMUNICATION (MAIL SYSTEM) -->
+            <div id="tab-communication" class="tab-content">
+                <h3 style="margin-bottom:1.5rem; color: var(--c-navy);">Internal Communication Center</h3>
+                <div style="display:grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                    <div class="baps-card" style="box-shadow:none; border:1px solid #eee;">
+                        <h4><i class="fa-solid fa-paper-plane"></i> Compose Official Mail</h4>
+                        <div style="margin-bottom:1rem;">
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">To
+                                (Group/Individual)</label>
+                            <select style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                                <option>All Staff</option>
+                                <option>Wardens Only</option>
+                                <option>Security Team</option>
+                                <option>Individual (Enter Email Below)</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Staff Email
+                                (Optional)</label>
+                            <input type="email" placeholder="staff.name@baps.org"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Subject</label>
+                            <input type="text" placeholder="Notice regarding..."
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Message Body</label>
+                            <textarea rows="4"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;"></textarea>
+                        </div>
+                        <button class="btn-baps btn-gold" style="width:100%;" onclick="sendMail()"><i
+                                class="fa-solid fa-paper-plane"></i> Send Mail</button>
+                    </div>
+
+                    <div>
+                        <h4>Recent Sent Mails</h4>
+                        <div style="background:white; border:1px solid #eee; border-radius:8px;">
+                            <div style="padding:1rem; border-bottom:1px solid #eee;">
+                                <div style="font-weight:bold; color:#333;">Diwali Vacation Schedule</div>
+                                <div style="font-size:0.8rem; color:#666;">To: All Staff | Sent: Yesterday</div>
+                            </div>
+                            <div style="padding:1rem; border-bottom:1px solid #eee;">
+                                <div style="font-weight:bold; color:#333;">Security Protocol Update</div>
+                                <div style="font-size:0.8rem; color:#666;">To: Security Team | Sent: 2 days ago</div>
+                            </div>
+                            <div style="padding:1rem;">
+                                <div style="font-weight:bold; color:#333;">Meeting Reminder</div>
+                                <div style="font-size:0.8rem; color:#666;">To: Wardens | Sent: 3 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- ADD STAFF MODAL -->
+    <div id="addStaffModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 500px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Add New Staff Member</h3>
+                <button onclick="document.getElementById('addStaffModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveNewStaff();">
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Full Name</label>
+                    <input type="text" id="sName" required placeholder="e.g. Mukesh Patel"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Role / Designation</label>
+                    <select id="sRole" style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        <option>Warden</option>
+                        <option>Security Guard</option>
+                        <option>Cleaner</option>
+                        <option>Kitchen Staff</option>
+                        <option>Admin Assistant</option>
+                    </select>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Mobile Number</label>
+                        <input type="text" id="sMobile" required placeholder="+91..."
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Email Address</label>
+                        <input type="email" id="sEmail" placeholder="optional"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Aadhaar Card No.</label>
+                    <input type="text" id="sAadhar" required placeholder="XXXX-XXXX-XXXX"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Create Staff Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function saveNewStaff() {
+            const name = document.getElementById('sName').value;
+            const role = document.getElementById('sRole').value;
+            const btn = document.querySelector('#addStaffModal button[type="submit"]');
+
+            btn.innerHTML = 'Saving...';
+            setTimeout(() => {
+                alert(`Staff Member '${name}' added as ${role} successfully!`);
+                document.getElementById('addStaffModal').style.display = 'none';
+                btn.innerHTML = 'Create Staff Profile';
+                document.getElementById('sName').value = '';
+            }, 1000);
+        }
+
+        function sendMail() {
+            const btn = document.querySelector('#tab-communication button');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            setTimeout(() => {
+                alert('Mail Sent Successfully to selected recipients!');
+                btn.innerHTML = orig;
+            }, 1500);
+        }
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

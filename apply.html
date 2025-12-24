@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Online | BAPS APC Vallabh Vidyanagar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .apply-container {
+            max-width: 800px;
+            margin: 8rem auto 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .form-section-title {
+            background: var(--c-mandir-red);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0 1.5rem;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .form-section-title i {
+            color: var(--c-gold);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--c-mandir-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: #fffbe6;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px dashed var(--c-gold);
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--c-mandir-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        .mandir-suggestion {
+            font-size: 0.85rem;
+            color: var(--c-mandir-red);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav sticky-nav">
+        <div class="logo-wrapper">
+            <div class="baps-symbol">
+                <div class="tilak"></div>
+                <div class="chandlo"></div>
+            </div>
+            <div class="logo-text">
+                <span class="logo-main">BAPS APC</span>
+                <span class="logo-sub">Vallabh Vidyanagar</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/brochure.html">Handbook</a>
+            <a href="/admission-form.html" target="_blank">Offline Form</a>
+            <a href="/apply.html" class="active nav-cta">Apply Online</a>
+            <!-- Public Student Portal -->
+            <a href="/login.html" class="nav-cta"
+                style="background: transparent; border: 1px solid var(--c-gold); color: var(--c-gold); margin-left: 0.5rem;">
+                <i class="fa-solid fa-user-graduate"></i> Student Portal
+            </a>
+
+            <!-- Theme Toggle -->
+            <button id="theme-toggle"
+                style="background: transparent; border: none; color: white; cursor: pointer; font-size: 1.2rem; margin-left: 0.5rem;"
+                title="Toggle Light/Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+    <script>
+        const toggle = document.getElementById('theme-toggle'); const root = document.documentElement; const icon = toggle.querySelector('i');
+        if (localStorage.getItem('theme') === 'light') { root.setAttribute('data-theme', 'light'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); toggle.style.color = '#333'; }
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'light') { root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); toggle.style.color = 'white'; }
+                else { root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); toggle.style.color = '#333'; }
+            });
+        }
+    </script>
+
+    <div class="apply-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-family: 'Cinzel', serif; color: var(--c-mandir-red);">Student Application 2025-26</h1>
+            <p style="color: #666;">Fill incomplete details for digital processing. Verification is mandatory at a
+                Shikharbaddh Mandir.</p>
+        </div>
+
+        <form id="admissionForm">
+
+            <!-- 1. Personal Details -->
+            <div class="form-section-title"><i class="fa-solid fa-user"></i> Personal Details</div>
+            <div class="form-grid">
+                <div class="full-width form-group">
+                    <label>Full Name (as per LC)</label>
+                    <input type="text" id="fullName" required placeholder="Surname First Name Middle Name">
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    <select id="bloodGroup">
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>O+</option>
+                        <option>O-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Aadhar Card No.</label>
+                    <input type="text" id="aadhar" required placeholder="12 Digit Number">
+                </div>
+                <div class="form-group">
+                    <label>Mobile No.</label>
+                    <input type="tel" id="studentMobile" required placeholder="10 Digit Number">
+                </div>
+                <div class="full-width form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+            </div>
+
+            <!-- 2. Family Details -->
+            <div class="form-section-title"><i class="fa-solid fa-users"></i> Family Details</div>
+            <div class="form-grid">
+                <div class="full-width form-group">
+                    <label>Father's Name</label>
+                    <input type="text" id="fatherName" required>
+                </div>
+                <div class="form-group">
+                    <label>Father's Mobile</label>
+                    <input type="tel" id="fatherMobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Father's Occupation</label>
+                    <input type="text" id="fatherOccupation" required>
+                </div>
+                <div class="full-width form-group">
+                    <label>Mother's Name</label>
+                    <input type="text" id="motherName" required>
+                </div>
+                <!-- Detailed Address Section -->
+                <div class="full-width form-group">
+                    <label>Detailed Address (House No, Street, Society)</label>
+                    <textarea rows="2" id="addressLine1" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="country" required>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <select id="state" required>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>District</label>
+                    <select id="district" required>
+                        <option value="">Select District</option>
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Amreli">Amreli</option>
+                        <option value="Anand">Anand</option>
+                        <option value="Aravalli">Aravalli</option>
+                        <option value="Banaskantha">Banaskantha</option>
+                        <option value="Bharuch">Bharuch</option>
+                        <option value="Bhavnagar">Bhavnagar</option>
+                        <option value="Botad">Botad</option>
+                        <option value="Chhota Udaipur">Chhota Udaipur</option>
+                        <option value="Dahod">Dahod</option>
+                        <option value="Dang">Dang</option>
+                        <option value="Devbhoomi Dwarka">Devbhoomi Dwarka</option>
+                        <option value="Gandhinagar">Gandhinagar</option>
+                        <option value="Gir Somnath">Gir Somnath</option>
+                        <option value="Jamnagar">Jamnagar</option>
+                        <option value="Junagadh">Junagadh</option>
+                        <option value="Kheda">Kheda</option>
+                        <option value="Kutch">Kutch</option>
+                        <option value="Mahisagar">Mahisagar</option>
+                        <option value="Mehsana">Mehsana</option>
+                        <option value="Morbi">Morbi</option>
+                        <option value="Narmada">Narmada</option>
+                        <option value="Navsari">Navsari</option>
+                        <option value="Panchmahal">Panchmahal</option>
+                        <option value="Patan">Patan</option>
+                        <option value="Porbandar">Porbandar</option>
+                        <option value="Rajkot">Rajkot</option>
+                        <option value="Sabarkantha">Sabarkantha</option>
+                        <option value="Surat">Surat</option>
+                        <option value="Surendranagar">Surendranagar</option>
+                        <option value="Tapi">Tapi</option>
+                        <option value="Vadodara">Vadodara</option>
+                        <option value="Valsad">Valsad</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tehsil / Taluka</label>
+                    <input type="text" id="tehsil" required placeholder="Enter Taluka">
+                </div>
+
+                <div class="form-group">
+                    <label>Village (Optional)</label>
+                    <input type="text" id="village" placeholder="Enter Village">
+                </div>
+
+                <div class="form-group">
+                    <label>Pincode</label>
+                    <input type="text" id="pincode" required pattern="[0-9]{6}" placeholder="388120">
+                </div>
+            </div>
+
+            <!-- 3. Academic Details -->
+            <div class="form-section-title"><i class="fa-solid fa-graduation-cap"></i> Academic Details</div>
+            <div class="form-grid">
+                <div class="full-width form-group">
+                    <label>Last School/College Name</label>
+                    <input type="text" id="school" required>
+                </div>
+                <div class="form-group">
+                    <label>Standard / Course</label>
+                    <input type="text" id="course" required>
+                </div>
+                <div class="form-group">
+                    <label>Percentage / CGPA</label>
+                    <input type="text" id="percentage" required>
+                </div>
+                <div class="full-width form-group">
+                    <label>Admission Seeking For (Course & Year)</label>
+                    <input type="text" id="admission" required placeholder="e.g. B.E. Computer Engineering - 1st Year">
+                </div>
+            </div>
+
+            <!-- 4. Satsang Details -->
+            <div class="form-section-title"><i class="fa-solid fa-om"></i> Satsang Details</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Current Mandal</label>
+                    <input type="text" id="mandal" required>
+                </div>
+                <div class="form-group">
+                    <label>Reference Karyakar Name</label>
+                    <input type="text" id="karyakar" required>
+                </div>
+                <div class="form-group">
+                    <label>Reference Mobile</label>
+                    <input type="tel" id="refMobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Years in Satsang</label>
+                    <input type="number" id="yearsSatsang" min="0">
+                </div>
+            </div>
+
+            <!-- 5. Verification Centre (SMART LOGIC) -->
+            <div class="form-section-title"><i class="fa-solid fa-check-circle"></i> Verification Centre</div>
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Select Your District (for Verification Assignment)</label>
+                    <select id="districtSelect" required onchange="updateMandir()"
+                        style="padding: 1rem; font-size: 1rem; border: 2px solid var(--c-gold);">
+                        <option value="">-- Select District --</option>
+                        <!-- Gujarat Districts -->
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Amreli">Amreli</option>
+                        <option value="Anand">Anand</option>
+                        <option value="Aravalli">Aravalli</option>
+                        <option value="Banaskantha">Banaskantha</option>
+                        <option value="Bharuch">Bharuch</option>
+                        <option value="Bhavnagar">Bhavnagar</option>
+                        <option value="Botad">Botad</option>
+                        <option value="Chhota Udaipur">Chhota Udaipur</option>
+                        <option value="Dahod">Dahod</option>
+                        <option value="Dang">Dang</option>
+                        <option value="Devbhoomi Dwarka">Devbhoomi Dwarka</option>
+                        <option value="Gandhinagar">Gandhinagar</option>
+                        <option value="Gir Somnath">Gir Somnath</option>
+                        <option value="Jamnagar">Jamnagar</option>
+                        <option value="Junagadh">Junagadh</option>
+                        <option value="Kheda">Kheda</option>
+                        <option value="Kutch">Kutch</option>
+                        <option value="Mahisagar">Mahisagar</option>
+                        <option value="Mehsana">Mehsana</option>
+                        <option value="Morbi">Morbi</option>
+                        <option value="Narmada">Narmada</option>
+                        <option value="Navsari">Navsari</option>
+                        <option value="Panchmahal">Panchmahal</option>
+                        <option value="Patan">Patan</option>
+                        <option value="Porbandar">Porbandar</option>
+                        <option value="Rajkot">Rajkot</option>
+                        <option value="Sabarkantha">Sabarkantha</option>
+                        <option value="Surat">Surat</option>
+                        <option value="Surendranagar">Surendranagar</option>
+                        <option value="Tapi">Tapi</option>
+                        <option value="Vadodara">Vadodara</option>
+                        <option value="Valsad">Valsad</option>
+                        <option value="Other">Other State / Country</option>
+                    </select>
+                    </select>
+                </div>
+
+                <!-- Secondary Mandir Select (Hidden by Default) -->
+                <div class="form-group full-width" id="mandirSelectContainer"
+                    style="display: none; animation: fadeIn 0.5s;">
+                    <label style="color: var(--c-mandir-red); font-weight: bold;">Select Preferred Verification Centre
+                        *</label>
+                    <select id="mandirSelect" onchange="renderVerificationCard()"
+                        style="padding: 1rem; font-size: 1rem; border: 2px solid var(--c-mandir-red); background: #fff5f5;">
+                        <option value="">-- Choose Mandir --</option>
+                    </select>
+                </div>
+
+                <!-- Verification Result Card -->
+                <div class="full-width" id="verificationCard"
+                    style="display: none; background: linear-gradient(145deg, #fff, #fffbe6); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--c-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;">
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;">Assigned Verification Centre &
+                        Authority</p>
+
+                    <h3 id="mandirName" style="color: var(--c-mandir-red); margin: 0.5rem 0; font-size: 1.4rem;">
+                        <i class="fa-solid fa-gopuram"></i> <span>-</span>
+                    </h3>
+
+                    <div style="margin: 1rem 0; height: 1px; background: rgba(0,0,0,0.1);"></div>
+
+                    <h4 id="kothariName" style="color: #444; margin: 0; font-size: 1.1rem; font-weight: 600;">
+                        <i class="fa-solid fa-user-tie" style="color: var(--c-gold);"></i> <span>-</span>
+                    </h4>
+                    <p style="font-size: 0.8rem; color: #888;">(Verification Authority)</p>
+
+                    <div id="mandirNote" class="mandir-suggestion" style="margin-top: 1rem;"></div>
+                </div>
+            </div>
+
+            <!-- Agreements -->
+            <div class="form-section-title"><i class="fa-solid fa-file-contract"></i> Agreements</div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="rulesAgree" required>
+                <label for="rulesAgree" style="display:inline; margin:0;">
+                    I have read and agree to the <strong>30 Golden Rules & Regulations</strong>. I understand that I
+                    must strictly follow the timings (Wake up: 5:15/5:50 AM) and study hours.
+                </label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="raggingAgree" required>
+                <label for="raggingAgree" style="display:inline; margin:0;">
+                    I agree to the <strong>Anti-Ragging Affidavit</strong> terms. I declare that I will not participate
+                    in any ragging activities and understand the legal consequences.
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Proceed to Verification</button>
+
+        </form>
+    </div>
+
+    <script>
+        // District to Mandir & Kothari Mapping Logic (Updated with Multiple Mandirs)
+        const mandirData = {
+            "Ahmedabad": [
+                { name: "Amdavad (Shahibaug)", kothari: "P. Uttamcharan Swami", isNearest: false },
+                { name: "Sarangpur", kothari: "P. Gnaneshwar Swami", isNearest: false }
+            ],
+            "Amreli": [{ name: "Gadhada (Nearest)", kothari: "P. Hariprakash Swami", isNearest: true }],
+            "Anand": [
+                { name: "Vallabh Vidyanagar (APC)", kothari: "P. Tyagvallabh Swami", isNearest: false },
+                { name: "Anand (Goya Talav)", kothari: "P. Vigneshwardas Swami", isNearest: false },
+                { name: "Bochasan", kothari: "P. Munishwar Swami", isNearest: false }
+            ],
+            "Aravalli": [{ name: "Himmatnagar (Nearest)", kothari: "P. Bhagvatcharan Swami", isNearest: true }],
+            "Banaskantha": [{ name: "Mehsana (Nearest)", kothari: "P. Vishvavihar Swami", isNearest: true }],
+            "Bharuch": [{ name: "Bharuch (Zadeshwar)", kothari: "P. Brahmavatsal Swami", isNearest: false }],
+            "Bhavnagar": [{ name: "Bhavnagar (Aksharwadi)", kothari: "P. Anandswarup Swami", isNearest: false }],
+            "Botad": [{ name: "Gadhada", kothari: "P. Hariprakash Swami", isNearest: false }],
+            "Chhota Udaipur": [{ name: "Bodeli", kothari: "P. Tyagvat Swami", isNearest: false }],
+            "Dahod": [{ name: "Godhra (Nearest)", kothari: "P. Divyacharan Swami", isNearest: true }],
+            "Dang": [{ name: "Navsari (Nearest)", kothari: "P. Bhaktavatsal Swami", isNearest: true }],
+            "Devbhoomi Dwarka": [{ name: "Jamnagar (Nearest)", kothari: "P. Aksharvatsal Swami", isNearest: true }],
+            "Gandhinagar": [{ name: "Gandhinagar (Akshardham)", kothari: "P. Anandswarup Swami", isNearest: false }],
+            "Gir Somnath": [{ name: "Junagadh (Nearest)", kothari: "P. Adarshjivan Swami", isNearest: true }],
+            "Jamnagar": [{ name: "Jamnagar", kothari: "P. Aksharvatsal Swami", isNearest: false }],
+            "Junagadh": [{ name: "Junagadh", kothari: "P. Adarshjivan Swami", isNearest: false }],
+            "Kheda": [{ name: "Nadiad", kothari: "P. Santo Swami", isNearest: false }],
+            "Kutch": [{ name: "Bhuj", kothari: "P. Dharmavatsal Swami", isNearest: false }],
+            "Mahisagar": [{ name: "Godhra (Nearest)", kothari: "P. Divyacharan Swami", isNearest: true }],
+            "Mehsana": [{ name: "Mehsana", kothari: "P. Vishvavihar Swami", isNearest: false }],
+            "Morbi": [{ name: "Morbi", kothari: "P. Haridarshan Swami", isNearest: false }],
+            "Narmada": [{ name: "Bharuch (Nearest)", kothari: "P. Brahmavatsal Swami", isNearest: true }],
+            "Navsari": [{ name: "Navsari", kothari: "P. Bhaktavatsal Swami", isNearest: false }],
+            "Panchmahal": [{ name: "Godhra", kothari: "P. Divyacharan Swami", isNearest: false }],
+            "Patan": [{ name: "Sankhari", kothari: "P. Yagnapriya Swami", isNearest: false }],
+            "Porbandar": [{ name: "Porbandar", kothari: "P. Shantipriya Swami", isNearest: false }],
+            "Rajkot": [
+                { name: "Rajkot (Kalawad Rd)", kothari: "P. Apurvamuni Swami", isNearest: false },
+                { name: "Gondal (Akshar Deri)", kothari: "P. Divyaprakash Swami", isNearest: false }
+            ],
+            "Sabarkantha": [{ name: "Himmatnagar", kothari: "P. Bhagvatcharan Swami", isNearest: false }],
+            "Surat": [{ name: "Surat (Adajan)", kothari: "P. Vigneshwra Swami", isNearest: false }],
+            "Surendranagar": [
+                { name: "Surendranagar", kothari: "P. Premvadan Swami", isNearest: false },
+                { name: "Limbdi", kothari: "P. Harisharnam Swami", isNearest: false }
+            ],
+            "Tapi": [{ name: "Sankari", kothari: "P. Shrijiswarup Swami", isNearest: false }],
+            "Vadodara": [
+                { name: "Vadodara (Atladara)", kothari: "P. Nityanand Swami", isNearest: false },
+                { name: "Vadodara (Tarsali/City)", kothari: "P. Gyanvatsal Swami", isNearest: false }
+            ],
+            "Valsad": [
+                { name: "Tithal (Valsad)", kothari: "P. Shrutipriya Swami", isNearest: false },
+                { name: "Vapi (Chala)", kothari: "P. Amrutcharit Swami", isNearest: false }
+            ],
+            "Other": [{ name: "Nearest Shikharbaddh Mandir", kothari: "P. Kothari Swami", isNearest: true }]
+        };
+
+        let currentMandirList = [];
+
+        function updateMandir() {
+            const district = document.getElementById("districtSelect").value;
+            const container = document.getElementById("mandirSelectContainer");
+            const select = document.getElementById("mandirSelect");
+            const card = document.getElementById("verificationCard");
+
+            // Reset
+            select.innerHTML = '<option value="">-- Choose Mandir --</option>';
+            container.style.display = 'none';
+            card.style.display = 'none';
+
+            if (district && mandirData[district]) {
+                currentMandirList = mandirData[district];
+
+                if (currentMandirList.length > 1) {
+                    // Multiple Mandirs -> Show Dropdown
+                    container.style.display = 'block';
+                    currentMandirList.forEach((m, index) => {
+                        let option = document.createElement("option");
+                        option.value = index; // Store index
+                        option.text = m.name;
+                        select.appendChild(option);
+                    });
+                } else {
+                    // Single Mandir -> Auto Select
+                    renderVerificationCard(0);
+                }
+            }
+        }
+
+        function renderVerificationCard(forcedIndex = null) {
+            const select = document.getElementById("mandirSelect");
+            const index = forcedIndex !== null ? forcedIndex : select.value;
+
+            const card = document.getElementById("verificationCard");
+            const mandirEl = document.querySelector("#mandirName span");
+            const kothariEl = document.querySelector("#kothariName span");
+            const noteEl = document.getElementById("mandirNote");
+
+            if (index !== "" && currentMandirList[index]) {
+                const data = currentMandirList[index];
+
+                card.style.display = "block";
+                mandirEl.innerText = data.name;
+                kothariEl.innerText = data.kothari;
+
+                if (data.isNearest) {
+                    noteEl.innerText = "Note: Assigned nearest Shikharbaddh Mandir as your district does not have one.";
+                    noteEl.style.color = "var(--c-mandir-red)";
+                } else {
+                    noteEl.innerText = "You have a direct Verification Centre in your district.";
+                    noteEl.style.color = "green";
+                }
+            } else {
+                card.style.display = "none";
+            }
+        }
+
+        // Handle Form Submission
+        document.getElementById('admissionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            console.log("Form submission started...");
+
+            try {
+                // Gather all data using robust IDs
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    personal: {
+                        fullName: document.getElementById('fullName').value,
+                        dob: document.getElementById('dob').value,
+                        bloodGroup: document.getElementById('bloodGroup').value,
+                        aadhar: document.getElementById('aadhar').value,
+                        mobile: document.getElementById('studentMobile').value,
+                        email: document.getElementById('email').value
+                    },
+                    family: {
+                        fatherName: document.getElementById('fatherName').value,
+                        fatherMobile: document.getElementById('fatherMobile').value,
+                        fatherOccupation: document.getElementById('fatherOccupation').value,
+                        motherName: document.getElementById('motherName').value,
+                        address: {
+                            line1: document.getElementById('addressLine1').value,
+                            country: document.getElementById('country').value,
+                            state: document.getElementById('state').value,
+                            district: document.getElementById('district').value,
+                            tehsil: document.getElementById('tehsil').value,
+                            village: document.getElementById('village').value,
+                            pincode: document.getElementById('pincode').value
+                        }
+                    },
+                    academic: {
+                        school: document.getElementById('school').value,
+                        course: document.getElementById('course').value,
+                        percentage: document.getElementById('percentage').value,
+                        admission: document.getElementById('admission').value
+                    },
+                    satsang: {
+                        mandal: document.getElementById('mandal').value,
+                        karyakar: document.getElementById('karyakar').value
+                    },
+                    verification: {
+                        district: document.getElementById('districtSelect').value,
+                        // Add fallbacks just in case
+                        mandir: document.querySelector('#mandirName span') ? document.querySelector('#mandirName span').innerText : 'Not Assigned',
+                        kothari: document.querySelector('#kothariName span') ? document.querySelector('#kothariName span').innerText : 'Not Assigned'
+                    }
+                };
+
+                // Debug
+                console.log("Form Data Collected:", formData);
+
+                // Save to LocalStorage (Append to list for Dashboard)
+                const existingApps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+                existingApps.push(formData);
+                localStorage.setItem('baps_applications', JSON.stringify(existingApps));
+
+                // Save current app for the "Pre-filled Form" page
+                localStorage.setItem('current_baps_app', JSON.stringify(formData));
+
+                // Animation
+                const btn = document.querySelector('.submit-btn');
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Application Submitted!';
+                btn.style.background = '#43a047';
+
+                setTimeout(() => {
+                    alert('Application Submitted Successfully! \n\nData sent to APC Admin & ' + formData.verification.kothari + '.\n\nNow redirecting you to download your Pre-filled Form.');
+                    // Redirect to the form page
+                    window.location.href = '/admission-form.html?mode=print';
+                }, 1000);
+
+            } catch (err) {
+                console.error("Submission Error:", err);
+                alert("There was an error processing your form. Please ensure all details are filled correctly. Error: " + err.message);
+            }
+        });
+    </script>
+</body>
+
+</html>

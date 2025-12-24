@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAPS SSO Login | Vallabh Vidyanagar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --c-gold: #D4AF37;
+            --c-red: #D32F2F;
+            --c-navy: #1a252f;
+            --f-heading: 'Cinzel', serif;
+            --f-body: 'Outfit', sans-serif;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: var(--f-body);
+        }
+
+        .login-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* --- LEFT SIDE: IMAGE --- */
+        .login-visual {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1548625361-ec889eacd943?q=80&w=2819&auto=format&fit=crop');
+            /* Placeholder Temple/Campus */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 4rem;
+            color: white;
+        }
+
+        .visual-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+            z-index: 1;
+        }
+
+        .visual-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .visual-title {
+            font-family: var(--f-heading);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .visual-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        /* --- RIGHT SIDE: FORM --- */
+        .login-form-wrapper {
+            flex: 1;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .baps-logo-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .baps-logo-header img {
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .baps-logo-header h2 {
+            font-family: var(--f-heading);
+            color: var(--c-navy);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .baps-logo-header p {
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* ROLE SELECTOR */
+        .role-selector {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .role-option {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: #999;
+            transition: 0.3s;
+        }
+
+        .role-option.active {
+            color: var(--c-red);
+        }
+
+        .role-option i {
+            font-size: 0.8rem;
+            border: 2px solid #ddd;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .role-option.active i {
+            border-color: var(--c-red);
+        }
+
+        .role-option.active i::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--c-red);
+            border-radius: 50%;
+        }
+
+        /* INPUTS */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: 0.3s;
+            box-sizing: border-box;
+            font-family: var(--f-body);
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--c-gold);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-options a {
+            color: var(--c-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--c-red), #b71c1c);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        .student-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .student-link a {
+            color: var(--c-navy);
+            text-decoration: underline;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .login-visual {
+                display: none;
+            }
+
+            .login-form-wrapper {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <!-- LEFT -->
+        <div class="login-visual">
+            <div class="visual-overlay"></div>
+            <div class="visual-content">
+                <h1 class="visual-title">Vishwakarma Block</h1>
+                <p class="visual-text">"Think Big... Think Beyond." <br> Shaping the future of satsang and society
+                    through education and character.</p>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="login-form-wrapper">
+            <div class="login-box">
+                <div class="baps-logo-header">
+                    <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                        alt="BAPS Logo">
+                    <h2>BAPS SSO</h2>
+                    <p>Vallabh Vidyanagar | Gujarat | India</p>
+                </div>
+
+                <div class="role-selector">
+                    <div class="role-option active" onclick="selectRole('student')"><i></i> Student</div>
+                    <div class="role-option" onclick="selectRole('staff')"><i></i> Staff</div>
+                    <div class="role-option" onclick="selectRole('parent')"><i></i> Parent</div>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Username / ID</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="username" placeholder="Enter Registration ID" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" placeholder="Enter Secure Password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn">Secure Login</button>
+
+                    <div class="student-link">
+                        New Student? <a href="/apply.html">Apply for Admission</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRole = 'student';
+
+        function selectRole(role) {
+            currentRole = role;
+            document.querySelectorAll('.role-option').forEach(el => el.classList.remove('active'));
+            // Find the one clicked - simple logic based on text
+            const options = document.querySelectorAll('.role-option');
+            if (role === 'student') options[0].classList.add('active');
+            if (role === 'staff') options[1].classList.add('active');
+            if (role === 'parent') options[2].classList.add('active');
+        }
+
+        const USERS = {
+            'bhavik': { name: 'Bhavikkumar Patel', role: 'Super Admin', type: 'admin', title: 'Head of Operations' },
+            'student': { name: 'Rahul Patel', role: 'Student', type: 'student', title: 'BE Computer' },
+            'kothari': { name: 'Dr. Sadhu Adbhutanad Das', role: 'Kothari Swami', type: 'admin', title: 'Campus Head' }
+        };
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value.toLowerCase().trim();
+            const btn = document.querySelector('.login-btn');
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...';
+
+            setTimeout(() => {
+                if (USERS[user]) {
+                    const userData = USERS[user];
+                    localStorage.setItem('baps_current_user', JSON.stringify(userData));
+
+                    if (userData.type === 'student') window.location.href = '/student.html';
+                    else window.location.href = '/admin-dashboard.html';
+                } else {
+                    if (user === 'admin') { // Fallback for pure admin testing
+                        localStorage.setItem('baps_current_user', JSON.stringify(USERS['bhavik']));
+                        window.location.href = '/admin-dashboard.html';
+                    } else {
+                        alert('Invalid ID');
+                        btn.innerHTML = 'Secure Login';
+                    }
+                }
+            }, 800);
+        }
+    </script>
+
+</body>
+
+</html>

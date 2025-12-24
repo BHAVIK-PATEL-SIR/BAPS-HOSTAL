@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sports & Fitness | BAPS APC Facility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        .detail-hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .detail-hero h1 {
+            font-family: var(--f-heading);
+            font-size: 4rem;
+            color: var(--c-gold);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--c-gold);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--c-gold);
+            margin-bottom: 1rem;
+        }
+
+        .long-content {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .long-content p {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-mandala"></div>
+            <div class="loader-text">JAY SWAMINARAYAN</div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => { const p = document.getElementById('preloader'); if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; } }, 1500);
+    </script>
+
+    <nav class="glass-nav sticky-nav">
+        <div class="logo-wrapper">
+            <div class="baps-symbol">
+                <div class="tilak"></div>
+                <div class="chandlo"></div>
+            </div>
+            <div class="logo-text"><span class="logo-main">BAPS APC</span><span class="logo-sub">Vallabh Vidyanagar
+                    (Main)</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/facilities.html">Facilities</a>
+            <a href="/events.html">Events</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/apply.html" class="nav-cta">Apply 2025</a>
+        </div>
+    </nav>
+
+    <div class="detail-hero">
+        <h1>Sports & Fitness</h1>
+    </div>
+
+    <main class="container" style="padding: 4rem 1rem;">
+        <h2 class="section-title center" style="margin-bottom: 3rem;">Active <span class="highlight">Campus</span></h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-volleyball feature-icon"></i>
+                <h3>Volleyball Court</h3>
+                <p>Professional standard.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-users feature-icon"></i>
+                <h3>Team Sports</h3>
+                <p>Cricket & Football leagues.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-dumbbell feature-icon"></i>
+                <h3>Modern Gym</h3>
+                <p>Weights & Cardio.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-table-tennis-paddle-ball feature-icon"></i>
+                <h3>Indoor Games</h3>
+                <p>Table Tennis, Carrom, Chess.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-person-running feature-icon"></i>
+                <h3>Jogging Track</h3>
+                <p>Morning cardio.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-trophy feature-icon"></i>
+                <h3>Tournaments</h3>
+                <p>Annual Sports Days.</p>
+            </div>
+        </div>
+
+        <div class="long-content">
+            <h2 class="text-gold" style="margin-bottom: 1.5rem;">Sound Body, Sound Mind</h2>
+            <p>
+                The adage "All work and no play makes Jack a dull boy" is taken seriously at BAPS APC. We firmly believe
+                that academic rigor must be balanced with physical activity to maintain optimal mental health and energy
+                levels. Our Sports facilities are designed to provide students with a constructive outlet for their
+                energy, reducing stress and promoting physical fitness. A healthy body houses a sharp mind, and our
+                campus is equipped to ensure both.
+            </p>
+            <p>
+                The centerpiece of our sports infrastructure is the expansive playground, which hosts intense daily
+                matches of Volleyball and Cricket. These are not just games; they are lessons in teamwork, leadership,
+                and strategy. Under the evening sun, students learn to handle victory with humility and defeat with
+                grace—essential life skills that cannot be taught in a classroom. For those who prefer individual
+                fitness, our modern Gymnasium offers a range of weights and cardio equipment to help students maintain
+                their physical conditioning.
+            </p>
+            <h3 style="color:white; margin-top:2rem; margin-bottom:1rem;">Indoor Recreation and Tournaments</h3>
+            <p>
+                Recognizing that not all activity needs to be outdoors, we also boast a vibrant Indoor Games room.
+                Equipped with Table Tennis tables, Carrom boards, and Chess sets, this area is a hub of social
+                interaction and friendly competition. It serves as a perfect break room where students can unwind for 30
+                minutes before diving back into their books. Chess, in particular, is encouraged for its ability to
+                sharpen strategic thinking and concentration.
+            </p>
+            <p>
+                The highlight of the year is undoubtedly the Annual Sports Festival. During this time, the entire hostel
+                is divided into teams, and the spirit of competition reaches its zenith. It is a festival of energy,
+                brotherhood, and athleticism. We encourage every student to participate in at least one activity,
+                believing that the discipline learned on the sports field translates directly to discipline in study and
+                life. At BAPS APC, we don't just build scholars; we build champions.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="/facilities.html" class="btn secondary-btn"><i class="fa-solid fa-arrow-left"></i> Back to
+                Facilities</a>
+        </div>
+    </main>
+
+    <footer style="background: #080808; padding: 2rem; text-align: center; border-top: 5px solid var(--c-gold);">
+        <p style="color: grey;">&copy; 2025 BAPS Swaminarayan Chattralay. All Rights Reserved.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

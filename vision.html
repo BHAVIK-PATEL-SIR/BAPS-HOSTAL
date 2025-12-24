@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vision | BAPS APC VV Nagar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="baps-logo-svg-container" style="width: auto; height: auto;">
+                <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                    alt="BAPS APC Logo" style="max-width: 300px; width: 100%; display: block;">
+            </div>
+            <div class="loader-text-group" style="margin-top: 1rem;">
+                <div class="loader-subtitle">Vallabh Vidyanagar</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            const p = document.getElementById('preloader');
+            if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; }
+        }, 2000);
+    </script>
+
+    <!-- New Header Structure -->
+    <header class="site-header">
+        <!-- Row 1: Brand & Utilities -->
+        <div class="brand-bar">
+            <div class="container-fluid branding-row">
+                <!-- Logo -->
+                <div class="logo-wrapper">
+                    <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                        alt="BAPS APC Logo" class="brand-logo">
+                    <div class="brand-text">
+                        <div class="brand-title">BAPS Swaminarayan Chhatralaya</div>
+                        <div class="brand-subtitle">Vallabh Vidyanagar</div>
+                    </div>
+                </div>
+
+                <!-- Utility Links (Moved from Top Bar) -->
+                <div class="utility-links">
+                    <a href="#">Alumni</a>
+                    <span class="sep">|</span>
+                    <a href="#">Parent Login</a>
+                    <a href="/login.html" class="access-icon" title="Staff Access"><i class="fa-solid fa-key"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Main Navigation -->
+        <nav class="main-navbar sticky-nav">
+            <div class="container-fluid nav-row">
+                <div class="nav-links">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="/inspiration.html">Inspiration</a>
+                    <a href="/vision.html" class="active">Vision</a>
+                    <a href="/facilities.html">Facilities</a>
+                    <a href="/events.html">Events</a>
+                    <a href="/gallery.html">Gallery</a>
+                    <a href="/contact.html">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <!-- Public Student Portal -->
+                    <a href="/login.html" class="btn-baps btn-outline btn-sm">
+                        <i class="fa-solid fa-user-graduate"></i> Student Portal
+                    </a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <!-- Mobile Toggle -->
+                    <div class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const icon = toggle.querySelector('i');
+
+        // Check LocalStorage
+        if (localStorage.getItem('theme') === 'light') {
+            root.setAttribute('data-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'light') {
+                    root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    root.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
+        }
+    </script>
+
+    <main style="padding-top: 50px;">
+        <!-- Vision Content -->
+        <section id="vision" class="vision-section" style="min-height: 80vh; display: flex; align-items: center;">
+            <div class="container">
+                <div class="inspiration-header center">
+                    <span class="section-badge">Core Values</span>
+                    <h2 class="section-title">The <span class="highlight">Vision</span></h2>
+                    <br>
+                </div>
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <div class="v-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h3>Vidya</h3>
+                        <p>Educational Excellence. Providing top-tier academic support, library access, and career
+                            guidance.</p>
+                    </div>
+                    <div class="vision-card main-card">
+                        <div class="v-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <h3>Vivek</h3>
+                        <p>Character & Culture. Instilling values of humility, respect (Mahima), and service (Seva).</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="v-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                        <h3>Vikas</h3>
+                        <p>Holistic Progress. Physical fitness, leadership skills, and spiritual grounding for total
+                            growth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- Column 1: Reach Us -->
+            <div class="footer-section">
+                <h2>Reach Us</h2>
+                <div class="contact-details">
+                    <p><i class="fa-solid fa-location-dot"></i>
+                        <span>
+                            <strong>Main Office (Vallabh Vidyanagar):</strong><br>
+                            Near Pramukhswami Circle, Anand - Vidyanagar Rd,<br>
+                            Vallabh Vidyanagar, Anand, Gujarat 388120
+                        </span>
+                    </p>
+                    <p><i class="fa-solid fa-phone"></i> +91 99988 77766</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@baps-hostel.org</p>
+                </div>
+
+                <div class="city-offices">
+                    <p style="color: var(--c-gold); font-weight: bold; margin-bottom: 0.8rem;">Major City Offices
+                        (Mandirs):</p>
+                    <ul class="office-list" style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc;">
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Vadodara:</strong> BAPS Mandir, Atladara, Padra Road, Vadodara
+                            - 390012.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Amdavad:</strong> BAPS Mandir, Shahibaug Rd, Madhupura,
+                            Ahmedabad - 380004.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Rajkot:</strong> BAPS Mandir, Kalawad Road, Near Mahila
+                            College, Rajkot -
+                            360001.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Surat:</strong> BAPS Mandir, Adajan Gas Circle, Adajan, Surat -
+                            395009.
+                        </li>
+                    </ul>
+                    <p
+                        style="font-size: 0.8rem; margin-top: 1rem; color: #888; border-top: 1px solid #333; padding-top: 0.5rem;">
+                        * For other cities, please visit your nearest Shikharbaddh Mandir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Column 2: Programmes / Facilities -->
+            <div class="footer-section footer-links">
+                <h2>Our Features</h2>
+                <ul>
+                    <li><a href="/facility-prayer.html">Mandir Hall & Spirituality</a></li>
+                    <li><a href="/facility-reading.html">Reading Halls</a></li>
+                    <li><a href="#">Bhojanalay (Dining)</a></li>
+                    <li><a href="#">Sports & Recreation</a></li>
+                    <li><a href="#">Student Counseling</a></li>
+                    <li><a href="#">Medical Facilities</a></li>
+                    <li><a href="#">Library & E-Resources</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Quick Links -->
+            <div class="footer-section footer-links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/apply.html">Apply Now (2025)</a></li>
+                    <li><a href="/events.html">Upcoming Events</a></li>
+                    <li><a href="/gallery.html">Photo Gallery</a></li>
+                    <li><a href="/student-dashboard.html">Student Login</a></li>
+                    <li><a href="/admin-dashboard.html">Admin Login</a></li>
+                    <li><a href="/contact.html">Contact Support</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BAPS" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/baps" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/baps" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://twitter.com/BAPS" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 BAPS Swaminarayan Chhatralaya. All Rights Reserved. | <strong>Developed by BAPS and APC
+                    Team</strong> | <a href="#" style="color: #666;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

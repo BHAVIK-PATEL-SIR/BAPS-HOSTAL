@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exams & Results | BAPS APC Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Govt Table Styles */
+        .govt-table {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .govt-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .govt-table td {
+            border: 1px solid #eee;
+            padding: 0.8rem;
+        }
+
+        /* Seva Grid */
+        .seva-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .upload-zone {
+            border: 2px dashed #ccc;
+            padding: 3rem;
+            text-align: center;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--c-gold);
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.7rem; color: #aaa; text-transform: uppercase;">
+                Modules</div>
+
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass System</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory Store</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library Admin</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical Records</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni Network</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="exams-admin.html" class="nav-item active"><i class="fa-solid fa-file-signature"></i> Exams &
+                Results</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security &
+                Visitors</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="top-header page-header">
+            <div class="page-title">
+                <h1>Exams & Results</h1>
+                <p>Manage Academic Performance & Seva Records</p>
+            </div>
+            <button class="btn-baps btn-outline" onclick="exportAnalytics()">
+                <i class="fa-solid fa-download"></i> Export Analytics
+            </button>
+        </div>
+
+        <div class="baps-card" style="min-height: 80vh;">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('marks')"><i class="fa-solid fa-list-ol"></i> Manage
+                    Results</button>
+                <button class="tab-btn" onclick="switchTab('entry')"><i class="fa-solid fa-keyboard"></i> Data
+                    Entry</button>
+                <button class="tab-btn" onclick="switchTab('seva')"><i class="fa-solid fa-hands-holding-circle"></i>
+                    Seva Grading</button>
+
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card" style="background:#f9f9f9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:var(--c-navy);">8.92</div>
+                            <div style="color:#666;">Avg SPI (Sem 3)</div>
+                        </div>
+                        <i class="fa-solid fa-chart-line" style="font-size:2rem; color:var(--c-gold);"></i>
+                    </div>
+                    <div class="stat-card" style="background:#E8F5E9; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#2E7D32;">98%</div>
+                            <div style="color:#666;">Pass Rate</div>
+                        </div>
+                        <i class="fa-solid fa-check-circle" style="font-size:2rem; color:#2E7D32;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFF8E1; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#F57F17;">12</div>
+                            <div style="color:#666;">Toppers (>9.5)</div>
+                        </div>
+                        <i class="fa-solid fa-trophy" style="font-size:2rem; color:#F57F17;"></i>
+                    </div>
+                    <div class="stat-card" style="background:#FFEBEE; padding:1.5rem; border-radius:12px;">
+                        <div>
+                            <div style="font-size:1.8rem; font-weight:bold; color:#C62828;">3</div>
+                            <div style="color:#666;">Academic Warning</div>
+                        </div>
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size:2rem; color:#C62828;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MANAGE RESULTS -->
+            <div id="tab-marks" class="tab-content">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                    <div style="display:flex; gap:1rem;">
+                        <select style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <option>Computer Engineering</option>
+                            <option>Mechanical</option>
+                        </select>
+                        <select style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                            <option>Semester 3</option>
+                            <option>Semester 5</option>
+                        </select>
+                    </div>
+                    <input type="text" placeholder="Search by GR No..."
+                        style="padding:0.5rem 1rem; border:1px solid #ddd; border-radius:20px; width:250px;">
+                </div>
+                <table class="baps-table" id="marksTable">
+                    <thead>
+                        <tr>
+                            <th>GR No</th>
+                            <th>Student Name</th>
+                            <th>Sem</th>
+                            <th>SPI</th>
+                            <th>Backlogs</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="row-2024001">
+                            <td>2024001</td>
+                            <td>Rahul Patel</td>
+                            <td>3</td>
+                            <td class="val-spi"><b>8.50</b></td>
+                            <td class="val-backlog"><span class="badge badge-verified">0</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;"
+                                    onclick="editStudent('2024001', 8.50, 0)">Edit</button></td>
+                        </tr>
+                        <tr id="row-2024045">
+                            <td>2024045</td>
+                            <td>Aman Gupta</td>
+                            <td>3</td>
+                            <td class="val-spi"><b>9.10</b></td>
+                            <td class="val-backlog"><span class="badge badge-verified">0</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;"
+                                    onclick="editStudent('2024045', 9.10, 0)">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 3: DATA ENTRY (Manual + Upload) -->
+            <div id="tab-entry" class="tab-content">
+                <div style="display:grid; grid-template-columns: 2fr 1fr; gap:2rem;">
+                    <!-- Left: Manual Form -->
+                    <div style="background: #fff; padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+                        <h3
+                            style="margin-top:0; color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1.5rem;">
+                            <i class="fa-solid fa-pen-to-square"></i> Manual Result Entry
+                        </h3>
+                        <form id="manualResultForm" onsubmit="event.preventDefault(); saveManualResult();">
+                            <!-- Student Details -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                                <div><label style="display:block; font-size:0.85rem;">Full Name</label><input
+                                        type="text"
+                                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;"
+                                        required placeholder="Rahul Patel"></div>
+                                <div><label style="display:block; font-size:0.85rem;">GR Number</label><input
+                                        type="text"
+                                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;"
+                                        required placeholder="2024001"></div>
+                            </div>
+
+                            <!-- Subject Marks (Simplified for UI) -->
+                            <div style="background:#f9f9f9; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
+                                <div
+                                    style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:1rem; margin-bottom:0.5rem; font-weight:bold; font-size:0.85rem;">
+                                    <div>Subject</div>
+                                    <div>Marks (100)</div>
+                                    <div>Grade</div>
+                                </div>
+                                <div
+                                    style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:1rem; margin-bottom:0.5rem;">
+                                    <input type="text" value="Algorithms" readonly
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                    <input type="number" class="mark-input" oninput="calculateAutoResults()"
+                                        placeholder="00" min="0" max="100"
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                    <select class="grade-select" disabled
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px; background:#f0f0f0;">
+                                        <option value="10">AA</option>
+                                    </select>
+                                </div>
+                                <div
+                                    style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:1rem; margin-bottom:0.5rem;">
+                                    <input type="text" value="Python" readonly
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                    <input type="number" class="mark-input" oninput="calculateAutoResults()"
+                                        placeholder="00" min="0" max="100"
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                    <select class="grade-select" disabled
+                                        style="padding:0.5rem; border:1px solid #ddd; border-radius:4px; background:#f0f0f0;">
+                                        <option value="10">AA</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Summary Auto-Calc -->
+                            <div
+                                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                                <div><label style="display:block; font-size:0.85rem;">Total</label><input type="text"
+                                        id="calcTotal" readonly
+                                        style="width:100%; padding:0.6rem; background:#f0f0f0; border:1px solid #ddd; border-radius:4px;">
+                                </div>
+                                <div><label style="display:block; font-size:0.85rem;">SPI</label><input type="text"
+                                        id="calcSPI" readonly
+                                        style="width:100%; padding:0.6rem; background:#f0f0f0; border:1px solid #ddd; border-radius:4px;">
+                                </div>
+                                <div><label style="display:block; font-size:0.85rem;">Backlogs</label><input type="text"
+                                        id="calcBacklogs" readonly
+                                        style="width:100%; padding:0.6rem; background:#f0f0f0; border:1px solid #ddd; border-radius:4px;">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-baps btn-gold" style="width:100%;">Save Result</button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Upload Zone -->
+                    <div>
+                        <div class="upload-zone" onclick="document.getElementById('fileIn').click()"
+                            style="height:100%; display:flex; flex-direction:column; justify-content:center;">
+                            <i class="fa-solid fa-cloud-upload-alt"
+                                style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                            <h3>Upload CSV</h3>
+                            <p style="color: #666;">Bulk Result Import</p>
+                            <input type="file" id="fileIn" hidden onchange="handleFileUpload(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SEVA GRADING -->
+            <div id="tab-seva" class="tab-content">
+                <h3>Spiritual & Social Service Grading</h3>
+                <div class="seva-grid">
+                    <div style="border:1px solid #eee; padding:1.5rem; border-radius:8px; background:white;">
+                        <div style="font-weight:bold; margin-bottom:0.5rem;">Kishan Patel</div>
+                        <div style="font-size:0.8rem; color:#666; margin-bottom:1rem;">GR: 2021005</div>
+                        <div style="margin-bottom:0.5rem;">
+                            <label style="font-size:0.8rem; display:block;">Mandir Mgmt</label>
+                            <select style="width:100%; padding:0.3rem;">
+                                <option>Outstanding</option>
+                                <option>Good</option>
+                            </select>
+                        </div>
+                        <button class="btn-baps btn-gold" style="width:100%; font-size:0.8rem; margin-top:0.5rem;"
+                            onclick="saveSeva(this)">Save Grades</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- EDIT MARKS MODAL -->
+    <div id="editMarksModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 400px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Update Marks</h3>
+                <button onclick="document.getElementById('editMarksModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block; margin-bottom:0.3rem;">Student GR</label>
+                <input type="text" id="modalGR" disabled
+                    style="width:100%; padding:0.5rem; background:#f0f0f0; border:1px solid #ddd;">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block; margin-bottom:0.3rem;">SPI / CGPA</label>
+                <input type="number" id="modalSPI" step="0.01"
+                    style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+            </div>
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:block; margin-bottom:0.3rem;">Current Backlogs</label>
+                <input type="number" id="modalBacklogs" min="0"
+                    style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+            </div>
+            <button class="btn-baps btn-gold" style="width:100%;" onclick="saveMarksChanges()">Update Result</button>
+        </div>
+    </div>
+
+    <script>
+        let currentEditingGR = null;
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function exportAnalytics() {
+            const btn = document.querySelector('.top-header button');
+            if (btn.disabled) return;
+            const orig = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-sync fa-spin"></i> Exporting...`;
+            btn.disabled = true;
+            setTimeout(() => {
+                alert("Report Downloaded!");
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }, 1000);
+        }
+
+        function editStudent(grNo, spi, backlogs) {
+            currentEditingGR = grNo;
+            document.getElementById('editMarksModal').style.display = 'flex';
+            document.getElementById('modalGR').value = grNo;
+            document.getElementById('modalSPI').value = spi;
+            document.getElementById('modalBacklogs').value = backlogs;
+        }
+
+        function saveMarksChanges() {
+            if (!currentEditingGR) return;
+            const row = document.getElementById('row-' + currentEditingGR);
+            if (row) {
+                row.querySelector('.val-spi').innerHTML = `<b>${document.getElementById('modalSPI').value}</b>`;
+                row.querySelector('.val-backlog').innerHTML = `<span class="badge badge-verified">${document.getElementById('modalBacklogs').value}</span>`;
+            }
+            document.getElementById('editMarksModal').style.display = 'none';
+            alert('Marks Updated!');
+        }
+
+        function calculateAutoResults() {
+            const inputs = document.querySelectorAll('.mark-input');
+            let total = 0;
+            let count = 0;
+            let backlogs = 0;
+
+            inputs.forEach(inp => {
+                const val = parseInt(inp.value) || 0;
+                total += val;
+                if (val > 0) count++;
+                const gradeSelect = inp.nextElementSibling;
+                if (val < 35 && val > 0) {
+                    backlogs++;
+                }
+                // Simple grade simulation
+                if (val >= 85) gradeSelect.innerHTML = '<option>AA</option>';
+                else if (val >= 75) gradeSelect.innerHTML = '<option>AB</option>';
+                else if (val >= 35) gradeSelect.innerHTML = '<option>BB</option>';
+                else gradeSelect.innerHTML = '<option>FF</option>';
+            });
+
+            document.getElementById('calcTotal').value = total;
+            document.getElementById('calcSPI').value = count > 0 ? (total / (count * 10)).toFixed(2) : 0;
+            document.getElementById('calcBacklogs').value = backlogs;
+        }
+
+        function saveManualResult() {
+            alert('Result Saved!');
+            document.getElementById('manualResultForm').reset();
+        }
+
+        function handleFileUpload(input) {
+            if (input.files[0]) alert('File Uploaded: ' + input.files[0].name);
+        }
+
+        function saveSeva(btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = 'Saving...';
+            setTimeout(() => { btn.innerHTML = 'Saved!'; setTimeout(() => btn.innerHTML = orig, 1000) }, 500);
+        }
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

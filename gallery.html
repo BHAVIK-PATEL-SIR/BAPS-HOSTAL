@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | BAPS APC VV Nagar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+    <!-- Standard Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="baps-logo-svg-container" style="width: auto; height: auto;">
+                <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                    alt="BAPS APC Logo" style="max-width: 300px; width: 100%; display: block;">
+            </div>
+            <div class="loader-text-group" style="margin-top: 1rem;">
+                <div class="loader-subtitle">Vallabh Vidyanagar</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            const p = document.getElementById('preloader');
+            if (p) { p.style.opacity = '0'; p.style.pointerEvents = 'none'; }
+        }, 2000);
+    </script>
+
+    <!-- New Header Structure -->
+    <header class="site-header">
+        <!-- Row 1: Brand & Utilities -->
+        <div class="brand-bar">
+            <div class="container-fluid branding-row">
+                <!-- Logo -->
+                <div class="logo-wrapper">
+                    <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png"
+                        alt="BAPS APC Logo" class="brand-logo">
+                    <div class="brand-text">
+                        <div class="brand-title">BAPS Swaminarayan Chhatralaya</div>
+                        <div class="brand-subtitle">Vallabh Vidyanagar</div>
+                    </div>
+                </div>
+
+                <!-- Utility Links (Moved from Top Bar) -->
+                <div class="utility-links">
+                    <a href="#">Alumni</a>
+                    <span class="sep">|</span>
+                    <a href="#">Parent Login</a>
+                    <a href="/login.html" class="access-icon" title="Staff Access"><i class="fa-solid fa-key"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Main Navigation -->
+        <nav class="main-navbar sticky-nav">
+            <div class="container-fluid nav-row">
+                <div class="nav-links">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="/inspiration.html">Inspiration</a>
+                    <a href="/vision.html">Vision</a>
+                    <a href="/facilities.html">Facilities</a>
+                    <a href="/events.html">Events</a>
+                    <a href="/gallery.html" class="active">Gallery</a>
+                    <a href="/contact.html">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <!-- Public Student Portal -->
+                    <a href="/login.html" class="btn-baps btn-outline btn-sm">
+                        <i class="fa-solid fa-user-graduate"></i> Student Portal
+                    </a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <!-- Mobile Toggle -->
+                    <div class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const icon = toggle.querySelector('i');
+
+        // Check LocalStorage
+        if (localStorage.getItem('theme') === 'light') {
+            root.setAttribute('data-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'light') {
+                    root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    root.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
+        }
+    </script>
+
+    <!-- Gallery Hero -->
+    <div class="gallery-hero">
+        <h1>Visual Journey</h1>
+        <p>Glimpses of Life at BAPS Chhatralaya</p>
+    </div>
+
+    <main class="container" style="padding-bottom: 4rem;">
+
+        <!-- Filters -->
+        <div class="gallery-filters center">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="campus">Campus</button>
+            <button class="filter-btn" data-filter="events">Events</button>
+            <button class="filter-btn" data-filter="spiritual">Spiritual</button>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="masonry-grid">
+
+            <!-- CAMPUS (15 Images) -->
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Reading Hall">
+                <div class="overlay">
+                    <h3>Reading Hall</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Bhojanalay">
+                <div class="overlay">
+                    <h3>Satvik Bhojanalay</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Green Campus">
+                <div class="overlay">
+                    <h3>Lush Green Gardens</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Library">
+                <div class="overlay">
+                    <h3>E-Library</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Student Room">
+                <div class="overlay">
+                    <h3>Student Accommodation</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Lobby">
+                <div class="overlay">
+                    <h3>Reception Area</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Conference Hall">
+                <div class="overlay">
+                    <h3>Conference Hall</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1463125211516-092591605f63?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Sports Ground">
+                <div class="overlay">
+                    <h3>Sports Ground</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Computer Lab">
+                <div class="overlay">
+                    <h3>Computer Lab</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Garden Path">
+                <div class="overlay">
+                    <h3>Walking Track</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1602127271962-d2f627443152?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Canteen">
+                <div class="overlay">
+                    <h3>Juice Centre</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Guest House">
+                <div class="overlay">
+                    <h3>Guest House</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1534067783941-51c9c2363090?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Gym">
+                <div class="overlay">
+                    <h3>Fitness Centre</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Projector Room">
+                <div class="overlay">
+                    <h3>Audio-Visual Room</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Store">
+                <div class="overlay">
+                    <h3>General Store</h3>
+                </div>
+            </div>
+
+
+            <!-- SPIRITUAL (15 Images) -->
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Prayer Hall">
+                <div class="overlay">
+                    <h3>Prayer Hall</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1623326164223-1d02c8172c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Pramukh Swami Maharaj">
+                <div class="overlay">
+                    <h3>Pramukh Swami Maharaj</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1603502804369-042911b30c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Morning Aarti">
+                <div class="overlay">
+                    <h3>Morning Aarti</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1507643179173-61b0721379b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Satsang Sabha">
+                <div class="overlay">
+                    <h3>Weekly Sabha</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1596205739347-15d9da689945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Nilkanth Varni">
+                <div class="overlay">
+                    <h3>Nilkanth Varni</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1616745309504-0cb79e9ae590?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Daily Puja">
+                <div class="overlay">
+                    <h3>Daily Puja</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1621251848554-137a6b2904b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Guru Purnima">
+                <div class="overlay">
+                    <h3>Guru Purnima Pujan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1542385151-57af8a1aa807?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Saints">
+                <div class="overlay">
+                    <h3>Sadhu Darshan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1574676878238-7fba804be850?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Scriptures">
+                <div class="overlay">
+                    <h3>Spiritual Reading</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1545657879-633b4998be77?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Diya">
+                <div class="overlay">
+                    <h3>Diya Darshan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Ghar Sabha">
+                <div class="overlay">
+                    <h3>Ghar Sabha</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Meditation">
+                <div class="overlay">
+                    <h3>Meditation</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1620608933355-667793540d46?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Offering">
+                <div class="overlay">
+                    <h3>Thal Offering</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1548602088-9d12a4f9c10f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Akshardham">
+                <div class="overlay">
+                    <h3>Akshardham Darshan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1617134372557-b0809226d9c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Mandir Carving">
+                <div class="overlay">
+                    <h3>Mandir Architecture</h3>
+                </div>
+            </div>
+
+            <!-- EVENTS (15 Images) -->
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Annual Function">
+                <div class="overlay">
+                    <h3>Annual Day</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Sports Fest">
+                <div class="overlay">
+                    <h3>Sports Festival</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Garden Party">
+                <div class="overlay">
+                    <h3>Garden Party</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1513628253939-010e64ac66cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Kite Flying">
+                <div class="overlay">
+                    <h3>Uttarayan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1583212232451-952aa631e944?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Holi">
+                <div class="overlay">
+                    <h3>Fagan Punam (Holi)</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1605218457336-9273c529ba88?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Janmashtami">
+                <div class="overlay">
+                    <h3>Janmashtami Matki</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Beach Picnic">
+                <div class="overlay">
+                    <h3>Beach Picnic</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Music">
+                <div class="overlay">
+                    <h3>Kirtan Bhakti</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1563297746-b6ae8716f9f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Trekking">
+                <div class="overlay">
+                    <h3>Monsoon Trek</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1600577916048-842247fc2b15?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Diwali">
+                <div class="overlay">
+                    <h3>Diwali Decorations</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Annakut">
+                <div class="overlay">
+                    <h3>Annakut Darshan</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1cb98e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Meeting">
+                <div class="overlay">
+                    <h3>Alumni Meet</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Award">
+                <div class="overlay">
+                    <h3>Award Ceremony</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Unity">
+                <div class="overlay">
+                    <h3>Team Building</h3>
+                </div>
+            </div>
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Freshers">
+                <div class="overlay">
+                    <h3>Freshers' Welcome</h3>
+                </div>
+            </div>
+
+            <!-- More Campus -->
+            <div class="masonry-item" data-category="campus">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Library">
+                <div class="overlay">
+                    <h3>E-Library</h3>
+                </div>
+            </div>
+
+            <!-- More Spiritual -->
+            <div class="masonry-item" data-category="spiritual">
+                <img src="https://images.unsplash.com/photo-1623326164223-1d02c8172c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Maharaj">
+                <div class="overlay">
+                    <h3>Divine Darshan</h3>
+                </div>
+            </div>
+
+            <!-- More Events -->
+            <div class="masonry-item" data-category="events">
+                <img src="https://images.unsplash.com/photo-1513628253939-010e64ac66cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Kite Flying">
+                <div class="overlay">
+                    <h3>Uttarayan</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <!-- Standard Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- Column 1: Reach Us -->
+            <div class="footer-section">
+                <h2>Reach Us</h2>
+                <div class="contact-details">
+                    <p><i class="fa-solid fa-location-dot"></i>
+                        <span>
+                            <strong>Main Office (Vallabh Vidyanagar):</strong><br>
+                            Near Pramukhswami Circle, Anand - Vidyanagar Rd,<br>
+                            Vallabh Vidyanagar, Anand, Gujarat 388120
+                        </span>
+                    </p>
+                    <p><i class="fa-solid fa-phone"></i> +91 99988 77766</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@baps-hostel.org</p>
+                </div>
+
+                <div class="city-offices">
+                    <p style="color: var(--c-gold); font-weight: bold; margin-bottom: 0.8rem;">Major City Offices
+                        (Mandirs):</p>
+                    <ul class="office-list" style="list-style: none; padding: 0; font-size: 0.85rem; color: #ccc;">
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Vadodara:</strong> BAPS Mandir, Atladara, Padra Road, Vadodara
+                            - 390012.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Amdavad:</strong> BAPS Mandir, Shahibaug Rd, Madhupura,
+                            Ahmedabad - 380004.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Rajkot:</strong> BAPS Mandir, Kalawad Road, Near Mahila
+                            College, Rajkot -
+                            360001.
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            <strong style="color:white;">Surat:</strong> BAPS Mandir, Adajan Gas Circle, Adajan, Surat -
+                            395009.
+                        </li>
+                    </ul>
+                    <p
+                        style="font-size: 0.8rem; margin-top: 1rem; color: #888; border-top: 1px solid #333; padding-top: 0.5rem;">
+                        * For other cities, please visit your nearest Shikharbaddh Mandir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Column 2: Programmes / Facilities -->
+            <div class="footer-section footer-links">
+                <h2>Our Features</h2>
+                <ul>
+                    <li><a href="/facility-prayer.html">Mandir Hall & Spirituality</a></li>
+                    <li><a href="/facility-reading.html">Reading Halls</a></li>
+                    <li><a href="#">Bhojanalay (Dining)</a></li>
+                    <li><a href="#">Sports & Recreation</a></li>
+                    <li><a href="#">Student Counseling</a></li>
+                    <li><a href="#">Medical Facilities</a></li>
+                    <li><a href="#">Library & E-Resources</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Quick Links -->
+            <div class="footer-section footer-links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/apply.html">Apply Now (2025)</a></li>
+                    <li><a href="/events.html">Upcoming Events</a></li>
+                    <li><a href="/gallery.html">Photo Gallery</a></li>
+                    <li><a href="/student-dashboard.html">Student Login</a></li>
+                    <li><a href="/admin-dashboard.html">Admin Login</a></li>
+                    <li><a href="/contact.html">Contact Support</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BAPS" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/baps" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/baps" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://twitter.com/BAPS" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 BAPS Swaminarayan Chhatralaya. All Rights Reserved. | <strong>Developed by BAPS and APC
+                    Team</strong> | <a href="#" style="color: #666;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+
+    <!-- Script for Gallery -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Load Admin Uploads from LocalStorage
+            let uploadedImages = JSON.parse(localStorage.getItem('baps_gallery_images') || '[]');
+            const grid = document.querySelector('.masonry-grid');
+
+            // Handle backward compatibility (in case old string data still exists)
+            uploadedImages = uploadedImages.map(img => {
+                return (typeof img === 'string') ? { url: img, category: 'campus' } : img;
+            });
+
+            // Prepend uploaded images
+            uploadedImages.forEach(img => {
+                const div = document.createElement('div');
+                div.className = 'masonry-item';
+                div.setAttribute('data-category', img.category);
+
+                // Add show class for filter logic to pick it up potentially
+                div.innerHTML = `
+                    <img src="${img.url}" alt="Uploaded Image">
+                    <div class="overlay">
+                        <h3>${img.category.charAt(0).toUpperCase() + img.category.slice(1)} Upload</h3>
+                    </div>
+                `;
+                // Insert at top
+                if (grid.firstChild) {
+                    grid.insertBefore(div, grid.firstChild);
+                } else {
+                    grid.appendChild(div);
+                }
+            });
+
+            // 2. Filter Logic
+            const filters = document.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.masonry-item');
+
+            filters.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class
+                    filters.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    items.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        if (filterValue === 'all' || filterValue === category) {
+                            item.style.display = 'block';
+                            // Trigger reflow for masonry if using library, or just let CSS handle it
+                            setTimeout(() => item.classList.add('show'), 50);
+                        } else {
+                            item.style.display = 'none';
+                            item.classList.remove('show');
+                        }
+                    });
+                });
+            });
+
+            // Lightbox Logic
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+            const closeBtn = document.querySelector('.close-lightbox');
+
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const title = item.querySelector('h3').innerText;
+
+                    lightbox.style.display = "flex";
+                    // Small timeout for fade-in effect
+                    setTimeout(() => lightbox.classList.add('active'), 10);
+
+                    lightboxImg.src = img.src;
+                    caption.innerText = title;
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                setTimeout(() => lightbox.style.display = "none", 300);
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+
+            // Close on click outside
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+        });
+    </script>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
