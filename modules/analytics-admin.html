@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Analytics | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>System Analytics</h1>
+                <p>Global Reports & Operations Overview</p>
+            </div>
+            <div style="display:flex; gap:1rem;">
+                <select style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                    <option>Last 30 Days</option>
+                    <option>This Quarter</option>
+                    <option>Academic Year</option>
+                </select>
+                <button class="btn-baps btn-outline"><i class="fa-solid fa-download"></i> PDF Report</button>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="baps-card">
+                <h3><i class="fa-solid fa-money-bill-wave"></i> Fee Collection Trend</h3>
+                <div
+                    style="height: 250px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #aaa; border: 1px dashed #ccc; border-radius: 8px;">
+                    [Chart Placeholder: Incoming Fees vs Due]
+                </div>
+            </div>
+            <div class="baps-card">
+                <h3><i class="fa-solid fa-ticket"></i> Gatepass Stats</h3>
+                <div
+                    style="height: 250px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #aaa; border: 1px dashed #ccc; border-radius: 8px;">
+                    [Chart Placeholder: Permissions Approved vs Rejected]
+                </div>
+            </div>
+            <div class="baps-card">
+                <h3><i class="fa-solid fa-bolt"></i> Electricity Consumption</h3>
+                <div
+                    style="height: 250px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #aaa; border: 1px dashed #ccc; border-radius: 8px;">
+                    [Chart Placeholder: Monthly Units Burned]
+                </div>
+            </div>
+            <div class="baps-card">
+                <h3><i class="fa-solid fa-utensils"></i> Mess Efficiency</h3>
+                <div
+                    style="height: 250px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #aaa; border: 1px dashed #ccc; border-radius: 8px;">
+                    [Chart Placeholder: Food Waste Metrics]
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

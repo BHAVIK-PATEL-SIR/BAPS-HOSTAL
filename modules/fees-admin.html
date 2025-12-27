@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Management | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .fee-card-dark {
+            background: #111;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <div style="margin: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <div
+                style="padding: 0 1.5rem; margin-bottom: 0.5rem; font-size: 0.7rem; color: #aaa; text-transform: uppercase;">
+                Modules</div>
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff/Kothari</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass System</a>
+            <a href="fee-management.html" class="nav-item active"><i class="fa-solid fa-money-bill-wave"></i> Fee
+                Management</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory Store</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="top-header page-header">
+            <div class="page-title">
+                <h1>Fee Management</h1>
+                <p>Track Collections, Scholarships, and Dues</p>
+            </div>
+            <button class="btn-baps btn-gold"
+                onclick="document.getElementById('scholarshipModal').style.display='flex'">
+                <i class="fa-solid fa-plus"></i> Apply Scholarship
+            </button>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('collection')"><i
+                        class="fa-solid fa-hand-holding-dollar"></i> Collections</button>
+                <button class="tab-btn" onclick="switchTab('scholarship')"><i class="fa-solid fa-graduation-cap"></i>
+                    Scholarships</button>
+                <button class="tab-btn" onclick="switchTab('dues')"><i class="fa-solid fa-file-invoice-dollar"></i> Dues
+                    & Reminders</button>
+                <button class="tab-btn" onclick="switchTab('config')"><i class="fa-solid fa-gears"></i> Fee
+                    Structure</button>
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="baps-card">
+                    <h3 style="margin-bottom:1rem;">Overview</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div class="fee-card-dark" style="background:var(--c-navy);">
+                            <div>
+                                <div style="font-size:0.9rem; opacity:0.8;">Total Collected</div>
+                                <div style="font-size:1.8rem; font-weight:bold;">₹ 45,20,000</div>
+                            </div>
+                            <i class="fa-solid fa-sack-dollar" style="font-size:2rem; opacity:0.5;"></i>
+                        </div>
+                        <div class="fee-card-dark" style="background:#2E7D32;">
+                            <div>
+                                <div style="font-size:0.9rem; opacity:0.8;">Paid Students</div>
+                                <div style="font-size:1.8rem; font-weight:bold;">340 / 400</div>
+                            </div>
+                            <i class="fa-solid fa-users" style="font-size:2rem; opacity:0.5;"></i>
+                        </div>
+                        <div class="fee-card-dark" style="background:#C62828;">
+                            <div>
+                                <div style="font-size:0.9rem; opacity:0.8;">Pending Dues</div>
+                                <div style="font-size:1.8rem; font-weight:bold;">₹ 12,50,000</div>
+                            </div>
+                            <i class="fa-solid fa-clock" style="font-size:2rem; opacity:0.5;"></i>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:2rem;">
+                        <!-- Dark Card Simulation of "Fee Status: PAID" from user image -->
+                        <div class="fee-card-dark" style="background:#111; justify-content: flex-start; gap: 2rem;">
+                            <div>
+                                <div
+                                    style="color:#aaa; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">
+                                    Fee Status</div>
+                                <div style="color:#4CAF50; font-size:1.5rem; font-weight:bold; letter-spacing:1px;">PAID
+                                </div>
+                            </div>
+                            <div style="border-left:1px solid #333; padding-left:2rem;">
+                                <div style="color:#aaa; font-size:0.8rem;">Last Payment</div>
+                                <div>24 Dec 2024</div>
+                            </div>
+                            <div style="border-left:1px solid #333; padding-left:2rem;">
+                                <div style="color:#aaa; font-size:0.8rem;">Transaction ID</div>
+                                <div>TXN-88776655</div>
+                            </div>
+                            <div style="border-left:1px solid #333; padding-left:2rem;">
+                                <div style="color:#aaa; font-size:0.8rem;">Mode</div>
+                                <div>Online / UPI</div>
+                            </div>
+                            <div style="border-left:1px solid #333; padding-left:2rem;">
+                                <div style="color:#aaa; font-size:0.8rem;">Receipt</div>
+                                <button class="btn-baps btn-outline btn-sm"
+                                    style="color:white; border-color:white;">Download</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: COLLECTION -->
+            <div id="tab-collection" class="tab-content">
+                <div class="baps-card">
+                    <h3>Fee Collection Log</h3>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rahul Patel</td>
+                                <td>₹ 45,000</td>
+                                <td>24 Dec 2024</td>
+                                <td>UPI</td>
+                                <td><span class="badge badge-verified">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td>Priya Shah</td>
+                                <td>₹ 45,000</td>
+                                <td>23 Dec 2024</td>
+                                <td>Cheque</td>
+                                <td><span class="badge badge-pending">Clearing</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: SCHOLARSHIP -->
+            <div id="tab-scholarship" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                        <h3>Scholarship Applications</h3>
+                        <button class="btn-baps btn-gold"
+                            onclick="document.getElementById('scholarshipModal').style.display='flex'">+ New
+                            Application</button>
+                    </div>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Income (Annual)</th>
+                                <th>Category</th>
+                                <th>Requested Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scholarshipTableBody">
+                            <tr>
+                                <td>Amit Kumar</td>
+                                <td>₹ 1,20,000</td>
+                                <td>EWS</td>
+                                <td>₹ 25,000</td>
+                                <td><span class="badge badge-pending">Review</span></td>
+                                <td><button class="btn-baps btn-outline btn-sm">Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: DUES -->
+            <div id="tab-dues" class="tab-content">
+                <div class="baps-card">
+                    <h3>Pending Dues</h3>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Pending Amount</th>
+                                <th>Due Date</th>
+                                <th>Reminders Sent</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vikram Singh</td>
+                                <td>₹ 20,000</td>
+                                <td>01 Dec 2024</td>
+                                <td>2</td>
+                                <td><button class="btn-baps btn-outline btn-sm">Send SMS</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 5: CONFIG -->
+            <div id="tab-config" class="tab-content">
+                <div class="baps-card">
+                    <h3>Fee Structure Configuration</h3>
+                    <p>Academic Year 2024-25</p>
+                    <ul>
+                        <li>Hostel Fee: ₹ 45,000 / Year</li>
+                        <li>Mess Deposit: ₹ 5,000 (Refundable)</li>
+                    </ul>
+                    <button class="btn-baps btn-outline">Edit Structure</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCHOLARSHIP MODAL (9 + 3 Details) -->
+    <div id="scholarshipModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 700px; padding: 2rem; max-height:90vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Apply for Scholarship</h3>
+                <button onclick="document.getElementById('scholarshipModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveScholarship();">
+                <!-- 9 CORE DETAILS + 3 MORE -->
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem;">
+                    Student Details</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label>1. Full Name</label><input type="text" id="schName" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label>2. Course/Branch</label><input type="text" id="schCourse" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label>3. Semester</label><input type="text" id="schSem" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label>4. Mobile No.</label><input type="text" id="schMobile" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label>5. Aadhar Card No.</label><input type="text" id="schAadhar" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label>6. Category (EWS/SC/ST)</label><select id="schCat"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+                            <option>EWS</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                            <option>General</option>
+                        </select></div>
+                </div>
+
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem; margin-top:1.5rem;">
+                    Financial & Academic</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label>7. Annual Family Income</label><input type="number" id="schIncome" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label>8. Previous Sem Result (SPI)</label><input type="text" id="schResult" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label>9. Reason for Application</label>
+                    <textarea id="schReason" rows="2"
+                        style="width:100%; padding:0.5rem; border:1px solid #ddd;"></textarea>
+                </div>
+
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem; margin-top:1.5rem;">
+                    Bank Details (For Refund)</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label>10. Bank Name</label><input type="text" id="schBank" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label>11. Account Number</label><input type="text" id="schAcc" required
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label>12. IFSC Code</label>
+                    <input type="text" id="schIfsc" required style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+                </div>
+
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function saveScholarship() {
+            const name = document.getElementById('schName').value;
+            const income = document.getElementById('schIncome').value;
+            const cat = document.getElementById('schCat').value;
+
+            // Save to LocalStorage
+            const app = {
+                name,
+                income,
+                cat,
+                amount: '₹ 25,000', // Mock
+                status: 'Review'
+            };
+
+            const existing = JSON.parse(localStorage.getItem('baps_scholarships') || '[]');
+            existing.push(app);
+            localStorage.setItem('baps_scholarships', JSON.stringify(existing));
+
+            alert('Scholarship Application Submitted Successfully!');
+            document.getElementById('scholarshipModal').style.display = 'none';
+            loadScholarships();
+        }
+
+        function loadScholarships() {
+            const existing = JSON.parse(localStorage.getItem('baps_scholarships') || '[]');
+            const tbody = document.getElementById('scholarshipTableBody');
+
+            if (existing.length === 0) {
+                tbody.innerHTML = `<tr><td>Amit Kumar</td><td>₹ 1,20,000</td><td>EWS</td><td>₹ 25,000</td><td><span class="badge badge-pending">Review</span></td><td><button class="btn-baps btn-outline btn-sm">Details</button></td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = existing.map(s => `
+                <tr>
+                    <td>${s.name}</td>
+                    <td>₹ ${s.income}</td>
+                    <td>${s.cat}</td>
+                    <td>${s.amount}</td>
+                    <td><span class="badge badge-pending">Review</span></td>
+                    <td><button class="btn-baps btn-outline btn-sm">Details</button></td>
+                </tr>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadScholarships);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

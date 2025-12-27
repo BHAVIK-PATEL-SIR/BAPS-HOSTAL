@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatepass Admin | BAPS APC</title>
+    <title>Gatepass Admin | Sahajanand APC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <style>
@@ -75,7 +75,7 @@
     <!-- SIDEBAR -->
     <div class="baps-sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-brand">Sahajanand APC</div>
             <div class="sidebar-subtitle">Management Portal</div>
         </div>
         <div class="nav-links">
@@ -134,6 +134,8 @@
                     Active Passes</button>
                 <button class="tab-btn" onclick="switchTab('history')"><i class="fa-solid fa-clock-rotate-left"></i>
                     History Log</button>
+                <button class="tab-btn" onclick="switchTab('rules')"><i class="fa-solid fa-ban"></i>
+                    Rules/Blacklist</button>
                 <button class="tab-btn" onclick="switchTab('security')"><i class="fa-solid fa-shield-cat"></i> Security
                     Controls</button>
 
@@ -219,7 +221,43 @@
                 </table>
             </div>
 
-            <!-- TAB 4: SECURITY CONTROLS -->
+            <!-- TAB 4: BLACKLIST & RULES -->
+            <div id="tab-rules" class="tab-content">
+                <h3>Rules & Blacklist</h3>
+                <div style="display:grid; grid-template-columns: 2fr 1fr; gap:1.5rem;">
+                    <div class="baps-card">
+                        <h4>Blocked Students</h4>
+                        <table class="baps-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Reason</th>
+                                    <th>Until</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rajesh Kumar</td>
+                                    <td>Disciplinary</td>
+                                    <td>Permanent</td>
+                                    <td><button class="btn-baps btn-outline btn-sm">Unblock</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="baps-card">
+                        <h4>Timing Rules</h4>
+                        <div style="margin-bottom:1rem;">
+                            <label>Last Entry Time</label>
+                            <input type="time" value="22:00" style="display:block; padding:0.5rem; margin-top:0.5rem;">
+                        </div>
+                        <button class="btn-baps btn-gold">Update Rules</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: SECURITY CONTROLS -->
             <div id="tab-security" class="tab-content">
                 <h3>Security Checkpoints</h3>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">

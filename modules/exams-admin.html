@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exams & Results | BAPS APC Admin</title>
+    <title>Exams & Results | Sahajanand APC Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <style>
@@ -97,7 +97,7 @@
     <!-- SIDEBAR -->
     <div class="baps-sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-brand">Sahajanand APC</div>
             <div class="sidebar-subtitle">Management Portal</div>
         </div>
         <div class="nav-links">
@@ -159,6 +159,8 @@
                     Entry</button>
                 <button class="tab-btn" onclick="switchTab('seva')"><i class="fa-solid fa-hands-holding-circle"></i>
                     Seva Grading</button>
+                <button class="tab-btn" onclick="switchTab('config')"><i class="fa-solid fa-sliders"></i>
+                    Sem Config</button>
 
             </div>
 
@@ -355,6 +357,31 @@
                         <button class="btn-baps btn-gold" style="width:100%; font-size:0.8rem; margin-top:0.5rem;"
                             onclick="saveSeva(this)">Save Grades</button>
                     </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: CONFIG -->
+            <div id="tab-config" class="tab-content">
+                <div class="baps-card" style="max-width:600px;">
+                    <h3>Exam Configuration</h3>
+                    <div style="margin-bottom:1.5rem;">
+                        <label>SPI Formula Weightage (End Sem)</label>
+                        <input type="range" min="50" max="100" value="70" style="width:100%;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#666;">
+                            <span>50%</span>
+                            <span>70% (Current)</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <label>Exam Mode</label>
+                        <select style="width:100%; padding:0.5rem; margin-top:0.5rem;">
+                            <option>Offline (Paper)</option>
+                            <option>Online (Lab)</option>
+                            <option>Hybrid</option>
+                        </select>
+                    </div>
+                    <button class="btn-baps btn-outline">Update Settings</button>
                 </div>
             </div>
 

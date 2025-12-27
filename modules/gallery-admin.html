@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Manager | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Student Operations</div>
+            <a href="applications-admin.html" class="nav-item"><i class="fa-solid fa-users"></i> Applications</a>
+            <a href="verification-admin.html" class="nav-item"><i class="fa-solid fa-check-double"></i> Verification</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee Mgmt</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams</a>
+            <a href="helpdesk-admin.html" class="nav-item"><i class="fa-solid fa-headset"></i> Helpdesk</a>
+            <a href="satsang-admin.html" class="nav-item"><i class="fa-solid fa-hands-praying"></i> Satsang</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Facilities</div>
+            <a href="rooms-admin.html" class="nav-item"><i class="fa-solid fa-bed"></i> Rooms</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+            <a href="assets-admin.html" class="nav-item"><i class="fa-solid fa-couch"></i> Fixed Assets</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library</a>
+            <a href="mess-admin.html" class="nav-item"><i class="fa-solid fa-utensils"></i> Bhojanalay</a>
+            <a href="transport-admin.html" class="nav-item"><i class="fa-solid fa-bus"></i> Transport</a>
+            <a href="guesthouse-admin.html" class="nav-item"><i class="fa-solid fa-hotel"></i> Guest House</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Operations</div>
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff</a>
+            <a href="payroll-admin.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Payroll</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="news-admin.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> News CMS</a>
+            <a href="gallery-admin.html" class="nav-item active"><i class="fa-solid fa-images"></i> Gallery</a>
+            <a href="settings-admin.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="analytics-admin.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+
+            <a href="../index.html" class="nav-item"
+                style="margin-top: 1rem; color: #ff6b6b; border-top: 1px solid #333; padding-top: 1rem;">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Gallery Manager</h1>
+                <p>Upload and Manage Website Images</p>
+            </div>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+            <div class="baps-card">
+                <h3>Upload New Images</h3>
+                <input type="file" id="realFileInput" accept="image/*" style="display: none;"
+                    onchange="handleFileSelect(this)">
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-weight: bold; margin-right: 0.5rem;">Select Section:</label>
+                    <select id="galleryCategory" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="campus">Campus</option>
+                        <option value="events">Events</option>
+                        <option value="spiritual">Spiritual</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div style="border: 2px dashed #ccc; padding: 2rem; text-align: center; margin-bottom: 2rem; cursor: pointer; transition: background 0.3s;"
+                    onclick="triggerUpload()" onmouseover="this.style.background='#f9f9f9'"
+                    onmouseout="this.style.background='white'">
+                    <i class="fa-solid fa-cloud-upload-alt" style="font-size: 2rem; color: #ccc;"></i><br>
+                    Click to Upload Images
+                </div>
+                <h3>Gallery Preview</h3>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;" id="galleryGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadState(key, defaultVal) {
+            const stored = localStorage.getItem(key);
+            return stored ? JSON.parse(stored) : defaultVal;
+        }
+
+        const state = { gallery: loadState('baps_gallery_images', []) };
+
+        function triggerUpload() { document.getElementById('realFileInput').click(); }
+        function handleFileSelect(input) {
+            if (input.files.length > 0) {
+                alert('Image Selected (Simulation)');
+                // In a real app we would read and save via service
+            }
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            if (grid) {
+                if (state.gallery.length === 0) {
+                    grid.style.display = 'block';
+                    grid.innerHTML = '<p style="color:#999; text-align:center;">No images uploaded.</p>';
+                } else {
+                    grid.style.display = 'grid';
+                    grid.innerHTML = state.gallery.map((img, i) => `<div style="aspect-ratio:1; background:#ddd; border-radius:8px; background-image:url('${img.url}'); background-size:cover;"></div>`).join('');
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', renderGallery);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

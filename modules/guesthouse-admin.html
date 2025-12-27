@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest House Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Guest House Management</h1>
+                <p>Visitor & Parent Accommodation</p>
+            </div>
+            <button class="btn-baps btn-gold"><i class="fa-solid fa-book"></i> New Booking</button>
+        </div>
+
+        <div class="baps-card">
+            <h3>Room Occupancy</h3>
+            <table class="baps-table">
+                <thead>
+                    <tr>
+                        <th>Room No</th>
+                        <th>Status</th>
+                        <th>Guest Name</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GH-101</td>
+                        <td><span class="badge badge-rejected">Occupied</span></td>
+                        <td>Mr. Patel (Parent of Rahul)</td>
+                        <td>24 Dec</td>
+                        <td>26 Dec</td>
+                        <td><button class="btn-baps btn-outline btn-sm">Check-out</button></td>
+                    </tr>
+                    <tr>
+                        <td>GH-102</td>
+                        <td><span class="badge badge-verified">Available</span></td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><button class="btn-baps btn-gold btn-sm">Book</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

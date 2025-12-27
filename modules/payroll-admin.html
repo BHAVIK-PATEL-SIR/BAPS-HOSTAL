@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Payroll Management</h1>
+                <p>Staff Salary & Compensation</p>
+            </div>
+            <button class="btn-baps btn-gold">Run Payroll (Dec 2024)</button>
+        </div>
+
+        <div class="baps-card">
+            <h3>Staff Salary List</h3>
+            <table class="baps-table">
+                <thead>
+                    <tr>
+                        <th>Staff Name</th>
+                        <th>Role</th>
+                        <th>Base Salary</th>
+                        <th>Deductions</th>
+                        <th>Net Pay</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ramesh Bhai</td>
+                        <td>Warden</td>
+                        <td>₹ 25,000</td>
+                        <td>₹ 1,000</td>
+                        <td>₹ 24,000</td>
+                        <td><span class="badge badge-verified">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>Suresh Kumar</td>
+                        <td>Security</td>
+                        <td>₹ 18,000</td>
+                        <td>₹ 0</td>
+                        <td>₹ 18,000</td>
+                        <td><span class="badge badge-pending">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

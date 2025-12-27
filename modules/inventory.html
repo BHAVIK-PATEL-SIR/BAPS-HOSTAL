@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory | BAPS APC</title>
+    <title>Inventory | Sahajanand APC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <style>
@@ -75,7 +75,7 @@
     <!-- SIDEBAR -->
     <div class="baps-sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-brand">Sahajanand APC</div>
             <div class="sidebar-subtitle">Management Portal</div>
         </div>
         <div class="nav-links">
@@ -137,6 +137,8 @@
                     Orders</button>
                 <button class="tab-btn" onclick="switchTab('suppliers')"><i class="fa-solid fa-truck"></i>
                     Suppliers</button>
+                <button class="tab-btn" onclick="switchTab('audits')"><i class="fa-solid fa-clipboard-check"></i>
+                    Stock Audits</button>
 
             </div>
 
@@ -220,22 +222,8 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mattress (Single)</td>
-                            <td>Hostel</td>
-                            <td>45</td>
-                            <td>Storeroom A</td>
-                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">History</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Water Filter Candle</td>
-                            <td>Maintenance</td>
-                            <td>8</td>
-                            <td>Storeroom B</td>
-                            <td><button class="btn-baps btn-gold" style="padding:0.2rem 0.6rem;">Reorder</button></td>
-                        </tr>
+                    <tbody id="inventoryTableBody">
+                        <!-- JS Will Populate -->
                     </tbody>
                 </table>
             </div>
@@ -295,83 +283,165 @@
                         <button class="btn-baps btn-outline" style="width:100%;">View Ledger</button>
                     </div>
                 </div>
-            </div>
-
-
-
-        </div>
-    </div>
-
-    <!-- ITEM MODAL (5 Fields) -->
-    <div id="itemModal"
-        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-        <div class="baps-card" style="width: 500px; padding: 2rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                <h3 style="margin:0;">Add New Stock Item</h3>
-                <button onclick="document.getElementById('itemModal').style.display='none'"
-                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
-            </div>
-            <form onsubmit="event.preventDefault(); saveItem();">
-                <div style="margin-bottom:1rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Item Name</label>
-                    <input type="text" required placeholder="e.g. Register Book"
-                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                </div>
-                <div style="margin-bottom:1rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Category</label>
-                    <select style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                        <option>Office Stationery</option>
-                        <option>Cleaning</option>
-                        <option>Hostel Furniture</option>
-                        <option>Electrical</option>
-                        <option>Medical</option>
-                    </select>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
-                    <div>
-                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Quantity</label>
-                        <input type="number" required placeholder="0"
-                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                    </div>
-                    <div>
-                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Unit (kg, pcs)</label>
-                        <input type="text" placeholder="pcs"
-                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                <!-- TAB 5: AUDITS (NEW) -->
+                <div id="tab-audits" class="tab-content">
+                    <div class="baps-card">
+                        <h3>Stock Audits & Reconciliation</h3>
+                        <p style="color:#666; margin-bottom:1rem;">Monthly reports verifying physical stock vs system
+                            stock.</p>
+                        <table class="baps-table">
+                            <thead>
+                                <tr>
+                                    <th>Audit Date</th>
+                                    <th>Auditor</th>
+                                    <th>Discrepancies</th>
+                                    <th>Status</th>
+                                    <th>Report</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>30 Nov 2024</td>
+                                    <td>Kothari Swami</td>
+                                    <td style="color:green;">None</td>
+                                    <td><span class="badge badge-verified">Verified</span></td>
+                                    <td><button class="btn-baps btn-outline btn-sm">Download</button></td>
+                                </tr>
+                                <tr>
+                                    <td>31 Oct 2024</td>
+                                    <td>Admin</td>
+                                    <td style="color:red;">-5 kg Sugar</td>
+                                    <td><span class="badge badge-rejected">Flagged</span></td>
+                                    <td><button class="btn-baps btn-outline btn-sm">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div style="margin-bottom:1.5rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Supplier / Vendor</label>
-                    <input type="text" required placeholder="Vendor Name"
-                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                </div>
-                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Add to Inventory</button>
-            </form>
+
+
+
+            </div>
         </div>
-    </div>
 
-    <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        <!-- ITEM MODAL (5 Fields) -->
+        <div id="itemModal"
+            style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div class="baps-card" style="width: 500px; padding: 2rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h3 style="margin:0;">Add New Stock Item</h3>
+                    <button onclick="document.getElementById('itemModal').style.display='none'"
+                        style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+                </div>
+                <form onsubmit="event.preventDefault(); saveItem();">
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Item Name</label>
+                        <input type="text" required placeholder="e.g. Register Book"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Category</label>
+                        <select style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                            <option>Office Stationery</option>
+                            <option>Cleaning</option>
+                            <option>Hostel Furniture</option>
+                            <option>Electrical</option>
+                            <option>Medical</option>
+                        </select>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <div>
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Quantity</label>
+                            <input type="number" required placeholder="0"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Unit (kg, pcs)</label>
+                            <input type="text" placeholder="pcs"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Supplier / Vendor</label>
+                        <input type="text" required placeholder="Vendor Name"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                    <button type="submit" class="btn-baps btn-gold" style="width:100%;">Add to Inventory</button>
+                </form>
+            </div>
+        </div>
 
-            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
-            if (btn) btn.classList.add('active');
+        <script>
+            function switchTab(tabId) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-            const content = document.getElementById('tab-' + tabId);
-            if (content) content.classList.add('active');
-        }
+                const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+                if (btn) btn.classList.add('active');
 
-        function saveItem() {
-            const btn = document.querySelector('#itemModal button[type="submit"]');
-            btn.innerHTML = 'Adding...';
-            setTimeout(() => {
-                alert('Item Added to Inventory Successfully!');
-                document.getElementById('itemModal').style.display = 'none';
-                btn.innerHTML = 'Add to Inventory';
-            }, 1000);
-        }
-    </script>
-    <script type="module" src="/src/admin-extensions.ts"></script>
+                const content = document.getElementById('tab-' + tabId);
+                if (content) content.classList.add('active');
+            }
+
+            function saveItem() {
+                const btn = document.querySelector('#itemModal button[type="submit"]');
+
+                // Gather Data
+                const inputs = document.querySelectorAll('#itemModal input, #itemModal select');
+                const newItem = {
+                    name: inputs[0].value,
+                    category: inputs[1].value,
+                    qty: inputs[2].value + ' ' + inputs[3].value,
+                    vendor: inputs[4].value,
+                    location: 'Storeroom A' // default
+                };
+
+                // Save
+                const items = JSON.parse(localStorage.getItem('baps_inventory') || '[]');
+                items.push(newItem);
+                localStorage.setItem('baps_inventory', JSON.stringify(items));
+
+                // UI Feedback
+                btn.innerHTML = 'Adding...';
+                setTimeout(() => {
+                    alert('Item Added to Inventory Successfully!');
+                    document.getElementById('itemModal').style.display = 'none';
+                    btn.innerHTML = 'Add to Inventory';
+                    // Reset form
+                    inputs.forEach(i => i.value = '');
+                    loadInventory(); // Refresh
+                }, 500);
+            }
+
+            function loadInventory() {
+                const items = JSON.parse(localStorage.getItem('baps_inventory') || '[]');
+                const tbody = document.getElementById('inventoryTableBody');
+
+                // Default mock items if empty
+                if (items.length === 0) {
+                    tbody.innerHTML = `
+                    <tr><td>Mattress (Single)</td><td>Hostel</td><td>45 pcs</td><td>Storeroom A</td><td><button class="btn-baps btn-outline btn-sm">History</button></td></tr>
+                    <tr><td>Water Filter Candle</td><td>Maintenance</td><td>8 pcs</td><td>Storeroom B</td><td><button class="btn-baps btn-gold btn-sm">Reorder</button></td></tr>
+                 `;
+                    return;
+                }
+
+                // Render Dynamic
+                tbody.innerHTML = items.map(item => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.category}</td>
+                    <td>${item.qty}</td>
+                    <td>${item.location}</td>
+                    <td><button class="btn-baps btn-outline btn-sm">History</button></td>
+                </tr>
+            `).join('');
+            }
+
+            document.addEventListener('DOMContentLoaded', loadInventory);
+        </script>
+        <script src="/src/services/admin-service.js"></script>
+        <script type="module" src="/src/admin-extensions.ts"></script>
 </body>
 
 </html>

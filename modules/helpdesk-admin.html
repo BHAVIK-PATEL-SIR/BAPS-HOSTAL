@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Helpdesk Management</h1>
+                <p>Manage Student Grievances & Maintenance Requests</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="alert('Exporting Report...')"><i
+                    class="fa-solid fa-file-export"></i> Export Report</button>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('active')"><i class="fa-solid fa-ticket"></i> Active
+                    Tickets</button>
+                <button class="tab-btn" onclick="switchTab('mytasks')"><i class="fa-solid fa-list-check"></i> My
+                    Tasks</button>
+                <button class="tab-btn" onclick="switchTab('completed')"><i class="fa-solid fa-check-double"></i>
+                    Completed</button>
+                <button class="tab-btn" onclick="switchTab('staff')"><i class="fa-solid fa-users-gear"></i> Staff
+                    Performance</button>
+                <button class="tab-btn" onclick="switchTab('categories')"><i class="fa-solid fa-tags"></i>
+                    Categories</button>
+            </div>
+
+            <!-- TAB 1: ACTIVE TICKETS -->
+            <div id="tab-active" class="tab-content active">
+                <div class="baps-card">
+                    <h3>Recent Tickets</h3>
+                    <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+                        <button class="btn-baps btn-outline active">All</button>
+                        <button class="btn-baps btn-outline">Open</button>
+                        <button class="btn-baps btn-outline">Resolved</button>
+                    </div>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Student</th>
+                                <th>Category</th>
+                                <th>Issue</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#TK-1024</td>
+                                <td>Rahul Patel (Rm 104)</td>
+                                <td>Plumbing</td>
+                                <td>Tap Leaking in Washroom</td>
+                                <td>24 Dec 2024</td>
+                                <td><span class="badge badge-pending">Open</span></td>
+                                <td><button class="btn-baps btn-outline btn-sm">Resolve</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: MY TASKS -->
+            <div id="tab-mytasks" class="tab-content">
+                <div class="baps-card">
+                    <h3>Assigned to Me</h3>
+                    <p style="color:#666;">Tickets escalated to Admin level.</p>
+                    <div style="padding:2rem; text-align:center; background:#f9f9f9; border-radius:8px;">
+                        <i class="fa-solid fa-mug-hot" style="font-size:2rem; margin-bottom:1rem; color:#ccc;"></i>
+                        <div>No pending tasks assigned to you.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: COMPLETED -->
+            <div id="tab-completed" class="tab-content">
+                <div class="baps-card">
+                    <h3>Resolution Archive</h3>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Issue</th>
+                                <th>Resolved By</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#TK-1023</td>
+                                <td>Fan Regulator Broken</td>
+                                <td>Ramesh (Electrician)</td>
+                                <td>Yesterday</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: STAFF STATS -->
+            <div id="tab-staff" class="tab-content">
+                <div class="baps-card">
+                    <h3>Maintenance Staff Performance</h3>
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem;">
+                        <div style="border:1px solid #eee; padding:1rem; border-radius:8px; text-align:center;">
+                            <div style="font-weight:bold;">Ramesh (Elec)</div>
+                            <div style="color:green; font-size:1.5rem; margin:0.5rem 0;">12</div>
+                            <small>Tasks Done</small>
+                        </div>
+                        <div style="border:1px solid #eee; padding:1rem; border-radius:8px; text-align:center;">
+                            <div style="font-weight:bold;">Suresh (Plumb)</div>
+                            <div style="color:orange; font-size:1.5rem; margin:0.5rem 0;">4</div>
+                            <small>Pending</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: CATEGORIES -->
+            <div id="tab-categories" class="tab-content">
+                <div class="baps-card">
+                    <h3>Manage Categories</h3>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                        <span class="badge badge-verified">Electrical</span>
+                        <span class="badge badge-verified">Plumbing</span>
+                        <span class="badge badge-verified">Carpentry</span>
+                        <span class="badge badge-verified">Internet/WiFi</span>
+                        <span class="badge badge-pending">+ Add New</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

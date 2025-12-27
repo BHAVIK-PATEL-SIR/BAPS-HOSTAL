@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Transport Management</h1>
+                <p>Bus Fleet & Vehicle Schedule</p>
+            </div>
+            <button class="btn-baps btn-gold"><i class="fa-solid fa-plus"></i> Add Vehicle</button>
+        </div>
+
+        <div class="baps-card">
+            <h3>Vehicle Fleet Status</h3>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-top:1rem;">
+                <div style="border:1px solid #eee; padding:1rem; border-radius:8px;">
+                    <div style="display:flex; justify-content:space-between;">
+                        <strong>GJ-06-XX-1234</strong>
+                        <span class="badge badge-verified">Available</span>
+                    </div>
+                    <div style="color:#666; font-size:0.9rem; margin-top:0.5rem;">Bus (52 Seater)</div>
+                    <div style="margin-top:0.5rem; font-size:0.8rem;"><i class="fa-solid fa-user"></i> Driver: Rajesh
+                        Bhai</div>
+                </div>
+                <div style="border:1px solid #eee; padding:1rem; border-radius:8px;">
+                    <div style="display:flex; justify-content:space-between;">
+                        <strong>GJ-06-YY-5678</strong>
+                        <span class="badge badge-pending">On Trip</span>
+                    </div>
+                    <div style="color:#666; font-size:0.9rem; margin-top:0.5rem;">Van (Maruti Eeco)</div>
+                    <div style="margin-top:0.5rem; font-size:0.8rem;"><i class="fa-solid fa-user"></i> Driver: Suresh
+                        Bhai</div>
+                    <div style="margin-top:0.3rem; font-size:0.8rem; color:blue;">Dest: BAPS Mandir</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

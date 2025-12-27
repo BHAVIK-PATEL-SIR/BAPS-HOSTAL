@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Allocation | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Student Operations</div>
+            <a href="applications-admin.html" class="nav-item"><i class="fa-solid fa-users"></i> Applications</a>
+            <a href="verification-admin.html" class="nav-item"><i class="fa-solid fa-check-double"></i> Verification</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee Mgmt</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams</a>
+            <a href="helpdesk-admin.html" class="nav-item"><i class="fa-solid fa-headset"></i> Helpdesk</a>
+            <a href="satsang-admin.html" class="nav-item"><i class="fa-solid fa-hands-praying"></i> Satsang</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Facilities</div>
+            <a href="rooms-admin.html" class="nav-item active"><i class="fa-solid fa-bed"></i> Rooms</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+            <a href="assets-admin.html" class="nav-item"><i class="fa-solid fa-couch"></i> Fixed Assets</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library</a>
+            <a href="mess-admin.html" class="nav-item"><i class="fa-solid fa-utensils"></i> Bhojanalay</a>
+            <a href="transport-admin.html" class="nav-item"><i class="fa-solid fa-bus"></i> Transport</a>
+            <a href="guesthouse-admin.html" class="nav-item"><i class="fa-solid fa-hotel"></i> Guest House</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Operations</div>
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff</a>
+            <a href="payroll-admin.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Payroll</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="news-admin.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> News CMS</a>
+            <a href="gallery-admin.html" class="nav-item"><i class="fa-solid fa-images"></i> Gallery</a>
+            <a href="settings-admin.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="analytics-admin.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+
+            <a href="../index.html" class="nav-item"
+                style="margin-top: 1rem; color: #ff6b6b; border-top: 1px solid #333; padding-top: 1rem;">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Room Allocation</h1>
+                <p>Manage Hostel Rooms and Bed Availability</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="alert('Exporting List...')"><i class="fa-solid fa-download"></i>
+                Export List</button>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('rooms')"><i class="fa-solid fa-door-closed"></i> All
+                    Rooms</button>
+                <button class="tab-btn" onclick="switchTab('allocation')"><i class="fa-solid fa-user-check"></i>
+                    Allocation</button>
+                <button class="tab-btn" onclick="switchTab('maintenance')"><i
+                        class="fa-solid fa-screwdriver-wrench"></i> Maintenance</button>
+                <button class="tab-btn" onclick="switchTab('config')"><i class="fa-solid fa-gears"></i> Config</button>
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="baps-card">
+                    <h3>Room Allocation Status</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;"
+                        id="roomGrid"></div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ALL ROOMS -->
+            <div id="tab-rooms" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                        <h3>Room Master List</h3>
+                        <button class="btn-baps btn-outline" onclick="openAddRoomModal()">+ Add New Room</button>
+                    </div>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Room No</th>
+                                <th>Capacity</th>
+                                <th>Occupied</th>
+                                <th>Floor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="roomsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: ALLOCATION -->
+            <div id="tab-allocation" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3>Student Room Allocation</h3>
+                        <button class="btn-baps btn-gold" onclick="openAllocateModal()">Allocate Student</button>
+                    </div>
+                    <p style="color:#666; margin-bottom:1rem;">Assign pending students to available beds.</p>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Assigned Room</th>
+                                <th>Bed No</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allocationTableBody">
+                            <tr>
+                                <td>Rahul Patel</td>
+                                <td>B.Tech (CS)</td>
+                                <td>101</td>
+                                <td>A</td>
+                                <td><button class="btn-baps btn-outline btn-sm">Vacate</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: MAINTENANCE -->
+            <div id="tab-maintenance" class="tab-content">
+                <div class="baps-card">
+                    <h3>Rooms Under Maintenance</h3>
+                    <div style="padding:2rem; text-align:center; color:#999; border:2px dashed #eee;">
+                        <i class="fa-solid fa-paint-roller" style="font-size:2rem; margin-bottom:1rem;"></i><br>
+                        No rooms currently blocked for maintenance.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: CONFIG -->
+            <div id="tab-config" class="tab-content">
+                <div class="baps-card" style="max-width:500px;">
+                    <h3>Hostel Configuration</h3>
+                    <div style="margin-bottom:1rem;">
+                        <label>Default Room Capacity</label>
+                        <select style="width:100%; padding:0.5rem; margin-top:0.5rem;">
+                            <option>2 Students</option>
+                            <option>3 Students</option>
+                            <option>4 Students</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <label>Auto-Allocation Logic</label>
+                        <select style="width:100%; padding:0.5rem; margin-top:0.5rem;">
+                            <option>Fill Ground Floor First</option>
+                            <option>Mix Courses</option>
+                            <option>Same Course Together</option>
+                        </select>
+                    </div>
+                    <button class="btn-baps btn-outline">Save Rules</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ALLOCATE MODAL -->
+    <div id="allocateModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 400px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Allocate Room</h3>
+                <button onclick="document.getElementById('allocateModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveAllocation();">
+                <input type="text" id="allocStudentName" placeholder="Student Name" required
+                    style="width:100%; padding:0.8rem; margin-bottom:1rem; border:1px solid #ddd; border-radius:4px;">
+                <select id="allocRoomNo"
+                    style="width:100%; padding:0.8rem; margin-bottom:1rem; border:1px solid #ddd; border-radius:4px;">
+                    <option value="101">Room 101</option>
+                    <option value="102">Room 102</option>
+                    <option value="103">Room 103</option>
+                </select>
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Confirm Allocation</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- TAB LOGIC ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        // --- DASHBOARD GRID LOGIC ---
+        function loadRooms() {
+            const grid = document.getElementById('roomGrid');
+            grid.innerHTML = '';
+            for (let i = 101; i <= 120; i++) {
+                const isFree = Math.random() > 0.4;
+                grid.innerHTML += `
+                     <div style="background:${isFree ? '#E8F5E9' : '#FCE4EC'}; padding:1rem; border-radius:8px; text-align:center; border:1px solid ${isFree ? '#C8E6C9' : '#F8BBD0'}">
+                         <i class="fa-solid fa-bed" style="color:${isFree ? '#2E7D32' : '#C2185B'}; font-size:1.5rem; margin-bottom:0.5rem;"></i>
+                         <div style="font-weight:bold;">Room ${i}</div>
+                         <small style="color:${isFree ? '#2E7D32' : '#C2185B'}">${isFree ? 'Available' : 'Full'}</small>
+                     </div>
+                 `;
+            }
+            loadAllocationTable(); // Also load the table
+        }
+
+        // --- ALLOCATION LOGIC ---
+        function openAllocateModal() {
+            document.getElementById('allocateModal').style.display = 'flex';
+        }
+
+        function saveAllocation() {
+            const name = document.getElementById('allocStudentName').value;
+            const room = document.getElementById('allocRoomNo').value;
+
+            const allocation = { name, room, date: new Date().toLocaleDateString() };
+            const existing = JSON.parse(localStorage.getItem('baps_allocations') || '[]');
+            existing.push(allocation);
+            localStorage.setItem('baps_allocations', JSON.stringify(existing));
+
+            alert(`Success! ${name} assigned to Room ${room}.`);
+            document.getElementById('allocateModal').style.display = 'none';
+            document.getElementById('allocStudentName').value = '';
+            loadAllocationTable();
+        }
+
+        function loadAllocationTable() {
+            const existing = JSON.parse(localStorage.getItem('baps_allocations') || '[]');
+            const tbody = document.getElementById('allocationTableBody');
+            // Keep mock data or clear it? Let's append to it or replace if we want pure dynamic
+            // For safety, let's just append new ones to the top or replace. 
+            // Let's replace the dynamic part.
+            let html = existing.map(a => `
+                <tr>
+                    <td>${a.name}</td>
+                    <td>Unknown</td>
+                    <td>${a.room}</td>
+                    <td>A</td>
+                    <td><button class="btn-baps btn-outline btn-sm">Vacate</button></td>
+                </tr>
+             `).join('');
+
+            if (!existing.length) html = '<tr><td colspan="5" style="text-align:center; color:#999;">No allocations yet. Add one!</td></tr>';
+            tbody.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRooms);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

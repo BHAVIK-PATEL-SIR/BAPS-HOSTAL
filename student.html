@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal | BAPS APC</title>
+    <title>Student Portal | Sahajanand APC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <link rel="stylesheet" href="/src/style.css">
@@ -220,7 +220,7 @@
         <div class="brand-area">
             <img src="https://d2mzz3fp6vd72d.cloudfront.net/prod/LandingImages/General/APC-logo-1.png" alt="BAPS Logo">
             <div class="brand-text">
-                <div class="brand-title">BAPS SWAMINARAYAN CHHATRALAYA</div>
+                <div class="brand-title">Sahajanand APC</div>
                 <div class="brand-subtitle">Student Portal</div>
             </div>
         </div>
@@ -356,6 +356,45 @@
                 <h2>My Dashboard</h2>
                 <button class="btn-baps btn-outline" onclick="showSection('idcard')"><i class="fa-solid fa-id-card"></i>
                     View ID Card</button>
+            </div>
+
+            <!-- Alert Banner (Dynamic) -->
+            <div id="scholarshipBanner"
+                style="background:#FFF3E0; border:1px solid #FFB74D; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                <div style="display:flex; gap:1rem; align-items:center;">
+                    <i class="fa-solid fa-bullhorn" style="color:#F57C00; font-size:1.5rem;"></i>
+                    <div>
+                        <strong>Scholarship Applications Open!</strong>
+                        <div style="font-size:0.9rem; color:#E65100;">Eligible students can apply for financial aid now.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-baps btn-gold" onclick="openScholarshipModal()">Apply Now</button>
+            </div>
+
+            <!-- Application Status Card (Dynamic) -->
+            <div id="scholarshipStatusCard"
+                style="display:none; background:#E8F5E9; border:1px solid #4CAF50; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div style="display:flex; gap:1rem;">
+                        <div
+                            style="background:white; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#4CAF50; font-size:1.5rem;">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                        </div>
+                        <div>
+                            <strong style="font-size:1.1rem; color:#2E7D32;">Application Submitted</strong>
+                            <div style="color:#555; margin-top:0.2rem;">Your scholarship application is under review by
+                                the admin office.</div>
+                            <div style="margin-top:0.5rem; font-size:0.9rem;">
+                                <strong>Status:</strong> <span id="mainStatusBadge" class="badge badge-pending">Under
+                                    Review</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="alert('Please contact admin office for detailed inquiry.')"
+                        class="btn-baps btn-outline"
+                        style="background:white; border-color:#4CAF50; color:#4CAF50;">Track Status</button>
+                </div>
             </div>
 
             <div class="baps-card">
@@ -899,10 +938,125 @@
         </div>
 
         <!-- 16-19 placeholder -->
+        <!-- 16. FEES -->
         <div id="section-fees" class="student-section">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-receipt"></i> Fee Management</h2>
+            </div>
             <div class="baps-card">
-                <h3>Fee Status</h3>
-                <h2 style="color: #2E7D32;">PAID</h2>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h3>Fee Status (2024-25)</h3>
+                    <button id="feeTabApplyBtn" class="btn-baps btn-gold" onclick="openScholarshipModal()"
+                        style="font-size:1rem; padding:0.8rem 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Apply for Scholarship
+                    </button>
+                </div>
+
+                <!-- Dynamic Fee Table -->
+                <table class="baps-table" id="feeTable">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Amount</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feeTableBody">
+                        <!-- Loaded via JS -->
+                    </tbody>
+                </table>
+
+                <div id="scholarshipStatus"
+                    style="margin-top: 2rem; display: none; padding: 1rem; border: 1px dashed var(--c-gold); background: #FFF8E1; border-radius: 8px;">
+                    <strong style="color: var(--c-gold);">Scholarship Application Status:</strong>
+                    <span id="scholarshipStatusText" style="margin-left: 0.5rem; font-weight: bold;">Submitted</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCHOLARSHIP MODAL (Detailed 12 Fields) -->
+        <div id="scholarshipModal"
+            style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; overflow-y: auto;">
+            <div
+                style="background: white; width: 90%; max-width: 700px; padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+                <h3 style="margin-top:0;">Scholarship Application Form</h3>
+                <p style="color:#666; font-size:0.9rem; margin-bottom: 1.5rem;">Request financial aid. Please fill all
+                    details carefully.</p>
+
+                <!-- 9 CORE DETAILS + 3 MORE (Same as Admin) -->
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem;">
+                    Student Details</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">1. Full Name</label><input
+                            type="text" id="schName" value="Rahul Patel" disabled
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd; background:#f9f9f9;"></div>
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">2.
+                            Course/Branch</label><input type="text" id="schCourse" value="B.E. Computer" disabled
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd; background:#f9f9f9;"></div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">3. Semester</label><input
+                            type="text" id="schSem" value="Sem 5" disabled
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd; background:#f9f9f9;"></div>
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">4. Mobile No.</label><input
+                            type="text" id="schMobile" value="+91 98765 43210"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">5. Aadhar Card
+                            No.</label><input type="text" id="schAadhar" placeholder="XXXX-XXXX-XXXX"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">6. Category</label><select
+                            id="schCat" style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+                            <option>EWS</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                            <option>General (Merit)</option>
+                        </select></div>
+                </div>
+
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem; margin-top:1.5rem;">
+                    Financial & Academic</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">7. Annual Family
+                            Income</label><input type="number" id="schIncome" placeholder="₹"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">8. Previous Sem Result
+                            (SPI)</label><input type="text" id="schResult" value="9.40" disabled
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd; background:#f9f9f9;"></div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; font-weight:bold; font-size:0.9rem;">9. Reason for Application</label>
+                    <textarea id="schReason" rows="2"
+                        style="width:100%; padding:0.5rem; border:1px solid #ddd;"></textarea>
+                </div>
+
+                <h4
+                    style="color:var(--c-navy); border-bottom:1px solid #eee; padding-bottom:0.5rem; margin-bottom:1rem; margin-top:1.5rem;">
+                    Bank Details (For Refund)</h4>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">10. Bank Name</label><input
+                            type="text" id="schBank" placeholder="e.g. SBI"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                    <div><label style="display:block; font-weight:bold; font-size:0.9rem;">11. Account
+                            Number</label><input type="text" id="schAcc" placeholder="Account No"
+                            style="width:100%; padding:0.5rem; border:1px solid #ddd;"></div>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; font-weight:bold; font-size:0.9rem;">12. IFSC Code</label>
+                    <input type="text" id="schIfsc" placeholder="SBIN000..."
+                        style="width:100%; padding:0.5rem; border:1px solid #ddd;">
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:1.5rem;">
+                    <button onclick="document.getElementById('scholarshipModal').style.display='none'"
+                        class="btn-baps btn-outline">Cancel</button>
+                    <button onclick="submitScholarship()" class="btn-baps btn-gold">Submit Application</button>
+                </div>
             </div>
         </div>
         <div id="section-medical" class="student-section">
@@ -935,10 +1089,140 @@
             // Set active if element provided
             if (element) {
                 element.classList.add('active');
-                // If it's a dropdown item, highlighting parent dropdown is nice but optional. 
-                // For now, highlighting the item itself is sufficient.
+            }
+
+            // Logic for Fee Tab or Dashboard
+            if (id === 'fees' || id === 'profile') {
+                loadFeeStatus();
             }
         }
+
+        // --- FEE & SCHOLARSHIP LOGIC ---
+        const defaultFees = [
+            { id: 1, term: 'Term 1 (Hostel)', amount: 35000, due: '15 Jun 2024', status: 'Paid' },
+            { id: 2, term: 'Term 2 (Hostel)', amount: 35000, due: '15 Dec 2024', status: 'Pending' }
+        ];
+
+        function loadFeeStatus() {
+            // Updated Scholarship Logic for Student.html
+            const scholarship = JSON.parse(localStorage.getItem('student_scholarship'));
+            const banner = document.getElementById('scholarshipBanner');
+            const statusCard = document.getElementById('scholarshipStatusCard');
+            const mainBadge = document.getElementById('mainStatusBadge');
+            const feeTabButton = document.getElementById('feeTabApplyBtn');
+
+            if (scholarship) {
+                // Applied State
+                if (banner) banner.style.display = 'none';
+                if (statusCard) {
+                    statusCard.style.display = 'block';
+                    mainBadge.innerText = scholarship.status;
+                    mainBadge.className = `badge ${scholarship.status === 'Approved' ? 'badge-verified' : scholarship.status === 'Rejected' ? 'badge-rejected' : 'badge-pending'}`;
+
+                    if (scholarship.status === 'Rejected') {
+                        statusCard.style.background = '#FFEBEE';
+                        statusCard.style.borderColor = '#C62828';
+                    }
+                }
+                if (feeTabButton) feeTabButton.style.display = 'none';
+
+                // Update Fee Tab Status Text
+                const statusDiv = document.getElementById('scholarshipStatus');
+                const statusText = document.getElementById('scholarshipStatusText');
+                if (statusDiv) {
+                    statusDiv.style.display = 'block';
+                    statusText.innerText = scholarship.status;
+                    if (scholarship.status === 'Approved') {
+                        statusDiv.style.background = '#E8F5E9';
+                        statusDiv.style.borderColor = 'green';
+                        statusText.style.color = 'green';
+                    } else if (scholarship.status === 'Rejected') {
+                        statusDiv.style.background = '#FFEBEE';
+                        statusDiv.style.borderColor = 'red';
+                        statusText.style.color = 'red';
+                    }
+                }
+
+            } else {
+                // Not Applied State
+                if (banner) banner.style.display = 'flex';
+                if (statusCard) statusCard.style.display = 'none';
+                if (feeTabButton) feeTabButton.style.display = 'block';
+            }
+
+            // Load Table
+            const fees = JSON.parse(localStorage.getItem('student_fees') || JSON.stringify(defaultFees));
+            const tbody = document.getElementById('feeTableBody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                fees.forEach(fee => {
+                    const isPaid = fee.status === 'Paid';
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${fee.term}</td>
+                            <td>₹ ${fee.amount.toLocaleString()}</td>
+                            <td>${fee.due}</td>
+                            <td><span class="badge ${isPaid ? 'badge-verified' : 'badge-rejected'}">${fee.status}</span></td>
+                            <td>
+                                ${isPaid ? '<button class="btn-baps btn-outline" disabled style="padding:0.2rem 0.6rem; font-size:0.8rem;"><i class="fa-solid fa-check"></i> Paid</button>'
+                            : `<button class="btn-baps btn-gold" style="padding:0.2rem 0.6rem; font-size:0.8rem;" onclick="payFee(${fee.id})">Pay Now</button>`}
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        function openScholarshipModal() {
+            if (localStorage.getItem('student_scholarship')) {
+                alert("You have already submitted an application.");
+                return;
+            }
+            document.getElementById('scholarshipModal').style.display = 'flex';
+        }
+
+        function submitScholarship() {
+            const reason = document.getElementById('schReason').value;
+            const income = document.getElementById('schIncome').value;
+            const category = document.getElementById('schCat').value;
+
+            if (!reason || !income) {
+                alert("Please fill in all details.");
+                return;
+            }
+
+            const application = {
+                student: 'Rahul Patel',
+                date: new Date().toLocaleDateString(),
+                category: category,
+                income: income,
+                reason: reason,
+                status: 'Under Review',
+                notes: 'Applied via Student Portal'
+            };
+
+            localStorage.setItem('student_scholarship', JSON.stringify(application));
+            alert("Scholarship Application Submitted Successfully!");
+            document.getElementById('scholarshipModal').style.display = 'none';
+            loadFeeStatus();
+        }
+
+        function payFee(id) {
+            if (!confirm("Proceed to Payment Gateway? (Simulated)")) return;
+            const fees = JSON.parse(localStorage.getItem('student_fees') || JSON.stringify(defaultFees));
+            const feeIndex = fees.findIndex(f => f.id === id);
+            if (feeIndex > -1) {
+                fees[feeIndex].status = 'Paid';
+                localStorage.setItem('student_fees', JSON.stringify(fees));
+                alert("Payment Successful!");
+                loadFeeStatus();
+            }
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeeStatus();
+        });
     </script>
 </body>
 

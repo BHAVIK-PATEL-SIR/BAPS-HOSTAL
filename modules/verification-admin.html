@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Centre | BAPS APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Student Operations</div>
+            <a href="applications-admin.html" class="nav-item"><i class="fa-solid fa-users"></i> Applications</a>
+            <a href="verification-admin.html" class="nav-item active"><i class="fa-solid fa-check-double"></i>
+                Verification</a>
+            <a href="gatepass-admin.html" class="nav-item"><i class="fa-solid fa-ticket"></i> Gatepass</a>
+            <a href="fee-management.html" class="nav-item"><i class="fa-solid fa-money-bill-wave"></i> Fee Mgmt</a>
+            <a href="exams-admin.html" class="nav-item"><i class="fa-solid fa-file-signature"></i> Exams</a>
+            <a href="helpdesk-admin.html" class="nav-item"><i class="fa-solid fa-headset"></i> Helpdesk</a>
+            <a href="satsang-admin.html" class="nav-item"><i class="fa-solid fa-hands-praying"></i> Satsang</a>
+            <a href="alumni-admin.html" class="nav-item"><i class="fa-solid fa-user-graduate"></i> Alumni</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Facilities</div>
+            <a href="rooms-admin.html" class="nav-item"><i class="fa-solid fa-bed"></i> Rooms</a>
+            <a href="inventory.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+            <a href="assets-admin.html" class="nav-item"><i class="fa-solid fa-couch"></i> Fixed Assets</a>
+            <a href="library-admin.html" class="nav-item"><i class="fa-solid fa-book-open"></i> Library</a>
+            <a href="mess-admin.html" class="nav-item"><i class="fa-solid fa-utensils"></i> Bhojanalay</a>
+            <a href="transport-admin.html" class="nav-item"><i class="fa-solid fa-bus"></i> Transport</a>
+            <a href="guesthouse-admin.html" class="nav-item"><i class="fa-solid fa-hotel"></i> Guest House</a>
+            <a href="medical-admin.html" class="nav-item"><i class="fa-solid fa-notes-medical"></i> Medical</a>
+
+            <div class="menu-cat"
+                style="padding: 0.8rem 1.5rem 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); opacity: 0.8; font-weight: 600; margin-top: 0.5rem;">
+                Operations</div>
+            <a href="staff-admin.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Staff</a>
+            <a href="payroll-admin.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Payroll</a>
+            <a href="maintenance-admin.html" class="nav-item"><i class="fa-solid fa-screwdriver-wrench"></i>
+                Maintenance</a>
+            <a href="security-visitors.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Security</a>
+            <a href="government-admin.html" class="nav-item"><i class="fa-solid fa-building-columns"></i> Government
+                Hub</a>
+            <a href="news-admin.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> News CMS</a>
+            <a href="gallery-admin.html" class="nav-item"><i class="fa-solid fa-images"></i> Gallery</a>
+            <a href="settings-admin.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="analytics-admin.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+
+            <a href="../index.html" class="nav-item"
+                style="margin-top: 1rem; color: #ff6b6b; border-top: 1px solid #333; padding-top: 1rem;">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Verification Centre</h1>
+                <p>Review and Approve Student Applications</p>
+            </div>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('pending')"><i class="fa-solid fa-list-check"></i>
+                    Pending Verification</button>
+                <button class="tab-btn" onclick="switchTab('docs')"><i class="fa-solid fa-file-contract"></i> Document
+                    Check</button>
+                <button class="tab-btn" onclick="switchTab('interviews')"><i class="fa-solid fa-user-tie"></i>
+                    Interviews</button>
+                <button class="tab-btn" onclick="switchTab('approval')"><i class="fa-solid fa-stamp"></i> Final
+                    Approval</button>
+                <button class="tab-btn" onclick="switchTab('logs')"><i class="fa-solid fa-clipboard-list"></i>
+                    Verification Logs</button>
+            </div>
+
+            <!-- TAB 1: PENDING -->
+            <div id="tab-pending" class="tab-content active">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
+                        <h3>Pending Verifications</h3>
+                        <div style="font-size: 0.9rem; color: #666;">Review & Download Forms</div>
+                    </div>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Reference</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verificationTableBody">
+                            <!-- JS will populate -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: DOCUMENTS -->
+            <div id="tab-docs" class="tab-content">
+                <div class="baps-card">
+                    <h3>Document Verification Queue</h3>
+                    <p style="margin-bottom:1.5rem;">Verify PDF uploads (Aadhar, Marksheets) before interviews.</p>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:1rem;">
+                        <div style="border:1px solid #eee; padding:1.5rem; border-radius:8px;">
+                            <i class="fa-solid fa-file-pdf" style="color:red; font-size:2rem; margin-bottom:1rem;"></i>
+                            <div style="font-weight:bold;">Tirth Patel</div>
+                            <small>10th/12th Marksheet</small>
+                            <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                                <button class="btn-baps btn-outline btn-sm">View</button>
+                                <button class="btn-baps btn-sm" style="background:#E8F5E9; color:green;"><i
+                                        class="fa-solid fa-check"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: INTERVIEWS -->
+            <div id="tab-interviews" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3>Scheduled Interviews</h3>
+                        <button class="btn-baps btn-outline">Schedule New</button>
+                    </div>
+                    <table class="baps-table" style="margin-top:1rem;">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Candidate</th>
+                                <th>Panel</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:00 AM</td>
+                                <td>Ravi Soni</td>
+                                <td>Kothari Swami</td>
+                                <td><span class="badge badge-pending">Scheduled</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: FINAL APPROVAL -->
+            <div id="tab-approval" class="tab-content">
+                <div class="baps-card" style="text-align:center; padding:3rem;">
+                    <i class="fa-solid fa-award" style="font-size:3rem; color:var(--c-gold); margin-bottom:1rem;"></i>
+                    <h3>Ready for Admission</h3>
+                    <p>3 Candidates passed all checks.</p>
+                    <button class="btn-baps btn-gold" style="margin-top:1rem;">Process Bulk Admit</button>
+                </div>
+            </div>
+
+            <!-- TAB 5: LOGS -->
+            <div id="tab-logs" class="tab-content">
+                <div class="baps-card">
+                    <h3>Audit Trail</h3>
+                    <ul style="list-style:none; padding:0;">
+                        <li style="padding:1rem 0; border-bottom:1px solid #eee;">
+                            <strong>Admin KS</strong> verfied documents for <em>Rahul Patel</em>
+                            <div style="font-size:0.8rem; color:#999;">2 hours ago</div>
+                        </li>
+                        <!-- Mock items -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL (Copied from admin-dashboard) -->
+    <div id="officeModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: white; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; border-radius: 12px; display: flex; flex-direction: column;">
+            <div
+                style="padding: 1.5rem; border-bottom: 2px solid var(--c-gold); display: flex; justify-content: space-between; align-items: center; background: #fafafa;">
+                <div>
+                    <h2 style="margin: 0; font-family: 'Cinzel', serif; color: #333;">Office Verification View</h2>
+                    <span style="font-size: 0.8rem; color: #666;">OFFICIAL USE ONLY | BAPS APC</span>
+                </div>
+                <button onclick="document.getElementById('officeModal').style.display='none'"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            <div style="padding: 2rem; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;" id="modalContent">
+            </div>
+            <div
+                style="padding: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 1rem; background: #fafafa;">
+                <button onclick="downloadForm()" class="btn-baps btn-outline"><i class="fa-solid fa-file-pdf"></i>
+                    Download Form</button>
+                <div style="width: 1px; background: #ddd; margin: 0 0.5rem;"></div>
+                <button onclick="processApp('Reject')" class="btn-baps"
+                    style="background:#FFEBEE; color:#C62828;">Reject</button>
+                <button onclick="processApp('Verified')" class="btn-baps btn-gold">Approve & Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Copying core logic from dashboard for this specific module
+        let currentAppIndex = -1;
+        let isFormDownloaded = false;
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function loadVerificationTable() {
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const vTable = document.getElementById('verificationTableBody');
+            vTable.innerHTML = '';
+
+            apps.slice().reverse().forEach((app, index) => {
+                const realIndex = apps.length - 1 - index; // Reversing index logic
+                const isVerified = app.status === 'Verified';
+                vTable.innerHTML += `
+                    <tr>
+                         <td><b>${app.personal.fullName}</b><br><small style="color:#999">${app.personal.mobile}</small></td>
+                        <td>${app.verification.mandir}</td>
+                        <td><span class="badge ${isVerified ? 'badge-verified' : (app.status === 'Rejected' ? 'badge-rejected' : 'badge-pending')}">${app.status || 'Pending'}</span></td>
+                        <td><button class="btn-baps btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;" onclick="openOfficeModal(${realIndex})">View</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openOfficeModal(index) {
+            currentAppIndex = index;
+            isFormDownloaded = false;
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            const app = apps[index];
+            if (!app) return;
+            const modal = document.getElementById('officeModal');
+            document.getElementById('modalContent').innerHTML = `
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: #eee; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid var(--c-gold);">
+                         <i class="fa-solid fa-user" style="font-size: 3rem; color: #ccc;"></i>
+                    </div>
+                    <div style="font-weight: bold; font-size: 1.4rem; font-family:var(--font-heading); color: var(--c-navy);">${app.personal.fullName}</div>
+                    <div style="color: #666;">${app.academic.course}</div>
+                    <div style="margin-top: 1rem;"><span class="badge ${app.status === 'Verified' ? 'badge-verified' : 'badge-pending'}" style="font-size:0.9rem;">${app.status || 'Pending'}</span></div>
+                </div>
+                <div>
+                     <h4 style="border-bottom:1px solid #eee; padding-bottom:0.5rem;">Contact Info</h4>
+                     <p><strong>Mobile:</strong> ${app.personal.mobile}</p>
+                     <p><strong>Email:</strong> ${app.personal.email}</p>
+                     <p><strong>City:</strong> ${app.personal.city}</p>
+                     <br>
+                     <h4 style="border-bottom:1px solid #eee; padding-bottom:0.5rem;">Satsang Reference</h4>
+                     <p><strong>Mandir:</strong> ${app.verification.mandir}</p>
+                     <p><strong>Kothari:</strong> ${app.verification.kothari}</p>
+                     
+                     <div style="margin-top: 1.5rem; background: #fafafa; padding: 1rem; border-radius: 8px;">
+                        <strong><i class="fa-solid fa-paperclip"></i> Documents</strong>
+                        <div style="display:flex; justify-content:space-between; margin-top:0.5rem; align-items:center;">
+                            <span>Application Form</span>
+                            <button class="btn-baps btn-outline" style="font-size:0.8rem; padding: 0.3rem 0.6rem;" onclick="downloadForm(this)">
+                                <i class="fa-solid fa-download"></i> Download
+                            </button>
+                        </div>
+                     </div>
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        window.simulateDownload = function (btn, docName) {
+            if (btn.disabled) return;
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Downloading...`;
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Done`;
+                alert('File Downloaded: ' + docName);
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+            }, 1000);
+        };
+
+        function downloadForm(btn) {
+            simulateDownload(btn || document.querySelector('#modalContent button'), 'Application_Form');
+            isFormDownloaded = true;
+        }
+
+        function processApp(status) {
+            if (status === 'Verified' && !isFormDownloaded) return alert("Please download and verify the form first.");
+            const apps = JSON.parse(localStorage.getItem('baps_applications') || '[]');
+            if (apps[currentAppIndex]) {
+                apps[currentAppIndex].status = status;
+                localStorage.setItem('baps_applications', JSON.stringify(apps));
+                alert(`Application ${status}!`);
+                document.getElementById('officeModal').style.display = 'none';
+                loadVerificationTable();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadVerificationTable);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

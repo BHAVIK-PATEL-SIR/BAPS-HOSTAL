@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff & Kothari | BAPS APC</title>
+    <title>Staff & Kothari | Sahajanand APC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <style>
@@ -74,7 +74,7 @@
     <!-- SIDEBAR -->
     <div class="baps-sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-brand">Sahajanand APC</div>
             <div class="sidebar-subtitle">Management Portal</div>
         </div>
         <div class="nav-links">
@@ -134,6 +134,8 @@
                     Attendance</button>
                 <button class="tab-btn" onclick="switchTab('communication')"><i class="fa-solid fa-envelope"></i>
                     Communication (Mail)</button>
+                <button class="tab-btn" onclick="switchTab('access')"><i class="fa-solid fa-key"></i>
+                    Access Control</button>
 
             </div>
 
@@ -341,6 +343,39 @@
                 </div>
             </div>
 
+            <!-- TAB 5: ACCESS CONTROL -->
+            <div id="tab-access" class="tab-content">
+                <div class="baps-card">
+                    <h3>System Access & Permissions</h3>
+                    <div style="margin-top:1rem;">
+                        <table class="baps-table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Access Level</th>
+                                    <th>Modules</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Kothari Swami</td>
+                                    <td><span class="badge badge-verified">Super Admin</span></td>
+                                    <td>All Modules</td>
+                                    <td><button class="btn-baps btn-outline btn-sm">Configure</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Warden</td>
+                                    <td><span class="badge badge-pending">Write Access</span></td>
+                                    <td>Students, Rooms, Gatepass</td>
+                                    <td><button class="btn-baps btn-outline btn-sm">Configure</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
 
 
         </div>
@@ -360,6 +395,18 @@
                     <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Full Name</label>
                     <input type="text" id="sName" required placeholder="e.g. Mukesh Patel"
                         style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Staff ID</label>
+                        <input type="text" id="sId" required placeholder="STF-2024-..."
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Password</label>
+                        <input type="password" id="sPass" required placeholder="******"
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                    </div>
                 </div>
                 <div style="margin-bottom:1rem;">
                     <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Role / Designation</label>

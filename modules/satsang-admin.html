@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satsang Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Satsang Activity</h1>
+                <p>Nitya Puja, Ravi Sabha & Satsang Exams</p>
+            </div>
+        </div>
+
+        <div class="stats-grid"
+            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="baps-card stat-card">
+                <div>
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Daily Puja Attendance</div>
+                </div>
+                <i class="fa-solid fa-hands-praying" style="font-size:2rem; color:var(--c-gold);"></i>
+            </div>
+            <div class="baps-card stat-card">
+                <div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Ravi Sabha Attendance</div>
+                </div>
+                <i class="fa-solid fa-users-rays" style="font-size:2rem; color:var(--c-navy);"></i>
+            </div>
+            <div class="baps-card stat-card">
+                <div>
+                    <div class="stat-value">4.5/5</div>
+                    <div class="stat-label">Avg. Satsang Exam Score</div>
+                </div>
+                <i class="fa-solid fa-award" style="font-size:2rem; color:green;"></i>
+            </div>
+        </div>
+
+        <div class="baps-card">
+            <h3>Upcoming Satsang Events</h3>
+            <ul>
+                <li><strong>26 Dec:</strong> Special Sabha with Pujya Santo</li>
+                <li><strong>01 Jan:</strong> New Year Mahapuja</li>
+            </ul>
+        </div>
+    </div>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

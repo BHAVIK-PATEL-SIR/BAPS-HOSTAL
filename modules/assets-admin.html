@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assets Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Assets Tracking</h1>
+                <p>Fixed Assets & Capital Inventory</p>
+            </div>
+            <button class="btn-baps btn-gold" onclick="document.getElementById('assetModal').style.display='flex'">
+                <i class="fa-solid fa-plus"></i> Add Verified Asset
+            </button>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('registry')"><i class="fa-solid fa-couch"></i> Detailed
+                    Registry</button>
+                <button class="tab-btn" onclick="switchTab('maintenance')"><i
+                        class="fa-solid fa-screwdriver-wrench"></i> Maintenance</button>
+                <button class="tab-btn" onclick="switchTab('depreciation')"><i class="fa-solid fa-chart-line-down"></i>
+                    Depreciation</button>
+                <button class="tab-btn" onclick="switchTab('disposal')"><i class="fa-solid fa-trash-can"></i>
+                    Disposal</button>
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="baps-card">
+                    <h3>Assets Overview</h3>
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin-top:1rem;">
+                        <div style="text-align:center; padding:1.5rem; background:#F5F5F5; border-radius:8px;">
+                            <div style="font-size:2rem; font-weight:bold; color:var(--c-navy);">₹ 1.2Cr</div>
+                            <div style="color:#666;">Total Value</div>
+                        </div>
+                        <div style="text-align:center; padding:1.5rem; background:#E8F5E9; border-radius:8px;">
+                            <div style="font-size:2rem; font-weight:bold; color:green;">2,540</div>
+                            <div style="color:#666;">Active Assets</div>
+                        </div>
+                        <div style="text-align:center; padding:1.5rem; background:#FFEBEE; border-radius:8px;">
+                            <div style="font-size:2rem; font-weight:bold; color:red;">42</div>
+                            <div style="color:#666;">Damaged/Repair</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: REGISTRY -->
+            <div id="tab-registry" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                        <h3>Master Asset Registry</h3>
+                        <input onkeyup="filterAssets()" id="assetSearch" placeholder="Search Tag or Name..."
+                            style="padding:0.5rem; border:1px solid #ddd; border-radius:4px; width:250px;">
+                    </div>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Asset Tag</th>
+                                <th>Item Name</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Condition</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assetTableBody">
+                            <!-- JS Populates -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABS 3, 4, 5 PLACEHOLDERS -->
+            <div id="tab-maintenance" class="tab-content">
+                <div class="baps-card">
+                    <h3>Maintenance Log</h3>
+                    <p>Track repairs for ACs, Water Coolers, etc.</p>
+                </div>
+            </div>
+            <div id="tab-depreciation" class="tab-content">
+                <div class="baps-card">
+                    <h3>Depreciation Schedule (FY 2024-25)</h3>
+                </div>
+            </div>
+            <div id="tab-disposal" class="tab-content">
+                <div class="baps-card">
+                    <h3>Disposal & Write-offs</h3>
+                    <p>Scrap items.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ADD ASSET MODAL -->
+    <div id="assetModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 500px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Register New Asset</h3>
+                <button onclick="document.getElementById('assetModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveAsset();">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem;">Asset Tag (Auto)</label>
+                        <input type="text" value="AST-AUTO" disabled
+                            style="width:100%; padding:0.6rem; background:#eee; border:1px solid #ddd;">
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem;">Value (₹)</label>
+                        <input type="number" id="aValue" required
+                            style="width:100%; padding:0.6rem; border:1px solid #ddd;">
+                    </div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem;">Item Name</label>
+                    <input type="text" id="aName" required placeholder="e.g. Washing Machine"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd;">
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem;">Category</label>
+                    <select id="aCat" style="width:100%; padding:0.6rem; border:1px solid #ddd;">
+                        <option>Furniture</option>
+                        <option>Electronics</option>
+                        <option>Appliances</option>
+                        <option>Vehicle</option>
+                    </select>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block; margin-bottom:0.3rem;">Location</label>
+                    <input type="text" id="aLoc" placeholder="e.g. Laundry Room"
+                        style="width:100%; padding:0.6rem; border:1px solid #ddd;">
+                </div>
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Register Asset</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function loadAssets() {
+            const assets = JSON.parse(localStorage.getItem('baps_assets') || '[]');
+            const tbody = document.getElementById('assetTableBody');
+
+            // Initial Mock Data if Empty
+            if (assets.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td>AST-0056</td>
+                        <td>Office Chair</td>
+                        <td>Furniture</td>
+                        <td>Warden Office</td>
+                        <td><span class="badge badge-verified">Good</span></td>
+                        <td>₹ 4,500</td>
+                    </tr>
+                    <tr>
+                        <td>AST-0089</td>
+                        <td>Dell Desktop</td>
+                        <td>Electronics</td>
+                        <td>Library</td>
+                        <td><span class="badge badge-verified">New</span></td>
+                        <td>₹ 45,000</td>
+                    </tr>
+                 `;
+                return;
+            }
+
+            tbody.innerHTML = assets.map((a, i) => `
+                <tr>
+                    <td>AST-01${i + 10}</td>
+                    <td>${a.name}</td>
+                    <td>${a.cat}</td>
+                    <td>${a.loc}</td>
+                    <td><span class="badge badge-verified">New</span></td>
+                    <td>₹ ${a.val}</td>
+                </tr>
+            `).join('');
+        }
+
+        function saveAsset() {
+            const name = document.getElementById('aName').value;
+            const cat = document.getElementById('aCat').value;
+            const loc = document.getElementById('aLoc').value;
+            const val = document.getElementById('aValue').value;
+
+            const newAsset = { name, cat, loc, val };
+            const assets = JSON.parse(localStorage.getItem('baps_assets') || '[]');
+            assets.push(newAsset);
+            localStorage.setItem('baps_assets', JSON.stringify(assets));
+
+            alert('Asset Registered Successfully!');
+            document.getElementById('assetModal').style.display = 'none';
+            loadAssets();
+            // Reset form
+            document.getElementById('aName').value = '';
+            document.getElementById('aLoc').value = '';
+            document.getElementById('aValue').value = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAssets);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Admin | BAPS APC</title>
+    <title>Library Admin | Sahajanand APC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/src/baps-identity.css">
     <style>
@@ -75,7 +75,7 @@
     <!-- SIDEBAR -->
     <div class="baps-sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-brand">BAPS APC</div>
+            <div class="sidebar-brand">Sahajanand APC</div>
             <div class="sidebar-subtitle">Management Portal</div>
         </div>
         <div class="nav-links">
@@ -136,6 +136,8 @@
                     Books</button>
                 <button class="tab-btn" onclick="switchTab('members')"><i class="fa-solid fa-users-rectangle"></i>
                     Members</button>
+                <button class="tab-btn" onclick="switchTab('reports')"><i class="fa-solid fa-file-invoice"></i>
+                    Reports</button>
 
             </div>
 
@@ -192,24 +194,8 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Vachanamrut (Eng)</td>
-                            <td>Swaminarayan Bhagwan</td>
-                            <td>Spiritual</td>
-                            <td>S-01</td>
-                            <td><span class="badge badge-verified">Available</span></td>
-                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">Edit</button></td>
-                        </tr>
-                        <tr>
-                            <td>Introduction to Algorithms</td>
-                            <td>Cormen</td>
-                            <td>Education</td>
-                            <td>E-04</td>
-                            <td><span class="badge badge-rejected">Issued</span></td>
-                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">History</button>
-                            </td>
-                        </tr>
+                    <tbody id="bookTableBody">
+                        <!-- JS populated -->
                     </tbody>
                 </table>
             </div>
@@ -264,83 +250,171 @@
                         <p>Active Borrowers: 320</p>
                     </div>
                 </div>
+                <!-- TAB 5: REPORTS (NEW) -->
+                <div id="tab-reports" class="tab-content">
+                    <div class="baps-card">
+                        <h3>Library Usage Reports</h3>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                            <span>Select Month: Nov 2024</span>
+                            <button class="btn-baps btn-outline btn-sm">Download PDF</button>
+                        </div>
+                        <table class="baps-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Checkout Count</th>
+                                    <th>Popularity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Spiritual</td>
+                                    <td>450</td>
+                                    <td>
+                                        <div style="background:#ddd; height:5px; width:100%">
+                                            <div style="background:var(--c-gold); width:90%; height:100%;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Education</td>
+                                    <td>300</td>
+                                    <td>
+                                        <div style="background:#ddd; height:5px; width:100%">
+                                            <div style="background:var(--c-navy); width:60%; height:100%;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
             </div>
-
-
-
         </div>
-    </div>
 
-    <!-- BOOK MODAL (5 Fields) -->
-    <div id="bookModal"
-        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-        <div class="baps-card" style="width: 500px; padding: 2rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                <h3 style="margin:0;">Add New Book</h3>
-                <button onclick="document.getElementById('bookModal').style.display='none'"
-                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
-            </div>
-            <form onsubmit="event.preventDefault(); saveBook();">
-                <div style="margin-bottom:1rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Book Title</label>
-                    <input type="text" required placeholder="e.g. Wings of Fire"
-                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+        <!-- BOOK MODAL (5 Fields) -->
+        <div id="bookModal"
+            style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div class="baps-card" style="width: 500px; padding: 2rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h3 style="margin:0;">Add New Book</h3>
+                    <button onclick="document.getElementById('bookModal').style.display='none'"
+                        style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
                 </div>
-                <div style="margin-bottom:1rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Author Name</label>
-                    <input type="text" required placeholder="Full Name"
-                        style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
-                    <div>
-                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">ISBN / ID</label>
-                        <input type="text" required placeholder="978-..."
+                <form onsubmit="event.preventDefault(); saveBook();">
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Book Title</label>
+                        <input type="text" required placeholder="e.g. Wings of Fire"
                             style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
                     </div>
-                    <div>
-                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Shelf Number</label>
-                        <input type="text" placeholder="e.g. A-12"
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Author Name</label>
+                        <input type="text" required placeholder="Full Name"
                             style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
                     </div>
-                </div>
-                <div style="margin-bottom:1.5rem;">
-                    <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Category</label>
-                    <select style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
-                        <option>Educational / Textbook</option>
-                        <option>Spiritual / Religious</option>
-                        <option>Fiction / Novel</option>
-                        <option>Biography</option>
-                        <option>Magazine / Journal</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Add to Catalog</button>
-            </form>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                        <div>
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">ISBN / ID</label>
+                            <input type="text" required placeholder="978-..."
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Shelf Number</label>
+                            <input type="text" placeholder="e.g. A-12"
+                                style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <label style="display:block; margin-bottom:0.3rem; font-size:0.9rem;">Category</label>
+                        <select style="width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:4px;">
+                            <option>Educational / Textbook</option>
+                            <option>Spiritual / Religious</option>
+                            <option>Fiction / Novel</option>
+                            <option>Biography</option>
+                            <option>Magazine / Journal</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-baps btn-gold" style="width:100%;">Add to Catalog</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        <script>
+            function switchTab(tabId) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
-            if (btn) btn.classList.add('active');
+                const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+                if (btn) btn.classList.add('active');
 
-            const content = document.getElementById('tab-' + tabId);
-            if (content) content.classList.add('active');
-        }
+                const content = document.getElementById('tab-' + tabId);
+                if (content) content.classList.add('active');
+            }
 
-        function saveBook() {
-            const btn = document.querySelector('#bookModal button[type="submit"]');
-            btn.innerHTML = 'Saving...';
-            setTimeout(() => {
-                alert('Book Added to Catalog Successfully!');
+            function saveBook() {
+                const inputs = document.querySelectorAll('#bookModal input, #bookModal select');
+                const newBook = {
+                    title: inputs[0].value,
+                    author: inputs[1].value,
+                    category: inputs[4].value, // index 4 is select
+                    shelf: inputs[3].value
+                };
+
+                const books = JSON.parse(localStorage.getItem('baps_books') || '[]');
+                books.push(newBook);
+                localStorage.setItem('baps_books', JSON.stringify(books));
+
+                alert("Book Added Successfully!");
                 document.getElementById('bookModal').style.display = 'none';
-                btn.innerHTML = 'Add to Catalog';
-            }, 1000);
-        }
-    </script>
-    <script type="module" src="/src/admin-extensions.ts"></script>
+                inputs.forEach(i => i.value = '');
+                loadBooks();
+            }
+
+            function loadBooks() {
+                const books = JSON.parse(localStorage.getItem('baps_books') || '[]');
+                const tbody = document.getElementById('bookTableBody');
+
+                if (books.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td>Vachanamrut (Eng)</td>
+                            <td>Swaminarayan Bhagwan</td>
+                            <td>Spiritual</td>
+                            <td>S-01</td>
+                            <td><span class="badge badge-verified">Available</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Introduction to Algorithms</td>
+                            <td>Cormen</td>
+                            <td>Education</td>
+                            <td>04</td>
+                            <td><span class="badge badge-rejected">Issued</span></td>
+                            <td><button class="btn-baps btn-outline" style="padding:0.2rem 0.6rem;">History</button></td>
+                        </tr>
+                `;
+                    return;
+                }
+
+                tbody.innerHTML = books.map(b => `
+                 <tr>
+                    <td>${b.title}</td>
+                    <td>${b.author}</td>
+                    <td>${b.category}</td>
+                    <td>${b.shelf}</td>
+                    <td><span class="badge badge-verified">New</span></td>
+                    <td><button class="btn-baps btn-outline btn-sm">Edit</button></td>
+                </tr>
+            `).join('');
+            }
+
+            document.addEventListener('DOMContentLoaded', loadBooks);
+        </script>
+        <script src="/src/services/admin-service.js"></script>
+        <script type="module" src="/src/admin-extensions.ts"></script>
 </body>
 
 </html>

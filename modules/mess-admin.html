@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Admin | Sahajanand APC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/baps-identity.css">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-navy);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--c-gold);
+            border-bottom-color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baps-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">Sahajanand APC</div>
+            <div class="sidebar-subtitle">Management Portal</div>
+        </div>
+        <div class="nav-links">
+            <a href="../admin-dashboard.html" class="nav-item"><i class="fa-solid fa-arrow-left"></i> Back to
+                Dashboard</a>
+        </div>
+        <div class="user-panel">
+            <div class="avatar-circle">KS</div>
+            <div>
+                <div style="font-weight: bold; font-size: 0.9rem;">Kothari Swami</div>
+                <div style="font-size: 0.75rem; opacity: 0.7;">Admin Access</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="page-title">
+                <h1>Mess Management</h1>
+                <p>Bhojanalay Operations & Menu Planning</p>
+            </div>
+        </div>
+
+        <div class="cms-section animate-fade" style="display: block;">
+
+            <!-- 5-TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i>
+                    Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('menu')"><i class="fa-solid fa-utensils"></i> Menu
+                    Plan</button>
+                <button class="tab-btn" onclick="switchTab('stock')"><i class="fa-solid fa-boxes-packing"></i> Ration
+                    Stock</button>
+                <button class="tab-btn" onclick="switchTab('consumption')"><i class="fa-solid fa-fire-burner"></i>
+                    Consumption</button>
+                <button class="tab-btn" onclick="switchTab('feedback')"><i class="fa-solid fa-comments"></i>
+                    Feedback</button>
+            </div>
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="baps-card">
+                    <h3>Todays Status</h3>
+                    <div style="display:flex; gap:2rem;">
+                        <div>
+                            <strong>Breakfast:</strong> Poha (Served)
+                        </div>
+                        <div>
+                            <strong>Lunch:</strong> Roti, Dal, Rice (Cooking...)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MENU -->
+            <div id="tab-menu" class="tab-content">
+                <div class="baps-card">
+                    <h3>Weekly Menu Planner</h3>
+                    <table class="baps-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Breakfast</th>
+                                <th>Lunch</th>
+                                <th>Dinner</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td>Poha</td>
+                                <td>Dal Rice</td>
+                                <td>Khichdi</td>
+                                <td><button class="btn-baps btn-outline btn-sm">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: STOCK -->
+            <div id="tab-stock" class="tab-content">
+                <div class="baps-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                        <h3>Grocery Stock</h3>
+                        <button class="btn-baps btn-gold"
+                            onclick="document.getElementById('messModal').style.display='flex'">+ Add Ration</button>
+                    </div>
+                    <ul id="messStockList">
+                        <!-- JS populated -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TAB 4 & 5 Placeholders -->
+            <div id="tab-consumption" class="tab-content">
+                <div class="baps-card">
+                    <h3>Daily Consumption Log</h3>
+                </div>
+            </div>
+            <div id="tab-feedback" class="tab-content">
+                <div class="baps-card">
+                    <h3>Student Feedback</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ADD RATION MODAL -->
+    <div id="messModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="baps-card" style="width: 400px; padding: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h3 style="margin:0;">Add Ration Item</h3>
+                <button onclick="document.getElementById('messModal').style.display='none'"
+                    style="border:none; background:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveMessItem();">
+                <input type="text" id="mItem" placeholder="Item (e.g. Rice)" required
+                    style="width:100%; padding:0.8rem; margin-bottom:1rem; border:1px solid #ddd;">
+                <input type="text" id="mQty" placeholder="Quantity (e.g. 50 kg)" required
+                    style="width:100%; padding:0.8rem; margin-bottom:1rem; border:1px solid #ddd;">
+                <button type="submit" class="btn-baps btn-gold" style="width:100%;">Add to Stock</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const btn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        }
+
+        function saveMessItem() {
+            const item = document.getElementById('mItem').value;
+            const qty = document.getElementById('mQty').value;
+            const newItem = { item, qty };
+
+            const stock = JSON.parse(localStorage.getItem('baps_mess_stock') || '[]');
+            stock.push(newItem);
+            localStorage.setItem('baps_mess_stock', JSON.stringify(stock));
+
+            alert('Added to Kitchen Stock!');
+            document.getElementById('messModal').style.display = 'none';
+            document.getElementById('mItem').value = '';
+            document.getElementById('mQty').value = '';
+            loadMessStock();
+        }
+
+        function loadMessStock() {
+            const stock = JSON.parse(localStorage.getItem('baps_mess_stock') || '[]');
+            const list = document.getElementById('messStockList');
+            if (stock.length === 0) {
+                list.innerHTML = '<li>Rice (100kg)</li><li>Oil (15L) - Low</li>';
+                return;
+            }
+            list.innerHTML = stock.map(s => `<li>${s.item} (${s.qty})</li>`).join('');
+        }
+        document.addEventListener('DOMContentLoaded', loadMessStock);
+    </script>
+    <script type="module" src="/src/admin-extensions.ts"></script>
+</body>
+
+</html>
